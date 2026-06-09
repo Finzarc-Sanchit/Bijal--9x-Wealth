@@ -1,0 +1,28 @@
+---
+description: Tailwind styling and brand design tokens
+globs: "**/*.{tsx,css}"
+alwaysApply: false
+---
+
+# Styling Rules
+
+## Tailwind v4
+
+Brand colors in `@theme inline` in `globals.css`. Use semantic classes, not raw hex in components.
+
+## Patterns
+
+- Primary CTA: `rounded-full bg-brand-navy px-6 py-3 text-white hover:bg-brand-navy-light`
+- Secondary CTA: `rounded-full border border-brand-navy/20 hover:border-brand-gold`
+- Cards: `rounded-2xl bg-white p-6 shadow-sm`
+- Headings: `text-brand-navy font-semibold tracking-tight`
+
+## Responsive
+
+Mobile-first. Test 375px minimum. No text below 14px.
+
+## Avoid
+
+- Inline styles
+- Generic gray palettes that ignore brand tokens
+- Dark mode until explicitly requested

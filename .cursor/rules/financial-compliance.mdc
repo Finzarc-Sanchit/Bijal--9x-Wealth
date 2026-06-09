@@ -1,0 +1,29 @@
+---
+description: Financial content and compliance guidelines
+globs: "**/*.{tsx,md}"
+alwaysApply: false
+---
+
+# Financial Content Compliance
+
+## Never
+
+- Promise guaranteed investment returns
+- Copy full Tata AIA policy terms onto our site
+- Publish unverified MDRT/license claims
+- Use fake testimonials
+
+## Always
+
+- Footer disclaimer on insurance/investment pages
+- "Subject to market risks" for mutual funds
+- "As per applicable tax laws" for tax benefits
+- Tata AIA identified as insurer; 9X Wealth as partner/advisor
+
+## Product mentions
+
+Reference by name only; link to partner portal for details.
+
+## Senior audience
+
+Plain language. Define terms (ULIP, SIP, NPS) on first use.

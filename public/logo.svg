@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 120" fill="none" role="img" aria-label="9X Wealth Financial Services">
+  <text x="0" y="72" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="72" font-weight="600" fill="#0A1628">9</text>
+  <g transform="translate(52, 8)">
+    <rect x="8" y="12" width="14" height="72" rx="2" transform="rotate(-45 15 48)" fill="#22A559"/>
+    <path d="M8 88 L52 12 L72 32 L28 108 Z" fill="#0A1628"/>
+    <path d="M52 12 L72 32 L68 36 L48 16 Z" fill="#0A1628"/>
+  </g>
+  <text x="130" y="68" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="56" font-weight="700" fill="#0A1628">Wealth</text>
+  <text x="130" y="98" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="18" font-weight="400" fill="#0A1628" text-anchor="start">Financial Services</text>
+</svg>

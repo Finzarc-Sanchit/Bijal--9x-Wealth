@@ -1,0 +1,37 @@
+---
+description: React and Next.js component patterns for 9X Wealth
+globs: "**/*.{tsx,jsx}"
+alwaysApply: false
+---
+
+# React / Next.js Conventions
+
+## Components
+
+- Functional components only; colocate in `src/components/`
+- Sections: `src/components/sections/` (Hero, Services, etc.)
+- Layout: `src/components/layout/` (Header, Footer, WhatsAppButton)
+
+## Section wrapper
+
+```tsx
+<section className="py-16 md:py-24">
+  <div className="mx-auto max-w-6xl px-6">{children}</div>
+</section>
+```
+
+## Images
+
+Use `next/image` with meaningful `alt`. Remote: Facebook CDN allowed in next.config.
+
+## Links
+
+External links: `target="_blank" rel="noopener noreferrer"`. Phone: `tel:+919322887442`.
+
+## Metadata
+
+Export `metadata` or `generateMetadata` per route. Titles: "Page | 9X Wealth".
+
+## Animations
+
+Framer Motion sparingly — fade/slide on scroll, no distracting loops.

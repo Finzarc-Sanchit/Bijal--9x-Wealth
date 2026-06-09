@@ -1,0 +1,64 @@
+---
+description: Frontend component and UI rules — scoped to client-side code only
+globs: "src/components/**/*.{tsx,jsx},src/app/**/*.tsx,src/hooks/**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Frontend Rules
+
+Applies to React components, pages, hooks, and client UI only. Do not add server/database logic here.
+
+## Scope
+
+| In scope | Out of scope |
+|----------|--------------|
+| `src/components/**` | `src/app/api/**` |
+| `src/app/**/page.tsx`, `layout.tsx` | Database queries, auth middleware |
+| `src/hooks/**` | Server Actions with DB access |
+
+## Components
+
+- Functional components only; one component per file
+- Colocate by role: `ui/`, `layout/`, `sections/`, `calculators/`
+- Props typed with TypeScript interfaces; avoid `any`
+- Use `cn()` from `@/lib/utils` for conditional classes
+
+## Styling
+
+- Tailwind v4 only; use brand tokens: `brand-navy`, `brand-gold`, `brand-cream`, `brand-muted`
+- Mobile-first; minimum body text 16px; tap targets ≥ 44px
+- Section wrapper:
+
+```tsx
+<section className="py-16 md:py-24">
+  <div className="mx-auto max-w-6xl px-6">{children}</div>
+</section>
+```
+
+## Data & constants
+
+- Import contact, nav, disclaimers from `@/lib/constants` — never hardcode phone/email
+- Client components: add `"use client"` only when needed (hooks, motion, forms)
+
+## Images & links
+
+- Use `next/image` with descriptive `alt`
+- External links: `target="_blank" rel="noopener noreferrer"`
+- Phone CTA: `href="tel:+919322887442"`
+
+## Forms (client)
+
+- React Hook Form + Zod; show accessible error messages
+- Disable submit while pending; success/error feedback required
+
+## Accessibility
+
+- Semantic HTML (`nav`, `main`, `section`, `button`)
+- Visible focus rings; labels on all inputs
+- Senior-friendly: clear CTAs, no jargon without explanation
+
+## Do not
+
+- Fetch secrets or env vars meant for server-only use
+- Put SQL, Prisma, or auth verification in components
+- Use inline styles or raw hex when brand tokens exist

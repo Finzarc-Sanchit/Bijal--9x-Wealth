@@ -1,0 +1,71 @@
+---
+description: Backend, API routes, database, and server logic — scoped to server-side code only
+globs: "src/app/api/**/*.{ts,tsx},src/lib/server/**/*.{ts,tsx},src/middleware.ts,prisma/**/*"
+alwaysApply: false
+---
+
+# Backend Rules
+
+Applies to API routes, Server Actions, middleware, database, and auth. Do not put UI markup here.
+
+## Scope
+
+| In scope | Out of scope |
+|----------|--------------|
+| `src/app/api/**` | React components in `src/components/` |
+| `src/lib/server/**` | Page layout and styling |
+| `middleware.ts` | Client-side form validation only |
+| `prisma/**`, migrations | Marketing copy in route handlers |
+
+## API route conventions
+
+- One concern per route file under `src/app/api/[resource]/route.ts`
+- Export named handlers: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`
+- Return `NextResponse.json()` with consistent shape:
+
+```ts
+// Success
+return NextResponse.json({ data }, { status: 200 });
+
+// Error
+return NextResponse.json({ error: "Message" }, { status: 400 });
+```
+
+- Validate input with Zod before any DB or external call
+- Never expose stack traces or internal errors to clients
+
+## Security
+
+- Read secrets from env only (`process.env.*`); never commit `.env`
+- Rate-limit public endpoints (contact form, auth) when implemented
+- Sanitize user input; use parameterized queries (Prisma) — no raw string SQL
+- Set HTTP-only cookies for sessions; never store tokens in localStorage from server design
+
+## Auth (when implemented)
+
+- Follow checklist in `.cursor/plans/auth-implementation.md`
+- Protect routes via `middleware.ts` matcher
+- Hash passwords with bcrypt/argon2; never log credentials
+
+## Database
+
+- Schema changes via Prisma migrations only
+- Use transactions for multi-step writes
+- Log errors server-side; return generic messages to client
+
+## Contact form (Phase 1 pattern)
+
+```ts
+// POST /api/contact — validate, send email, return 200/400
+// Use CONTACT from @/lib/constants for recipient
+```
+
+## Documentation
+
+When adding or changing API routes, run the **document-api** skill (`.cursor/skills/document-api/skill.md`) and update route docs.
+
+## Do not
+
+- Return unverified financial or credential claims from API responses
+- Call external APIs without timeout and error handling
+- Mix JSX rendering into route handlers

@@ -1,0 +1,27 @@
+{
+  "_comment": "Upload this file via Content Studio (/studio) to populate all 3 templates. Partial JSON merges with defaults.",
+  "site": {
+    "name": "9X Wealth Financial Services",
+    "tagline": "Happiness Insured",
+    "description": "Expert wealth management, life insurance, and investment planning in Borivali, Mumbai."
+  },
+  "hero": {
+    "headline": "Securing Your Future with Expert Wealth Management",
+    "subheadline": "Transparent planning for insurance, investments, and wealth — serving families across Borivali and Mumbai West.",
+    "primaryCta": "Book a Consultation",
+    "secondaryCta": "Explore Services"
+  },
+  "about": {
+    "name": "Bijal Pathak",
+    "title": "Founder, 9X Wealth · Tata AIA Partner · BNI Arjuna",
+    "bio": "Replace this with your updated bio when uploading.",
+    "credentials": [
+      "BCom Financial Planning & Services — University of Mumbai",
+      "Tata AIA Life Insurance Authorized Partner"
+    ]
+  },
+  "contact": {
+    "phone": "+91 93228 87442",
+    "email": "9xwealth@gmail.com"
+  }
+}

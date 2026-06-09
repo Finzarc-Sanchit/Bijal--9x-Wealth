@@ -1,0 +1,33 @@
+---
+description: Core project context for 9X Wealth website — always apply
+alwaysApply: true
+---
+
+# 9X Wealth Project Context
+
+Financial services marketing site for Bijal Pathak / 9X Wealth, Borivali Mumbai.
+
+## Before coding
+
+Read `docs/PLAN.md`, `docs/CONTENT.md`, `docs/BRAND.md`. Use verified facts only.
+
+## Stack
+
+Next.js 15 App Router, TypeScript, Tailwind v4, shadcn/ui, Lucide icons.
+
+## Brand tokens
+
+Use Tailwind classes: `brand-navy`, `brand-gold`, `brand-cream`, `brand-muted`, `brand-teal`.
+
+## Contact (verified)
+
+- Phone: +91 93228 87442
+- Email: 9xwealth@gmail.com
+- Address: Techno IT Park, Near Eskay Resorts Link Road, Borivali 400092
+
+## Rules
+
+- Never fabricate MDRT, licenses, or testimonials
+- Include insurance/investment disclaimers on relevant pages
+- Mobile-first, senior-friendly (16px+ body, 44px tap targets)
+- Link Tata AIA details to bijalprashantpathak.tataaiapartner.com
