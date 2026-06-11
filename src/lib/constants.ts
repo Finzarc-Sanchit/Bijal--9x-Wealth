@@ -38,6 +38,49 @@ export const SITE_NAV_LINKS = [
   { label: "Contact", href: "/#contact" },
 ] as const;
 
+/** Editorial hero nav — Coverage, Families, Resources, House, Contact */
+export const EDITORIAL_NAV_MENUS = [
+  {
+    label: "Coverage",
+    items: [
+      { label: "Pure Risk Cover", href: "/services#pure-risk" },
+      { label: "Term & Health Plans", href: "/services#pure-risk" },
+      { label: "Risk Calculator", href: "/risk-calculator" },
+    ],
+  },
+  {
+    label: "Families",
+    items: [
+      { label: "Family Protection", href: "/services#pure-risk" },
+      { label: "Senior-Friendly Plans", href: "/services#pure-risk" },
+      { label: "Financial Health Check", href: "/#financial-health-check" },
+    ],
+  },
+  {
+    label: "Resources",
+    items: [
+      { label: "Goal Planning", href: "/#goal-planning" },
+      { label: "All Services", href: "/services" },
+      { label: "Tata AIA Portal", href: SOCIAL.tataAiaPortal },
+    ],
+  },
+  {
+    label: "House",
+    items: [
+      { label: "About Bijal Pathak", href: "/about" },
+      { label: "Home", href: "/#hero" },
+      { label: "Contact", href: "/#contact" },
+    ],
+  },
+] as const;
+
+export const EDITORIAL_NAV_CTA = {
+  portalLabel: "Client Portal",
+  portalHref: SOCIAL.tataAiaPortal,
+  scheduleLabel: "Schedule a Conversation",
+  scheduleHref: "/#consultation-form",
+} as const;
+
 /** Legacy routes — for future multi-page expansion */
 export const NAV_LINKS = [
   { label: "Services", href: "/services" },

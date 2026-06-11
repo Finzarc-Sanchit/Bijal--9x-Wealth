@@ -1,23 +1,27 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function HeroTypewriterHeading({
   text,
   isActive,
   className,
   charDelayMs = 42,
+  instant = false,
+  cursorClassName = "text-brand-teal",
 }: {
   text: string;
   isActive: boolean;
   className?: string;
   charDelayMs?: number;
+  instant?: boolean;
+  cursorClassName?: string;
 }) {
   const [displayed, setDisplayed] = useState("");
   const [done, setDone] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const prevActive = useRef(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -33,36 +37,42 @@ export function HeroTypewriterHeading({
       setDone(true);
       return;
     }
+
     if (!isActive) {
-      prevActive.current = false;
+      setDisplayed("");
+      setDone(false);
       return;
     }
 
-    if (!prevActive.current) {
-      setDisplayed("");
-      setDone(false);
-      let index = 0;
-      const interval = setInterval(() => {
-        index += 1;
-        setDisplayed(text.slice(0, index));
-        if (index >= text.length) {
-          clearInterval(interval);
-          setDone(true);
-        }
-      }, charDelayMs);
-
-      prevActive.current = true;
-      return () => clearInterval(interval);
+    if (instant) {
+      setDisplayed(text);
+      setDone(true);
+      return;
     }
-  }, [isActive, text, charDelayMs, reducedMotion]);
+
+    setDisplayed("");
+    setDone(false);
+
+    let index = 0;
+    const interval = setInterval(() => {
+      index += 1;
+      setDisplayed(text.slice(0, index));
+      if (index >= text.length) {
+        clearInterval(interval);
+        setDone(true);
+      }
+    }, charDelayMs);
+
+    return () => clearInterval(interval);
+  }, [instant, isActive, text, charDelayMs, reducedMotion]);
 
   return (
     <h1 className={className} aria-label={text}>
-      <span>{isActive ? displayed : text}</span>
-      {isActive && !done && (
+      <span>{isActive ? displayed : ""}</span>
+      {isActive && !done && displayed.length > 0 && (
         <motion.span
           aria-hidden
-          className="ml-0.5 inline-block text-brand-teal"
+          className={cn("ml-0.5 inline-block", cursorClassName)}
           animate={{ opacity: [1, 0] }}
           transition={{ duration: 0.55, repeat: Infinity, ease: "linear" }}
         >

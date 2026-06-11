@@ -125,6 +125,56 @@ body {
   transform: translateY(0) scale(1);
 }
 
+/* AXA editorial hero — stacked headline + asymmetric card clip */
+.hero-editorial-headline {
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+
+.hero-editorial-clip {
+  border-radius: 120px 0 120px 40px;
+}
+
+.hero-editorial-clip {
+  border-radius: 120px 0 120px 40px;
+}
+
+.editorial-floating-nav {
+  position: relative;
+  overflow: hidden;
+}
+
+.editorial-floating-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(201, 162, 39, 0.08) 45%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  animation: editorial-nav-shimmer 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes editorial-nav-shimmer {
+  0%,
+  100% {
+    transform: translateX(-120%);
+  }
+  50% {
+    transform: translateX(120%);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-editorial-clip {
+    border-radius: 80px 0 80px 32px;
+  }
+}
+
 .about-portrait-circle {
   animation: about-portrait-circle-pulse 16s ease-in-out infinite;
 }
@@ -353,6 +403,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .editorial-floating-nav::before {
+    animation: none !important;
+  }
+
   .hero-scroll-section [data-framer-component] {
     transition-duration: 0.01ms !important;
   }

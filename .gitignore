@@ -22,11 +22,15 @@
 
 # Testing
 /coverage
+/test-results/
+/playwright-report/
 
 # Environment & secrets (never commit)
 .env
 .env.*
 !.env.example
+*.pem
+*.key
 
 # Vercel / hosting
 .vercel
@@ -42,6 +46,7 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 Desktop.ini
+ehthumbs.db
 
 # Editor / IDE (local only)
 .idea/
@@ -53,7 +58,6 @@ Desktop.ini
 
 # TypeScript
 *.tsbuildinfo
-next-env.d.ts
 
 # Cursor local workspace artifacts (keep .cursor/rules & plans in repo)
 .cursor/projects/

@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -8,11 +9,13 @@ export function TypewriterText({
   className,
   charDelayMs = 55,
   startDelayMs = 400,
+  cursorClassName = "text-brand-teal",
 }: {
   text: string;
   className?: string;
   charDelayMs?: number;
   startDelayMs?: number;
+  cursorClassName?: string;
 }) {
   const [displayed, setDisplayed] = useState("");
   const [done, setDone] = useState(false);
@@ -46,7 +49,7 @@ export function TypewriterText({
       {!done && (
         <motion.span
           aria-hidden
-          className="ml-0.5 inline-block text-brand-teal"
+          className={cn("ml-0.5 inline-block", cursorClassName)}
           animate={{ opacity: [1, 0] }}
           transition={{ duration: 0.55, repeat: Infinity, ease: "linear" }}
         >
