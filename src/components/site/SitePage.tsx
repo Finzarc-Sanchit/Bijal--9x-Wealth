@@ -1,6 +1,8 @@
 import type { SiteContent } from "@/lib/content/schema";
 import { SiteIntroLayout } from "@/components/layout/SiteIntroLayout";
 import { AxaStyleHero } from "@/components/hero/AxaStyleHero";
+import { BrandsBarSection } from "@/components/sections/BrandsBarSection";
+import { StatsSection } from "@/components/sections/StatsSection";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteNav } from "@/components/layout/SiteNav";
 import { ConsultationFormSection } from "@/components/sections/ConsultationFormSection";
@@ -10,13 +12,15 @@ import { GoalSliderSection } from "@/components/sections/GoalSliderSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ContactSection } from "@/templates/shared/sections";
 
-export function SitePage({ content }: { content: SiteContent }) {
+export function SitePage({ content }: { content: SiteContent; }) {
   return (
     <SiteIntroLayout tagline={content.site.tagline} siteName={content.site.name}>
       <div className="min-h-screen bg-[#f9f6f1] text-brand-navy">
         <SiteNav variant="editorial" pinVisible />
         <main>
           <AxaStyleHero content={content} />
+          <StatsSection />
+          <BrandsBarSection />
           <FinancialHealthQuiz />
           <GoalSliderSection />
           <ServicesSection content={content} />

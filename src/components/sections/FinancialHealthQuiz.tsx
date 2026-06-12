@@ -160,21 +160,22 @@ export function FinancialHealthQuiz() {
     <section
       ref={sectionRef}
       id="financial-health-check"
-      className="relative scroll-mt-8 overflow-hidden bg-brand-cream"
+      className="relative scroll-mt-8 overflow-hidden bg-brand-cream w-full"
     >
-      <WellnessHeroBridge />
+      {/* <WellnessHeroBridge /> */}
 
-      <div className="relative overflow-hidden pb-16 pt-10 md:pb-24 md:pt-14">
-        <WellnessPremiumBackground />
+      <div className="relative overflow-hidden pb-16 pt-10 md:pb-24 md:pt-14 w-full">
+        {/* <WellnessPremiumBackground /> */}
 
         <LayoutGroup id="wellness-quiz">
+          {/* Expanded layout wrapper configuration from max-w-6xl to edge-to-edge layout bounds */}
           <motion.div
-            className="relative z-10 mx-auto max-w-6xl px-6"
+            className="relative z-10 w-full max-w-full px-4 md:px-12 lg:px-16"
             initial="hidden"
             animate={isSectionVisible ? "visible" : "hidden"}
             variants={stagger}
           >
-            <motion.div variants={sectionReveal} className="mx-auto max-w-3xl text-center">
+            <motion.div variants={sectionReveal} className="mx-auto max-w-4xl text-center">
               <motion.p
                 variants={fadeUp}
                 className="mb-4 text-xs font-bold uppercase tracking-[0.22em] text-brand-gold sm:text-sm"
@@ -184,7 +185,7 @@ export function FinancialHealthQuiz() {
 
               <motion.h2
                 variants={fadeUp}
-                className="font-display text-4xl font-normal leading-[1.08] tracking-tight text-brand-navy sm:text-5xl md:text-[3.35rem]"
+                className="font-display text-4xl font-normal leading-[1.08] tracking-tight text-brand-navy sm:text-5xl md:text-[3.5rem]"
               >
                 <span className="block">{QUIZ_UI.sectionTitleBlack}</span>
                 <span className="mt-1 block bg-gradient-to-r from-brand-teal via-[#1a6b7a] to-brand-navy bg-clip-text text-transparent">
@@ -194,12 +195,12 @@ export function FinancialHealthQuiz() {
 
               <motion.div
                 variants={fadeUp}
-                className="wellness-title-rule mx-auto mt-6 h-px w-full max-w-sm origin-center"
+                className="wellness-title-rule mx-auto mt-6 h-px w-full max-w-xl origin-center"
               />
 
               <motion.p
                 variants={fadeUp}
-                className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-brand-muted sm:text-lg"
+                className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-brand-muted sm:text-lg"
               >
                 {QUIZ_UI.sectionSubtitle}
               </motion.p>
@@ -249,7 +250,8 @@ export function FinancialHealthQuiz() {
               </motion.div>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-14 lg:mt-16">
+            {/* Layout bounds matched to full screen width dimensions */}
+            <motion.div variants={fadeUp} className="mt-14 lg:mt-16 w-full max-w-full">
               <WellnessFocusWinsRow />
             </motion.div>
 
@@ -269,12 +271,12 @@ export function FinancialHealthQuiz() {
                   exit={{ opacity: 0, y: 16, height: 0 }}
                   transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                   layout
-                  className="mt-12 overflow-hidden md:mt-14"
+                  className="mt-12 overflow-hidden md:mt-14 w-full max-w-full"
                 >
                   <motion.div
                     layout
                     className={cn(
-                      "overflow-hidden rounded-[1.75rem] bg-white shadow-[0_24px_60px_-28px_rgba(10,22,40,0.18)] ring-1 transition-shadow duration-500",
+                      "overflow-hidden rounded-[1.75rem] bg-white shadow-[0_24px_60px_-28px_rgba(10,22,40,0.18)] ring-1 transition-shadow duration-500 w-full",
                       "ring-brand-teal/25 shadow-[0_32px_80px_-24px_rgba(26,107,122,0.22)]",
                       isLaunching && "wellness-quiz-launch-glow",
                     )}
@@ -310,206 +312,211 @@ export function FinancialHealthQuiz() {
                       </div>
                     </div>
 
-                    <div className="p-6 md:p-8">
+                    <div className="p-6 md:p-8 w-full">
                       <AnimatePresence mode="wait">
                         {phase === "questions" && currentQuestion && (
-                      <motion.div
-                        key={`q-${questionIndex}`}
-                        initial={reduceMotion ? false : { opacity: 0, y: 40, filter: "blur(6px)" }}
-                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                        exit={reduceMotion ? undefined : { opacity: 0, y: -24, filter: "blur(4px)" }}
-                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        <motion.p
-                          initial={{ opacity: 0, x: -12 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.08 }}
-                          className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-brand-teal"
-                        >
-                          Question {questionIndex + 1}
-                        </motion.p>
-                        <h3 className="mb-7 text-xl font-semibold leading-snug text-brand-navy md:text-2xl">
-                          {currentQuestion.questionText}
-                        </h3>
-                        <ul className="space-y-3" role="listbox" aria-label="Answer options">
-                          {currentQuestion.options.map((option, i) => (
-                            <motion.li
-                              key={option.text}
-                              initial={reduceMotion ? false : { opacity: 0, x: 24 }}
+                          <motion.div
+                            key={`q-${questionIndex}`}
+                            initial={reduceMotion ? false : { opacity: 0, y: 40, filter: "blur(6px)" }}
+                            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                            exit={reduceMotion ? undefined : { opacity: 0, y: -24, filter: "blur(4px)" }}
+                            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                            className="w-full"
+                          >
+                            <motion.p
+                              initial={{ opacity: 0, x: -12 }}
                               animate={{ opacity: 1, x: 0 }}
-                              transition={{
-                                delay: 0.12 + i * 0.07,
-                                duration: 0.4,
-                                ease: [0.22, 1, 0.36, 1],
-                              }}
+                              transition={{ delay: 0.08 }}
+                              className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-brand-teal"
                             >
+                              Question {questionIndex + 1}
+                            </motion.p>
+                            <h3 className="mb-7 text-xl font-semibold leading-snug text-brand-navy md:text-2xl lg:text-3xl">
+                              {currentQuestion.questionText}
+                            </h3>
+                            <ul className="space-y-3 w-full" role="listbox" aria-label="Answer options">
+                              {currentQuestion.options.map((option, i) => (
+                                <motion.li
+                                  key={option.text}
+                                  initial={reduceMotion ? false : { opacity: 0, x: 24 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{
+                                    delay: 0.12 + i * 0.07,
+                                    duration: 0.4,
+                                    ease: [0.22, 1, 0.36, 1],
+                                  }}
+                                  className="w-full"
+                                >
+                                  <button
+                                    type="button"
+                                    role="option"
+                                    aria-selected={selectedWeight === option.weight}
+                                    onClick={() => setSelectedWeight(option.weight)}
+                                    className={cn(
+                                      "group min-h-[48px] w-full rounded-2xl px-4 py-3.5 text-left text-base transition-all duration-300",
+                                      selectedWeight === option.weight
+                                        ? "scale-[1.01] bg-brand-navy text-white shadow-lg ring-2 ring-brand-teal/40"
+                                        : "bg-brand-cream text-brand-navy ring-1 ring-brand-navy/10 hover:bg-white hover:shadow-md hover:ring-brand-teal/30",
+                                    )}
+                                  >
+                                    <span className="flex items-start gap-3">
+                                      <span
+                                        className={cn(
+                                          "mt-1 flex h-4 w-4 shrink-0 rounded-full border-2 transition-colors",
+                                          selectedWeight === option.weight
+                                            ? "border-brand-gold bg-brand-gold"
+                                            : "border-brand-navy/20 group-hover:border-brand-teal",
+                                        )}
+                                      />
+                                      {option.text}
+                                    </span>
+                                  </button>
+                                </motion.li>
+                              ))}
+                            </ul>
+                            <motion.div
+                              initial={{ opacity: 0, y: 16 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.35 }}
+                              className="mt-8 flex flex-wrap gap-3"
+                            >
+                              {questionIndex > 0 && (
+                                <button
+                                  type="button"
+                                  onClick={goBack}
+                                  className="min-h-[44px] rounded-full px-5 py-2.5 text-sm font-medium text-brand-muted ring-1 ring-brand-navy/10 hover:text-brand-navy"
+                                >
+                                  {QUIZ_UI.backButton}
+                                </button>
+                              )}
                               <button
                                 type="button"
-                                role="option"
-                                aria-selected={selectedWeight === option.weight}
-                                onClick={() => setSelectedWeight(option.weight)}
-                                className={cn(
-                                  "group min-h-[48px] w-full rounded-2xl px-4 py-3.5 text-left text-base transition-all duration-300",
-                                  selectedWeight === option.weight
-                                    ? "scale-[1.01] bg-brand-navy text-white shadow-lg ring-2 ring-brand-teal/40"
-                                    : "bg-brand-cream text-brand-navy ring-1 ring-brand-navy/10 hover:bg-white hover:shadow-md hover:ring-brand-teal/30",
-                                )}
+                                onClick={goNext}
+                                disabled={!selectedWeight}
+                                className="min-h-[44px] flex-1 rounded-full bg-brand-teal px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#155966] disabled:cursor-not-allowed disabled:opacity-45 sm:flex-none"
                               >
-                                <span className="flex items-start gap-3">
-                                  <span
-                                    className={cn(
-                                      "mt-1 flex h-4 w-4 shrink-0 rounded-full border-2 transition-colors",
-                                      selectedWeight === option.weight
-                                        ? "border-brand-gold bg-brand-gold"
-                                        : "border-brand-navy/20 group-hover:border-brand-teal",
-                                    )}
-                                  />
-                                  {option.text}
-                                </span>
+                                {QUIZ_UI.nextButton}
                               </button>
-                            </motion.li>
-                          ))}
-                        </ul>
-                        <motion.div
-                          initial={{ opacity: 0, y: 16 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.35 }}
-                          className="mt-8 flex flex-wrap gap-3"
-                        >
-                          {questionIndex > 0 && (
-                            <button
-                              type="button"
-                              onClick={goBack}
-                              className="min-h-[44px] rounded-full px-5 py-2.5 text-sm font-medium text-brand-muted ring-1 ring-brand-navy/10 hover:text-brand-navy"
-                            >
-                              {QUIZ_UI.backButton}
-                            </button>
-                          )}
-                          <button
-                            type="button"
-                            onClick={goNext}
-                            disabled={!selectedWeight}
-                            className="min-h-[44px] flex-1 rounded-full bg-brand-teal px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#155966] disabled:cursor-not-allowed disabled:opacity-45 sm:flex-none"
+                            </motion.div>
+                          </motion.div>
+                        )}
+
+                        {phase === "leadGate" && (
+                          <motion.div
+                            key="lead-gate"
+                            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.45 }}
+                            className="w-full"
                           >
-                            {QUIZ_UI.nextButton}
-                          </button>
-                        </motion.div>
-                      </motion.div>
-                    )}
+                            <h3 className="mb-2 text-xl font-semibold text-brand-navy md:text-2xl">
+                              {QUIZ_UI.leadGateTitle}
+                            </h3>
+                            <p className="mb-6 text-base text-brand-muted">{QUIZ_UI.leadGateSubtitle}</p>
+                            <div className="grid gap-4 sm:grid-cols-2 w-full">
+                              <div className="sm:col-span-2">
+                                <label htmlFor="quiz-name" className="mb-1 block text-sm font-medium text-brand-navy">
+                                  Full Name
+                                </label>
+                                <input
+                                  id="quiz-name"
+                                  type="text"
+                                  value={lead.name}
+                                  onChange={(e) => setLead({ ...lead, name: e.target.value })}
+                                  className="min-h-[44px] w-full rounded-xl border border-brand-navy/10 bg-white px-4 text-base focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
+                                />
+                                {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
+                              </div>
+                              <div>
+                                <label htmlFor="quiz-mobile" className="mb-1 block text-sm font-medium text-brand-navy">
+                                  WhatsApp Mobile
+                                </label>
+                                <input
+                                  id="quiz-mobile"
+                                  type="tel"
+                                  inputMode="numeric"
+                                  maxLength={10}
+                                  value={lead.mobile}
+                                  onChange={(e) =>
+                                    setLead({ ...lead, mobile: e.target.value.replace(/\D/g, "") })
+                                  }
+                                  className="min-h-[44px] w-full rounded-xl border border-brand-navy/10 bg-white px-4 text-base focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
+                                />
+                                {errors.mobile && (
+                                  <p className="mt-1 text-sm text-red-600">{errors.mobile}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label htmlFor="quiz-email" className="mb-1 block text-sm font-medium text-brand-navy">
+                                  Email Address
+                                </label>
+                                <input
+                                  id="quiz-email"
+                                  type="email"
+                                  value={lead.email}
+                                  onChange={(e) => setLead({ ...lead, email: e.target.value })}
+                                  className="min-h-[44px] w-full rounded-xl border border-brand-navy/10 bg-white px-4 text-base focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
+                                />
+                                {errors.email && (
+                                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                                )}
+                              </div>
+                            </div>
+                            <div className="mt-8 flex flex-wrap gap-3">
+                              <button
+                                type="button"
+                                onClick={goBack}
+                                className="min-h-[44px] rounded-full px-5 py-2.5 text-sm font-medium text-brand-muted ring-1 ring-brand-navy/10"
+                              >
+                                {QUIZ_UI.backButton}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={submitLead}
+                                className="wellness-cta-shimmer min-h-[44px] flex-1 rounded-full bg-brand-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-brand-navy-light sm:flex-none"
+                              >
+                                {QUIZ_UI.leadGateCta}
+                              </button>
+                            </div>
+                          </motion.div>
+                        )}
 
-                    {phase === "leadGate" && (
-                      <motion.div
-                        key="lead-gate"
-                        initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.45 }}
-                      >
-                        <h3 className="mb-2 text-xl font-semibold text-brand-navy">
-                          {QUIZ_UI.leadGateTitle}
-                        </h3>
-                        <p className="mb-6 text-base text-brand-muted">{QUIZ_UI.leadGateSubtitle}</p>
-                        <div className="grid gap-4 sm:grid-cols-2">
-                          <div className="sm:col-span-2">
-                            <label htmlFor="quiz-name" className="mb-1 block text-sm font-medium text-brand-navy">
-                              Full Name
-                            </label>
-                            <input
-                              id="quiz-name"
-                              type="text"
-                              value={lead.name}
-                              onChange={(e) => setLead({ ...lead, name: e.target.value })}
-                              className="min-h-[44px] w-full rounded-xl border border-brand-navy/10 bg-white px-4 text-base focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
-                            />
-                            {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
-                          </div>
-                          <div>
-                            <label htmlFor="quiz-mobile" className="mb-1 block text-sm font-medium text-brand-navy">
-                              WhatsApp Mobile
-                            </label>
-                            <input
-                              id="quiz-mobile"
-                              type="tel"
-                              inputMode="numeric"
-                              maxLength={10}
-                              value={lead.mobile}
-                              onChange={(e) =>
-                                setLead({ ...lead, mobile: e.target.value.replace(/\D/g, "") })
-                              }
-                              className="min-h-[44px] w-full rounded-xl border border-brand-navy/10 bg-white px-4 text-base focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
-                            />
-                            {errors.mobile && (
-                              <p className="mt-1 text-sm text-red-600">{errors.mobile}</p>
-                            )}
-                          </div>
-                          <div>
-                            <label htmlFor="quiz-email" className="mb-1 block text-sm font-medium text-brand-navy">
-                              Email Address
-                            </label>
-                            <input
-                              id="quiz-email"
-                              type="email"
-                              value={lead.email}
-                              onChange={(e) => setLead({ ...lead, email: e.target.value })}
-                              className="min-h-[44px] w-full rounded-xl border border-brand-navy/10 bg-white px-4 text-base focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
-                            />
-                            {errors.email && (
-                              <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-                            )}
-                          </div>
-                        </div>
-                        <div className="mt-8 flex flex-wrap gap-3">
-                          <button
-                            type="button"
-                            onClick={goBack}
-                            className="min-h-[44px] rounded-full px-5 py-2.5 text-sm font-medium text-brand-muted ring-1 ring-brand-navy/10"
+                        {phase === "analyzing" && (
+                          <motion.div
+                            key="analyzing"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="w-full"
                           >
-                            {QUIZ_UI.backButton}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={submitLead}
-                            className="wellness-cta-shimmer min-h-[44px] flex-1 rounded-full bg-brand-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-brand-navy-light sm:flex-none"
+                            <QuizAnalyzingPanel answers={answers} />
+                          </motion.div>
+                        )}
+
+                        {phase === "result" && tier && resultCopy && (
+                          <motion.div
+                            key="result"
+                            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                            className="w-full"
                           >
-                            {QUIZ_UI.leadGateCta}
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
+                            <QuizResultPanel answers={answers} tier={tier} onRetake={resetQuiz} />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </motion.div>
 
-                    {phase === "analyzing" && (
-                      <motion.div
-                        key="analyzing"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                      >
-                        <QuizAnalyzingPanel answers={answers} />
-                      </motion.div>
-                    )}
-
-                    {phase === "result" && tier && resultCopy && (
-                      <motion.div
-                        key="result"
-                        initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <QuizResultPanel answers={answers} tier={tier} onRetake={resetQuiz} />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="mt-6 text-center text-xs leading-relaxed text-brand-muted"
-              >
-                {QUIZ_UI.disclaimer}
-              </motion.p>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="mt-6 text-center text-xs leading-relaxed text-brand-muted"
+                  >
+                    {QUIZ_UI.disclaimer}
+                  </motion.p>
                 </motion.div>
               )}
             </AnimatePresence>

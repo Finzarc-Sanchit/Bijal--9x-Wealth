@@ -9,7 +9,7 @@ export const HERO_BACKGROUND_VIDEO = {
   poster: "/images/hero/hni-panel-1-boardroom.png",
 } as const;
 
-export function HeroVideoBackground({ className }: { className?: string }) {
+export function HeroVideoBackground({ className }: { className?: string; }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduceMotion = useReducedMotion();
 
@@ -36,9 +36,9 @@ export function HeroVideoBackground({ className }: { className?: string }) {
         <source src={HERO_BACKGROUND_VIDEO.src} type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 bg-brand-navy/25" />
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/78 via-brand-navy/55 to-brand-navy/28" />
-      <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-brand-navy/32" />
+      {/* <div className="absolute inset-0 bg-black/10" /> */}
+      {/* <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/78 via-brand-navy/55 to-brand-navy/28" />
+      <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-brand-navy/10 to-brand-navy/32" /> */}
     </div>
   );
 }
