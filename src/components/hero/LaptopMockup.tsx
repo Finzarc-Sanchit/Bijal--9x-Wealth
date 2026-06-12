@@ -83,7 +83,7 @@ function LaptopHeroIntro({
       <p className="text-[6px] font-bold uppercase tracking-[0.18em] text-brand-gold sm:text-[7px]">
         {slide.eyebrow}
       </p>
-      <h2 className="mt-0.5 font-display text-[9px] font-bold leading-tight sm:text-[10px]">
+      <h2 className="mt-0.5 font-poppins text-[9px] font-bold leading-tight sm:text-[10px]">
         {slide.title}
       </h2>
       <p className="mt-0.5 line-clamp-2 text-[6px] leading-snug text-white/75">

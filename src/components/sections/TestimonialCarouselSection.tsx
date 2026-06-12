@@ -139,7 +139,7 @@ export function TestimonialCarouselSection({ content }: { content: SiteContent }
         </p>
         <h2
           id="testimonials-heading"
-          className="mt-4 font-display text-[2rem] font-bold leading-[1.12] text-brand-navy sm:text-5xl lg:text-[3.25rem]"
+          className="mt-4 font-poppins text-[2rem] font-bold leading-[1.12] text-brand-navy sm:text-5xl lg:text-[3.25rem]"
         >
           Built For <span className="text-brand-teal">Families</span>
           <br className="hidden sm:block" />

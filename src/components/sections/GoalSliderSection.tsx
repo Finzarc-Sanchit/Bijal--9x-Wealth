@@ -166,7 +166,7 @@ export function GoalSliderSection() {
               <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-brand-teal">
                 {GOAL_SLIDER_UI.sectionEyebrow}
               </p>
-              <h2 className="mb-4 font-display text-3xl font-bold tracking-tight text-brand-navy md:text-4xl">
+              <h2 className="mb-4 font-poppins text-3xl font-bold tracking-tight text-brand-navy md:text-4xl">
                 {GOAL_SLIDER_UI.sectionTitle}
               </h2>
               <p className="text-base leading-relaxed text-brand-muted">

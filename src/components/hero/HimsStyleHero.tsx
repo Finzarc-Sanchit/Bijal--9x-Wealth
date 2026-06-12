@@ -55,7 +55,7 @@ function HeroSlideLayer({
       <HeroTypewriterHeading
         text={slide.title}
         isActive={isActive}
-        className="mb-4 max-w-lg font-display text-3xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-4xl md:text-[2.85rem]"
+        className="mb-4 max-w-lg font-poppins text-3xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-4xl md:text-[2.85rem]"
       />
       <div className="max-w-lg space-y-2">
         {slide.descriptionLines.map((line) => (
@@ -121,7 +121,7 @@ function HeroBackgroundTypography({ scrollProgress }: { scrollProgress: number }
           }}
         >
           <span
-            className="font-display text-[clamp(3.5rem,12vw,9rem)] font-extrabold uppercase tracking-[0.08em] text-white/[0.03]"
+            className="font-poppins text-[clamp(3.5rem,12vw,9rem)] font-extrabold uppercase tracking-[0.08em] text-white/[0.03]"
             style={{ WebkitTextStroke: "1px rgba(255, 255, 255, 0.05)" }}
           >
             {word}

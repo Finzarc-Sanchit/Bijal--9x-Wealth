@@ -137,7 +137,7 @@ function PillarCard({ pillar }: { pillar: ServiceBlueprintPillar }) {
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-muted">
               Pillar {pillar.order}
             </p>
-            <h3 className="font-display text-2xl font-bold text-brand-navy sm:text-[1.65rem]">
+            <h3 className="font-poppins text-2xl font-bold text-brand-navy sm:text-[1.65rem]">
               {pillar.title}
             </h3>
           </div>
@@ -206,7 +206,7 @@ export function ServicesBlueprintSection({ content }: { content: SiteContent }) 
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-brand-teal">
             {SERVICES_BLUEPRINT_INTRO.eyebrow}
           </p>
-          <h2 className="font-display text-3xl font-bold text-brand-navy sm:text-4xl md:text-[2.75rem]">
+          <h2 className="font-poppins text-3xl font-bold text-brand-navy sm:text-4xl md:text-[2.75rem]">
             {SERVICES_BLUEPRINT_INTRO.title}{" "}
             <span className="text-brand-teal">{SERVICES_BLUEPRINT_INTRO.titleAccent}</span>
           </h2>
@@ -255,7 +255,7 @@ export function ServicesBlueprintSection({ content }: { content: SiteContent }) 
             >
               {WEALTH_PLANNING_BRIDGE.badge}
             </span>
-            <h3 className="mt-4 font-display text-2xl font-bold text-brand-navy sm:text-3xl">
+            <h3 className="mt-4 font-poppins text-2xl font-bold text-brand-navy sm:text-3xl">
               {WEALTH_PLANNING_BRIDGE.title}
             </h3>
             <p className="mt-4 max-w-3xl text-base leading-relaxed text-brand-muted">

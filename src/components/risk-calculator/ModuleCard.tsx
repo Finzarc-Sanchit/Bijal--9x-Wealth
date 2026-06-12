@@ -56,7 +56,7 @@ export function ModuleCard({ module, onAction, index, compact }: ModuleCardProps
         <span className="mb-2 inline-flex w-fit rounded-full bg-brand-teal/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-brand-teal ring-1 ring-brand-teal/20">
           {module.focus}
         </span>
-        <h3 className="font-display text-lg font-bold leading-tight text-brand-navy sm:text-xl">
+        <h3 className="font-poppins text-lg font-bold leading-tight text-brand-navy sm:text-xl">
           {module.title}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-brand-muted">{module.subtitle}</p>

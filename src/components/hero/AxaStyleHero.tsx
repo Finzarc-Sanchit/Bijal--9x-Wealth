@@ -19,16 +19,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const SLIDE_TRANSITION = { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const };
 
+// Added a fluid responsive text scale stack to prevent horizontal clipping across ultra-wide desktop layouts
 const HEADLINE_CLASS =
-  "hero-editorial-headline block w-full font-sans font-extrabold uppercase tracking-tight text-white";
+  "hero-editorial-headline block w-full font-poppins font-medium uppercase tracking-tight text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[6.5rem] leading-[1.05] whitespace-nowrap";
 
 const EPIGRAPH_CLASS =
-  "text-sm font-display font-medium italic leading-relaxed text-white/92 sm:text-[0.95rem]";
+  "text-sm font-inter font-medium italic leading-relaxed text-white/92 sm:text-[0.95rem] lg:text-base";
 
 function HeroCta({ label, href }: { label: string; href: string; }) {
-  // Added normal tracking classes to stop letters from collapsing closer together
   const className =
-    "group inline-flex min-h-[48px] items-center rounded-full bg-brand-gold py-2 pl-6 pr-2 text-brand-navy shadow-[0_8px_28px_rgba(0,0,0,0.35)] transition-all duration-300 hover:bg-brand-gold-light hover:pr-3 sm:pl-8 tracking-normal normal-case font-sans";
+    "group inline-flex min-h-[48px] items-center rounded-full bg-brand-gold py-2 pl-6 pr-2 font-inter text-brand-navy shadow-[0_8px_28px_rgba(0,0,0,0.35)] transition-all duration-300 hover:bg-brand-gold-light hover:pr-3 sm:pl-8 tracking-normal normal-case";
 
   const inner = (
     <>
@@ -78,12 +78,12 @@ function HeroStackedHeadline({
   };
 
   return (
-    <div className="flex w-full max-w-full flex-col items-start text-left m-0 p-0">
+    <div className="flex w-full max-w-full flex-col items-start text-left m-0 p-0 select-none">
       <h1 className="contents">
         {/* Line 1 */}
-        <div className="overflow-hidden w-full">
+        <div className="overflow-hidden w-full pb-1">
           <motion.div
-            className="flex w-full max-w-full flex-wrap items-center gap-3 sm:gap-4"
+            className="flex w-full max-w-full flex-wrap items-center gap-3 sm:gap-4 md:gap-5"
             custom={scrollDirection}
             variants={lineVariants}
             initial="initial"
@@ -91,7 +91,7 @@ function HeroStackedHeadline({
             exit="exit"
             transition={SLIDE_TRANSITION}
           >
-            <span className="relative h-11 w-32 shrink-0 overflow-hidden rounded-full bg-white/10 ring-2 ring-white/30 sm:h-14 sm:w-44">
+            <span className="relative h-11 w-32 shrink-0 overflow-hidden rounded-full bg-white/10 ring-2 ring-white/30 sm:h-14 sm:w-44 md:h-16 md:w-52 lg:h-18 lg:w-56">
               <HeroAnimatedPillImage
                 src={slide.pillImage.src}
                 alt={slide.pillImage.alt}
@@ -106,7 +106,7 @@ function HeroStackedHeadline({
         </div>
 
         {/* Line 2 */}
-        <div className="overflow-hidden w-full mt-2 sm:mt-3">
+        <div className="overflow-hidden w-full mt-1 sm:mt-2 pb-1">
           <motion.div
             custom={scrollDirection}
             variants={lineVariants}
@@ -122,7 +122,7 @@ function HeroStackedHeadline({
         </div>
 
         {/* Line 3 */}
-        <div className="overflow-hidden w-full mt-2 sm:mt-3">
+        <div className="overflow-hidden w-full mt-1 sm:mt-2 pb-1">
           <motion.div
             custom={scrollDirection}
             variants={lineVariants}
@@ -138,7 +138,7 @@ function HeroStackedHeadline({
         </div>
 
         {/* Line 4 */}
-        <div className="overflow-hidden w-full mt-3 sm:mt-4">
+        <div className="overflow-hidden w-full mt-2 sm:mt-3 pb-1">
           <motion.div
             custom={scrollDirection}
             variants={lineVariants}
@@ -154,93 +154,31 @@ function HeroStackedHeadline({
         </div>
       </h1>
 
-      {/* Fixed Button Container - Outside h1 flow to protect styles */}
-      <div className="w-full sm:w-auto mt-6 block relative z-30">
-        <HeroCta label={slide.cta.label} href={slide.cta.href} />
-      </div>
-    </div>
-  );
-}
-
-function HeroEditorialCard({
-  activeIndex,
-  introReady,
-  onSelect,
-  isReady,
-}: {
-  activeIndex: number;
-  introReady: boolean;
-  onSelect: (index: number) => void;
-  isReady: boolean;
-}) {
-  const slide = AXA_HERO_SLIDES[activeIndex];
-  const progressWidth = `${((activeIndex + 1) / AXA_HERO_SLIDES.length) * 100}%`;
-
-  return (
-    <article className="hero-editorial-clip group relative h-[380px] w-full overflow-hidden bg-white/5 backdrop-blur-md border border-white/15 shadow-[0_24px_50px_-12px_rgba(0,0,0,0.5)] sm:h-[420px] lg:h-[440px]">
-      <div className="absolute inset-0 z-0 opacity-25 mix-blend-luminosity transition-opacity duration-500 group-hover:opacity-35">
-        {AXA_HERO_SLIDES.map((item, index) => (
-          <HeroCrossfadeImage
-            key={item.id}
-            src={item.cardImage.src}
-            alt={item.cardImage.alt}
-            priority={index === 0}
-            isActive={activeIndex === index}
-          />
-        ))}
-      </div>
-
-      <div className="absolute inset-0 z-10 bg-gradient-to-tr from-black/60 via-black/20 to-transparent" />
-
-      <div className="absolute inset-x-0 bottom-0 z-10 px-8 pb-8 pt-16 text-white sm:px-10 sm:pb-10">
+      {/* Description Text (Epigraph) with expanded spatial desktop boundaries */}
+      <div className="relative min-w-0 w-full mt-6 md:mt-8 overflow-hidden">
         <AnimatePresence mode="wait">
-          {isReady && introReady ? (
+          {introReady ? (
             <motion.div
-              key={slide.id + "-copy"}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.45 }}
+              key={slideIndex + "-epigraph"}
+              className="w-full max-w-xl md:max-w-2xl lg:max-w-3xl text-left"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.45, ease: "easeInOut" }}
             >
-              <p className="mb-3 font-display text-xl font-light italic sm:mb-4 tracking-wide text-brand-gold-light">
-                {`'${slide.cardQuote}'`}
-              </p>
-              <p className="max-w-md text-base font-medium leading-relaxed text-white/90 sm:text-lg">
-                {slide.cardBody}
+              <p className={EPIGRAPH_CLASS}>
+                {`"${slide.epigraph}"`}
               </p>
             </motion.div>
           ) : null}
         </AnimatePresence>
-
-        <div className="relative mt-8 h-[2px] w-full bg-white/15">
-          <motion.div
-            className="absolute left-0 top-0 h-full bg-brand-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"
-            animate={{ width: progressWidth }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          />
-        </div>
-
-        <div className="mt-5 flex justify-end gap-1.5">
-          {AXA_HERO_SLIDES.map((item, index) => (
-            <button
-              key={item.id}
-              type="button"
-              aria-label={`Go to slide ${index + 1}`}
-              aria-current={activeIndex === index ? "step" : undefined}
-              onClick={() => onSelect(index)}
-              className="inline-flex min-h-[36px] min-w-[36px] items-center justify-center transition-transform active:scale-95"
-            >
-              <span
-                className={cn(
-                  "block rounded-full bg-white transition-all duration-300",
-                  activeIndex === index ? "h-2 w-5 bg-brand-gold opacity-100" : "h-2 w-2 opacity-25 hover:opacity-50",
-                )}
-              />
-            </button>
-          ))}
-        </div>
       </div>
-    </article>
+
+      {/* Action CTA Button */}
+      <div className="w-full sm:w-auto mt-8 md:mt-10 block relative z-30">
+        <HeroCta label={slide.cta.label} href={slide.cta.href} />
+      </div>
+    </div>
   );
 }
 
@@ -294,30 +232,19 @@ export function AxaStyleHero({ content: _content }: { content: SiteContent; }) {
     }
   }, [introComplete, scrollToStep]);
 
-  const goToSlide = useCallback(
-    (index: number) => {
-      if (!isReady) return;
-      scrollToStep(index);
-      setActiveIndex(index);
-    },
-    [scrollToStep, isReady],
-  );
-
-  const activeSlide = AXA_HERO_SLIDES[activeIndex];
-
   return (
     <div
       ref={containerRef}
-      className="hero-scroll-section relative bg-black/10"
+      className="hero-scroll-section relative bg-black/10 w-full"
       style={{ height: `${HERO_SCROLL_VH}vh` }}
       id="hero"
     >
       <div className="sticky top-0 flex h-[100dvh] items-start overflow-hidden pt-24 sm:pt-28">
         <HeroVideoBackground />
-        <div className="relative z-10 w-full max-w-full px-4 py-8 md:px-12 lg:px-16">
-          <div className="grid grid-cols-1 pt-16 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-x-12 xl:gap-x-16">
 
-            {/* Left half — Mask Animated Heading */}
+        {/* Blown wide layout limits: max-w-full lets the component scale smoothly without horizontal grid clipping */}
+        <div className="relative z-10 w-full max-w-full px-4 py-8 md:px-12 lg:px-16 xl:px-24">
+          <div className="w-full max-w-7xl pt-12 md:pt-16 xl:pt-20 text-left">
             <div className="relative z-10 w-full min-w-0">
               <AnimatePresence mode="wait" custom={scrollDirection}>
                 {isReady && introComplete && (
@@ -330,38 +257,9 @@ export function AxaStyleHero({ content: _content }: { content: SiteContent; }) {
                 )}
               </AnimatePresence>
             </div>
-
-            {/* Right half — Premium Translucent Widget Block */}
-            <div className="relative flex w-full min-w-0 flex-col lg:mt-12">
-              <AnimatePresence mode="wait">
-                {isReady && introComplete ? (
-                  <motion.div
-                    key={activeIndex + "-epigraph"}
-                    className="mb-4 max-w-md text-left lg:mb-6 lg:ml-auto lg:text-right"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.45, ease: "easeInOut" }}
-                  >
-                    <p className={EPIGRAPH_CLASS}>
-                      {`"${activeSlide.epigraph}"`}
-                    </p>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
-
-              {/* <div className="relative w-full">
-                <HeroEditorialCard
-                  activeIndex={activeIndex}
-                  introReady={introComplete}
-                  onSelect={goToSlide}
-                  isReady={isReady && introComplete}
-                />
-              </div> */}
-            </div>
-
           </div>
         </div>
+
       </div>
     </div>
   );

@@ -74,7 +74,7 @@ export function QuestionPanel({
             transition={{ duration: 0.42, ease: [0.25, 1, 0.5, 1] }}
             className="absolute inset-0 flex flex-col"
           >
-            <h3 className="font-display text-2xl font-bold leading-snug text-brand-navy sm:text-3xl">
+            <h3 className="font-poppins text-2xl font-bold leading-snug text-brand-navy sm:text-3xl">
               {question.text}
             </h3>
             {question.helper ? (
@@ -143,7 +143,7 @@ export function QuestionPanel({
                     <span className="text-xs font-semibold uppercase tracking-wide text-brand-muted">
                       Adjust value
                     </span>
-                    <span className="font-display text-3xl font-bold text-brand-teal">
+                    <span className="font-poppins text-3xl font-bold text-brand-teal">
                       {formatSliderValue(
                         typeof value === "number" ? value : question.slider.defaultValue,
                         question.slider.unit,

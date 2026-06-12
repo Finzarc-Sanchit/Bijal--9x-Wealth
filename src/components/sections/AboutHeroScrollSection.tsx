@@ -113,7 +113,7 @@ export function AboutHeroScrollSection({ content }: { content: SiteContent }) {
                   <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-brand-gold sm:text-sm">
                     Start Your Journey
                   </p>
-                  <h1 className="font-display text-[2rem] font-bold leading-[1.1] tracking-tight text-brand-navy sm:text-4xl lg:text-[3.1rem]">
+                  <h1 className="font-poppins text-[2rem] font-bold leading-[1.1] tracking-tight text-brand-navy sm:text-4xl lg:text-[3.1rem]">
                     Plan Your Wealth From Anywhere.
                   </h1>
                   <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-brand-muted lg:mx-0 lg:text-[1.02rem]">

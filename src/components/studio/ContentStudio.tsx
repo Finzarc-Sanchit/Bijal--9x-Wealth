@@ -214,7 +214,7 @@ export function ContentStudio() {
             <textarea
               value={jsonText}
               onChange={(e) => setJsonText(e.target.value)}
-              className="h-96 w-full rounded-xl border border-brand-navy/10 p-4 font-mono text-sm"
+              className="h-96 w-full rounded-xl border border-brand-navy/10 p-4 font-inter text-sm"
             />
             <button
               type="button"

@@ -69,10 +69,10 @@ function EditorialStatValue({
 
   return (
     <span className={cn("flex items-baseline", className)}>
-      <span className="font-sans text-[clamp(5rem,10vw,11.25rem)] font-light leading-[0.9] tracking-[-0.05em] text-brand-navy tabular-nums">
+      <span className="font-poppins text-[clamp(5rem,10vw,11.25rem)] font-light leading-[0.9] tracking-[-0.05em] text-brand-navy tabular-nums">
         {display.toLocaleString("en-IN")}
       </span>
-      <span className="font-sans text-[clamp(2.5rem,5vw,4.5rem)] font-extralight leading-none tracking-[-0.05em] text-brand-navy">
+      <span className="font-poppins text-[clamp(2.5rem,5vw,4.5rem)] font-extralight leading-none tracking-[-0.05em] text-brand-navy">
         {suffix}
       </span>
     </span>
@@ -106,7 +106,7 @@ function EditorialStatRow({ stat }: { stat: (typeof PREMIUM_STATS)[number]; }) {
         aria-label={`${stat.value.toLocaleString("en-IN")}${stat.suffix} ${stat.labelLines.join(" ")}`}
       >
         <EditorialStatValue value={stat.value} suffix={stat.suffix} isInView={isInView} />
-        <p className="border-l border-brand-navy/5 pl-4 text-xl font-medium tracking-normal text-brand-navy sm:pl-8 sm:text-2xl sm:leading-snug lg:text-[1.65rem]">
+        <p className="font-inter border-l border-brand-navy/5 pl-4 text-xl font-medium tracking-normal text-brand-navy sm:pl-8 sm:text-2xl sm:leading-snug lg:text-[1.65rem]">
           {stat.labelLines.join(" ")}
         </p>
       </div>
@@ -130,21 +130,21 @@ export function StatsSection({ className }: { className?: string; }) {
         <div className="grid grid-cols-1 items-start gap-16 md:gap-20 lg:grid-cols-[1.1fr_1.9fr] lg:gap-24 xl:gap-32">
           {/* Left — sticky editorial copy & CTAs */}
           <div className="max-w-xl lg:sticky lg:top-32">
-            <h2 className="mb-6 text-brand-navy uppercase tracking-[0.14em]">
+            <h2 className="font-poppins mb-6 text-brand-navy uppercase tracking-[0.14em]">
               OUR IMPACT IN NUMBERS
             </h2>
-            <p className="font-normal leading-[1.5] text-brand-navy">{LEFT_COPY}</p>
+            <p className="font-inter font-normal leading-[1.5] text-brand-navy">{LEFT_COPY}</p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 href="/services"
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-brand-navy/15 bg-white px-6 py-2.5 text-sm font-medium text-brand-navy transition-colors hover:border-brand-teal hover:text-brand-teal"
+                className="font-inter inline-flex min-h-[44px] items-center gap-2 rounded-full border border-brand-navy/15 bg-white px-6 py-2.5 text-sm font-medium text-brand-navy transition-colors hover:border-brand-teal hover:text-brand-teal"
               >
                 Explore services
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               <Link
                 href="/#consultation-form"
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-navy px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-teal"
+                className="font-inter inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-navy px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-teal"
               >
                 Book a consultation
                 <ArrowRight className="h-4 w-4" aria-hidden />

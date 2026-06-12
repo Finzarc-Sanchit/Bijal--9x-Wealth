@@ -185,7 +185,7 @@ export function FinancialHealthQuiz() {
 
               <motion.h2
                 variants={fadeUp}
-                className="font-display text-4xl font-normal leading-[1.08] tracking-tight text-brand-navy sm:text-5xl md:text-[3.5rem]"
+                className="font-poppins text-4xl font-normal leading-[1.08] tracking-tight text-brand-navy sm:text-5xl md:text-[3.5rem]"
               >
                 <span className="block">{QUIZ_UI.sectionTitleBlack}</span>
                 <span className="mt-1 block bg-gradient-to-r from-brand-teal via-[#1a6b7a] to-brand-navy bg-clip-text text-transparent">

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 @theme inline {
   --color-brand-navy: #0a1628;
@@ -8,9 +9,23 @@
   --color-brand-teal: #1a6b7a;
   --color-brand-cream: #faf8f5;
   --color-brand-muted: #64748b;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-dm-serif), ui-serif, Georgia, serif;
+}
+
+@layer base {
+  body {
+    --font-inter: var(--font-inter-family), ui-sans-serif, sans-serif;
+    --font-poppins: var(--font-poppins-family), ui-sans-serif, sans-serif;
+    @apply font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-poppins;
+  }
 }
 
 html {

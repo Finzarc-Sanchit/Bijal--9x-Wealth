@@ -146,7 +146,7 @@ function ServiceSolutionCard({
         </motion.span>
 
         <motion.h3
-          className="font-display text-3xl font-bold leading-tight text-white sm:text-[2.15rem]"
+          className="font-poppins text-3xl font-bold leading-tight text-white sm:text-[2.15rem]"
           animate={{ y: isActive ? 0 : 4 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
@@ -237,7 +237,7 @@ export function ServicesCardsCarousel({
           </p>
           <h2
             id="services-carousel-heading"
-            className="font-display text-4xl font-bold tracking-tight sm:text-5xl md:text-[3.25rem]"
+            className="font-poppins text-4xl font-bold tracking-tight sm:text-5xl md:text-[3.25rem]"
           >
             <span className="text-white">{SERVICES_CAROUSEL_UI.titleWhite} </span>
             <span className="text-brand-teal">{SERVICES_CAROUSEL_UI.titleAccent}</span>
@@ -304,7 +304,7 @@ export function ServicesCardsCarousel({
                     <span className="mb-4 inline-flex w-fit rounded-full bg-brand-teal px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
                       {SERVICES_CAROUSEL_UI.badge}
                     </span>
-                    <h3 className="font-display text-2xl font-bold text-white sm:text-3xl">{service.title}</h3>
+                    <h3 className="font-poppins text-2xl font-bold text-white sm:text-3xl">{service.title}</h3>
                     <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-white/75">
                       {detail.summary}
                     </p>

@@ -49,7 +49,7 @@ export function InlineMorphHeadline({
     <div className={cn("text-center", className)}>
       <h2
         className={cn(
-          "flex flex-col items-center font-display font-black leading-[0.95] tracking-tight text-brand-navy",
+          "flex flex-col items-center font-poppins font-black leading-[0.95] tracking-tight text-brand-navy",
           "text-[clamp(2.5rem,10vw,6.25rem)]",
         )}
         aria-label={fullHeadline}
@@ -96,7 +96,7 @@ export function InlineMorphHeadline({
           <span className="whitespace-nowrap">{wordAfter}</span>
         </span>
 
-        <span className="mt-1 block whitespace-nowrap font-display text-[clamp(2.25rem,9vw,5.75rem)] font-black leading-none tracking-tight text-brand-navy">
+        <span className="mt-1 block whitespace-nowrap font-poppins text-[clamp(2.25rem,9vw,5.75rem)] font-black leading-none tracking-tight text-brand-navy">
           {tagline}
         </span>
       </h2>

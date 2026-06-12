@@ -75,7 +75,7 @@ export function LiveRiskGraph({ score, isActive, className }: LiveRiskGraphProps
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-muted">
             Live Risk Index
           </p>
-          <p className="mt-1 font-display text-2xl font-bold text-brand-navy">
+          <p className="mt-1 font-poppins text-2xl font-bold text-brand-navy">
             {Math.round(displayScore)}%
           </p>
         </div>

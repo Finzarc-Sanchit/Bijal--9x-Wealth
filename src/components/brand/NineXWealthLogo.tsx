@@ -33,7 +33,7 @@ export function NineXWealthLogo({
         <text
           x="0"
           y="62"
-          fontFamily="var(--font-geist-sans, system-ui, sans-serif)"
+          fontFamily="var(--font-inter-family), ui-sans-serif, sans-serif"
           fontSize="52"
           fontWeight="600"
           fill={text}
@@ -68,7 +68,7 @@ export function NineXWealthLogo({
       <text
         x="0"
         y="72"
-        fontFamily="var(--font-geist-sans, system-ui, sans-serif)"
+        fontFamily="var(--font-inter-family), ui-sans-serif, sans-serif"
         fontSize="72"
         fontWeight="600"
         fill={text}
@@ -91,7 +91,7 @@ export function NineXWealthLogo({
       <text
         x="130"
         y="68"
-        fontFamily="var(--font-geist-sans, system-ui, sans-serif)"
+        fontFamily="var(--font-inter-family), ui-sans-serif, sans-serif"
         fontSize="56"
         fontWeight="700"
         fill={text}
@@ -101,7 +101,7 @@ export function NineXWealthLogo({
       <text
         x="130"
         y="98"
-        fontFamily="var(--font-geist-sans, system-ui, sans-serif)"
+        fontFamily="var(--font-inter-family), ui-sans-serif, sans-serif"
         fontSize="18"
         fontWeight="400"
         fill={text}

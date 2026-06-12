@@ -144,7 +144,7 @@ export function RiskSpeedometer({
         </svg>
       </div>
 
-      <p className="font-display text-3xl font-bold text-brand-navy sm:text-4xl">
+      <p className="font-poppins text-3xl font-bold text-brand-navy sm:text-4xl">
         {score}% {title}
       </p>
       <p className="mt-1 text-sm font-semibold" style={{ color }}>

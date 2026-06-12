@@ -206,7 +206,7 @@ export function RiskCalculatorExperience() {
         <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-teal">
           {RISK_CALCULATOR_UI.pageEyebrow}
         </p>
-        <h1 className="font-display text-4xl font-bold leading-tight text-brand-navy sm:text-5xl">
+        <h1 className="font-poppins text-4xl font-bold leading-tight text-brand-navy sm:text-5xl">
           {RISK_CALCULATOR_UI.pageTitle}
         </h1>
         <p className="mt-4 text-base leading-relaxed text-brand-muted sm:text-lg">
@@ -269,7 +269,7 @@ export function RiskCalculatorExperience() {
                   <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-teal">
                     {activeModule?.focus ?? "Risk Assessment"}
                   </p>
-                  <h2 className="font-display text-xl font-bold text-brand-navy sm:text-2xl">
+                  <h2 className="font-poppins text-xl font-bold text-brand-navy sm:text-2xl">
                     {activeModule?.title ?? RISK_CALCULATOR_UI.dashboardTitle}
                   </h2>
                 </div>
@@ -340,7 +340,7 @@ export function RiskCalculatorExperience() {
                       className="flex min-h-[320px] flex-col items-center justify-center py-8 text-center"
                     >
                       <Loader2 className="h-12 w-12 animate-spin text-brand-teal" />
-                      <p className="mt-6 font-display text-2xl font-bold text-brand-navy">
+                      <p className="mt-6 font-poppins text-2xl font-bold text-brand-navy">
                         {RISK_CALCULATOR_UI.analyzingLabel}
                       </p>
                       <p className="mt-2 text-sm text-brand-muted">{RISK_CALCULATOR_UI.analyzingSub}</p>
@@ -367,7 +367,7 @@ export function RiskCalculatorExperience() {
                       </div>
 
                       <div className="rounded-2xl border border-brand-teal/15 bg-brand-teal/5 p-5 sm:p-6">
-                        <h3 className="font-display text-xl font-bold text-brand-navy">
+                        <h3 className="font-poppins text-xl font-bold text-brand-navy">
                           {suggestions.headline}
                         </h3>
                         <p className="mt-2 text-sm text-brand-muted">
@@ -400,7 +400,7 @@ export function RiskCalculatorExperience() {
 
                       {phase === "leadGate" ? (
                         <div className="mx-auto max-w-md">
-                          <h3 className="font-display text-xl font-bold text-brand-navy">
+                          <h3 className="font-poppins text-xl font-bold text-brand-navy">
                             {RISK_CALCULATOR_UI.leadTitle}
                           </h3>
                           <p className="mt-2 text-sm text-brand-muted">

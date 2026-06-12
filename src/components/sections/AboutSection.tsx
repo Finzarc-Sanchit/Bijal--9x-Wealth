@@ -110,7 +110,7 @@ export function AboutSection({ content }: { content: SiteContent }) {
         <div className="relative overflow-hidden rounded-t-[2.5rem] bg-brand-navy px-5 pb-16 pt-12 sm:rounded-t-[3rem] sm:px-8 sm:pb-20 sm:pt-16 lg:pb-24">
           <div className="grid items-start gap-12 lg:grid-cols-[1fr_1fr]">
             <Reveal className="relative z-10 max-w-lg">
-              <h3 className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-[2.75rem]">
+              <h3 className="font-poppins text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-[2.75rem]">
                 Start Your Financial Planning Today.
               </h3>
               <p className="mt-4 text-base leading-relaxed text-white/70">{content.vision}</p>
@@ -163,7 +163,7 @@ export function AboutSection({ content }: { content: SiteContent }) {
         <div className="rounded-t-[2rem] bg-brand-navy px-5 py-12 sm:px-8 sm:py-14">
           <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
             <Reveal>
-              <h3 className="font-display text-3xl font-bold text-white sm:text-4xl">
+              <h3 className="font-poppins text-3xl font-bold text-white sm:text-4xl">
                 Goal Progress Tracker
               </h3>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-white/75">

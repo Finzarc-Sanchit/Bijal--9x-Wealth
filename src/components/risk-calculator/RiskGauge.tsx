@@ -60,7 +60,7 @@ export function RiskGauge({ score, className }: RiskGaugeProps) {
         Your Vulnerability Rating
       </p>
       <motion.p
-        className="mt-2 font-display text-4xl font-bold text-brand-navy sm:text-5xl"
+        className="mt-2 font-poppins text-4xl font-bold text-brand-navy sm:text-5xl"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.5 }}

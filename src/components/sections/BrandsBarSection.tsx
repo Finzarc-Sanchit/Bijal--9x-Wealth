@@ -6,14 +6,14 @@ import { brandsBarLogos, brandsBarTitle, type BrandsBarPartner } from "@/data/br
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-function PartnerBrandSlot({ partner }: { partner: BrandsBarPartner }) {
+function PartnerBrandSlot({ partner }: { partner: BrandsBarPartner; }) {
   const [imageFailed, setImageFailed] = useState(false);
   const hasValidSrc = Boolean(partner.src?.trim());
   const showTypography = !hasValidSrc || imageFailed;
 
   if (showTypography) {
     return (
-      <span className="whitespace-nowrap text-lg font-medium tracking-tight text-white/70 transition-colors duration-300 hover:text-brand-gold md:text-xl">
+      <span className="font-inter whitespace-nowrap text-lg font-medium tracking-tight text-white/70 transition-colors duration-300 hover:text-brand-gold md:text-xl">
         {partner.name}
       </span>
     );
@@ -35,21 +35,24 @@ function PartnerBrandSlot({ partner }: { partner: BrandsBarPartner }) {
   );
 }
 
-export function BrandsBarSection({ className }: { className?: string }) {
+export function BrandsBarSection({ className }: { className?: string; }) {
   return (
     <section
-      className={cn("w-full overflow-hidden bg-brand-navy pb-16 pt-8 md:pb-24", className)}
+      className={cn("w-full overflow-hidden bg-brand-navy pb-16 pt-12 md:pb-24 md:pt-16", className)}
       aria-label={brandsBarTitle}
     >
       <div className="w-full max-w-full px-4 md:px-12 lg:px-16">
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-12 lg:gap-16 xl:gap-24">
-          <div className="shrink-0 text-left md:w-48 lg:w-56">
-            <p className="m-0 text-xl font-medium leading-snug tracking-tight text-white/90 md:text-2xl">
+        <div className="flex flex-col gap-8 md:gap-12">
+
+          {/* Top Centered Heading — Using Poppins and keeping precise design sizes */}
+          <div className="w-full text-center">
+            <p className="font-poppins font-semibold m-0 text-xl leading-snug tracking-tight text-white/90 md:text-2xl">
               {brandsBarTitle}
             </p>
           </div>
 
-          <div className="relative min-w-0 flex-1 py-4 md:py-2">
+          {/* Full-Width Slider Viewport Window Layer (Takes over the entire left space) */}
+          <div className="relative min-w-0 w-full py-4 md:py-2">
             <InfiniteSlider duration={45} durationOnHover={25} gap={112}>
               {brandsBarLogos.map((partner) => (
                 <div
@@ -61,9 +64,11 @@ export function BrandsBarSection({ className }: { className?: string }) {
               ))}
             </InfiniteSlider>
 
+            {/* Edge Micro-Gradients extending smoothly over full width canvas */}
             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-brand-navy via-brand-navy/30 to-transparent md:w-24" />
             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-brand-navy via-brand-navy/30 to-transparent md:w-24" />
 
+            {/* Premium Progressive Edge Blur Masks */}
             <ProgressiveBlur
               className="pointer-events-none absolute left-0 top-0 z-20 h-full w-16 md:w-24"
               direction="left"
@@ -75,6 +80,7 @@ export function BrandsBarSection({ className }: { className?: string }) {
               blurIntensity={1.2}
             />
           </div>
+
         </div>
       </div>
     </section>

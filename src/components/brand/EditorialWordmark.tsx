@@ -20,10 +20,10 @@ export function EditorialWordmark({
         className="pointer-events-none absolute -left-2 top-1/2 h-9 w-9 -translate-y-1/2 rounded-full border border-brand-gold/35 sm:h-10 sm:w-10"
         aria-hidden
       />
-      <span className="relative font-display text-[1.35rem] font-bold tracking-tight text-brand-navy sm:text-[1.5rem]">
+      <span className="relative font-poppins text-[1.35rem] font-bold tracking-tight text-brand-navy sm:text-[1.5rem]">
         9x
       </span>
-      <span className="font-display text-[1.35rem] font-bold tracking-tight text-brand-gold sm:text-[1.5rem]">
+      <span className="font-poppins text-[1.35rem] font-bold tracking-tight text-brand-gold sm:text-[1.5rem]">
         Wealth
       </span>
     </Link>

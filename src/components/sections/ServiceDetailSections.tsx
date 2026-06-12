@@ -93,7 +93,7 @@ export function ServiceDetailSections({ content }: { content: SiteContent }) {
                   </span>
                 </div>
 
-                <h2 className="font-display text-3xl font-bold leading-tight text-brand-navy sm:text-4xl">
+                <h2 className="font-poppins text-3xl font-bold leading-tight text-brand-navy sm:text-4xl">
                   {detail.label}
                 </h2>
                 <p className="mt-4 text-base leading-relaxed text-brand-muted sm:text-lg">
