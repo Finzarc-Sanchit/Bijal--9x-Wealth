@@ -18,26 +18,22 @@ export function Testimonial() {
       const quote = quoteRef.current;
       if (!quote) return;
 
-      // Select all the split words inside our blockquote
       const words = quote.querySelectorAll(".reveal-word");
 
       ctx = gsap.context(() => {
-        gsap.fromTo(
-          words,
-          { opacity: 0.15 }, // Dim starting state (unrevealed text)
-          {
-            opacity: 1, // Fully illuminated state
-            stagger: 0.1, // Reveal word-by-word progressively
-            ease: "none",
-            scrollTrigger: {
-              trigger: quote,
-              start: "top center+=20%", // Starts when the quote enters the center-lower viewport
-              end: "bottom center-=10%", // Ends when it reaches the upper-center viewport
-              scrub: true, // Ties the text lighting directly to scroll speed
-              invalidateOnRefresh: true,
-            },
-          }
-        );
+        // Changed to .to() because the starting state is now safely set in CSS
+        gsap.to(words, {
+          opacity: 1, // Fully illuminated state
+          stagger: 0.1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: quote,
+            start: "top center+=20%",
+            end: "bottom center-=10%",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
       }, quote);
     };
 
@@ -95,7 +91,7 @@ export function Testimonial() {
               {quoteText.split(" ").map((word, i) => (
                 <span
                   key={i}
-                  className="reveal-word inline-block mr-[0.22em] transition-colors duration-100"
+                  className="reveal-word inline-block mr-[0.22em] opacity-15 transition-colors duration-100"
                 >
                   {word}
                 </span>

@@ -1,38 +1,34 @@
 "use client";
 
-import { HeroAnimatedPillImage, HeroCrossfadeImage } from "@/components/hero/HeroAnimatedImage";
+import { HeroAnimatedPillImage } from "@/components/hero/HeroAnimatedImage";
 import { HeroVideoBackground } from "@/components/hero/HeroVideoBackground";
 import { useSiteIntro } from "@/components/layout/SiteIntroLayout";
 import { AXA_HERO_SLIDES } from "@/data/axa-hero-slides";
-import {
-  HERO_SCROLL_VH,
-  getHeroScrollProgress,
-  heroScrollProgressToStep,
-} from "@/components/hero/hero-themes";
-import { useHeroScrollSnap } from "@/components/hero/useHeroScrollSnap";
 import type { SiteContent } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
+const SLIDE_INTERVAL_MS = 5000;
 const SLIDE_TRANSITION = { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const };
 
-// Fluid headline — sizes from .hero-editorial-headline in globals.css (no nowrap; avoids 100vw overflow)
 const HEADLINE_CLASS =
   "hero-editorial-headline block w-full max-w-full min-w-0 box-border font-poppins font-medium uppercase tracking-tight text-white";
 
 const EPIGRAPH_CLASS =
   "text-sm font-inter font-medium italic leading-relaxed text-white/92 sm:text-[0.95rem] lg:text-base";
 
-function HeroCta({ label, href }: { label: string; href: string; }) {
+function HeroCta({ label, href }: { label: string; href: string }) {
   const className =
     "group inline-flex min-h-[48px] items-center rounded-full bg-brand-gold py-2 pl-6 pr-2 font-inter text-brand-navy shadow-[0_8px_28px_rgba(0,0,0,0.35)] transition-all duration-300 hover:bg-brand-gold-light hover:pr-3 sm:pl-8 tracking-normal normal-case";
 
   const inner = (
     <>
-      <span className="mr-3 text-sm font-semibold sm:mr-4 tracking-normal normal-case">{label}</span>
+      <span className="mr-3 text-sm font-semibold sm:mr-4 tracking-normal normal-case">
+        {label}
+      </span>
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-navy text-white transition group-hover:bg-brand-navy-light">
         <ArrowRight className="h-4 w-4" />
       </span>
@@ -78,10 +74,9 @@ function HeroStackedHeadline({
   };
 
   return (
-    <div className="flex w-full max-w-full flex-col items-start text-left m-0 p-0 select-none">
+    <div className="m-0 flex w-full max-w-full select-none flex-col items-start p-0 text-left">
       <h1 className="contents">
-        {/* Line 1 */}
-        <div className="overflow-hidden w-full pb-1">
+        <div className="w-full overflow-hidden pb-1">
           <motion.div
             className="flex w-full max-w-full flex-wrap items-center gap-3 sm:gap-4 md:gap-5"
             custom={scrollDirection}
@@ -99,14 +94,11 @@ function HeroStackedHeadline({
                 isActive={typingActive}
               />
             </span>
-            <span className={cn(HEADLINE_CLASS, "min-w-0 flex-1")}>
-              {slide.leadWord}
-            </span>
+            <span className={cn(HEADLINE_CLASS, "min-w-0 flex-1")}>{slide.leadWord}</span>
           </motion.div>
         </div>
 
-        {/* Line 2 */}
-        <div className="overflow-hidden w-full mt-1 sm:mt-2 pb-1">
+        <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
           <motion.div
             custom={scrollDirection}
             variants={lineVariants}
@@ -115,14 +107,11 @@ function HeroStackedHeadline({
             exit="exit"
             transition={SLIDE_TRANSITION}
           >
-            <span className={HEADLINE_CLASS}>
-              {line2}
-            </span>
+            <span className={HEADLINE_CLASS}>{line2}</span>
           </motion.div>
         </div>
 
-        {/* Line 3 */}
-        <div className="overflow-hidden w-full mt-1 sm:mt-2 pb-1">
+        <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
           <motion.div
             custom={scrollDirection}
             variants={lineVariants}
@@ -131,14 +120,11 @@ function HeroStackedHeadline({
             exit="exit"
             transition={SLIDE_TRANSITION}
           >
-            <span className={HEADLINE_CLASS}>
-              {line3}
-            </span>
+            <span className={HEADLINE_CLASS}>{line3}</span>
           </motion.div>
         </div>
 
-        {/* Line 4 */}
-        <div className="overflow-hidden w-full mt-2 sm:mt-3 pb-1">
+        <div className="mt-2 w-full overflow-hidden pb-1 sm:mt-3">
           <motion.div
             custom={scrollDirection}
             variants={lineVariants}
@@ -147,119 +133,85 @@ function HeroStackedHeadline({
             exit="exit"
             transition={SLIDE_TRANSITION}
           >
-            <span className={HEADLINE_CLASS}>
-              {closingLine}
-            </span>
+            <span className={HEADLINE_CLASS}>{closingLine}</span>
           </motion.div>
         </div>
       </h1>
 
-      {/* Description Text (Epigraph) with expanded spatial desktop boundaries */}
-      <div className="relative min-w-0 w-full mt-6 md:mt-8 overflow-hidden">
+      <div className="relative mt-6 w-full min-w-0 overflow-hidden md:mt-8">
         <AnimatePresence mode="wait">
           {introReady ? (
             <motion.div
-              key={slideIndex + "-epigraph"}
-              className="w-full max-w-xl md:max-w-2xl lg:max-w-3xl text-left"
+              key={`${slideIndex}-epigraph`}
+              className="w-full max-w-xl text-left md:max-w-2xl lg:max-w-3xl"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
             >
-              <p className={EPIGRAPH_CLASS}>
-                {`"${slide.epigraph}"`}
-              </p>
+              <p className={EPIGRAPH_CLASS}>{`"${slide.epigraph}"`}</p>
             </motion.div>
           ) : null}
         </AnimatePresence>
       </div>
 
-      {/* Action CTA Button */}
-      <div className="w-full sm:w-auto mt-8 md:mt-10 block relative z-30">
+      <div className="relative z-30 mt-8 block w-full sm:mt-10 md:mt-10 sm:w-auto">
         <HeroCta label={slide.cta.label} href={slide.cta.href} />
       </div>
     </div>
   );
 }
 
-export function AxaStyleHero({ content: _content }: { content: SiteContent; }) {
-  const { introComplete, layoutReady } = useSiteIntro();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const lastScrollY = useRef(0);
+export function AxaStyleHero({ content: _content }: { content: SiteContent }) {
+  const { introComplete } = useSiteIntro();
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const [scrollDirection, setScrollDirection] = useState<"up" | "down">("down");
 
-  const { scrollToStep } = useHeroScrollSnap(containerRef);
-
-  const syncHeroScroll = useCallback(() => {
-    if (!introComplete) return;
-
-    const el = containerRef.current;
-    if (!el) return;
-
-    const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY.current) {
-      setScrollDirection("down");
-    } else if (currentScrollY < lastScrollY.current) {
-      setScrollDirection("up");
-    }
-    lastScrollY.current = currentScrollY;
-
-    setActiveIndex(heroScrollProgressToStep(getHeroScrollProgress(el)));
-  }, [introComplete]);
-
   useEffect(() => {
     if (!introComplete) return;
 
-    syncHeroScroll();
     setIsReady(true);
 
-    window.addEventListener("scroll", syncHeroScroll, { passive: true });
-    window.addEventListener("resize", syncHeroScroll);
-    return () => {
-      window.removeEventListener("scroll", syncHeroScroll);
-      window.removeEventListener("resize", syncHeroScroll);
-    };
-  }, [syncHeroScroll, introComplete]);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return;
 
-  useEffect(() => {
-    if (!layoutReady) return;
+    const interval = window.setInterval(() => {
+      setScrollDirection("down");
+      setActiveIndex((current) => (current + 1) % AXA_HERO_SLIDES.length);
+    }, SLIDE_INTERVAL_MS);
 
-    scrollToStep(0, "auto");
-    setActiveIndex(0);
-    lastScrollY.current = 0;
-  }, [layoutReady, scrollToStep]);
+    return () => window.clearInterval(interval);
+  }, [introComplete]);
 
   return (
-    <div
-      ref={containerRef}
-      className="hero-scroll-section relative box-border w-full max-w-full"
-      style={{ height: `${HERO_SCROLL_VH}vh` }}
+    <section
       id="hero"
+      className="hero-scroll-section relative box-border min-h-[100dvh] w-full max-w-full"
+      aria-live="polite"
+      aria-atomic="true"
     >
-      <div className="sticky top-0 box-border flex h-[100dvh] max-w-full items-start overflow-hidden pt-24 sm:pt-28">
+      <div className="relative box-border flex min-h-[100dvh] max-w-full items-start overflow-hidden pt-24 sm:pt-28">
         <HeroVideoBackground />
 
         <div className="relative z-10 box-border w-full max-w-full min-w-0 px-4 py-8 md:px-12 lg:px-16 xl:px-24">
-          <div className="box-border w-full max-w-7xl min-w-0 pt-12 text-left md:pt-16 xl:pt-20">
+          <div className="box-border w-full min-w-0 max-w-7xl pt-12 text-left md:pt-16 xl:pt-20">
             <div className="relative z-10 w-full min-w-0">
               <AnimatePresence mode="wait" custom={scrollDirection}>
-                {isReady && introComplete && (
+                {isReady && introComplete ? (
                   <HeroStackedHeadline
                     key={activeIndex}
                     slideIndex={activeIndex}
                     introReady={introComplete}
                     scrollDirection={scrollDirection}
                   />
-                )}
+                ) : null}
               </AnimatePresence>
             </div>
           </div>
         </div>
-
       </div>
-    </div>
+    </section>
   );
 }
