@@ -5,7 +5,7 @@ import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 export const HERO_BACKGROUND_VIDEO = {
-  src: "/videos/hero-family.mp4",
+  src: "/videos/hero.mp4",
   poster: "/images/hero/hni-panel-1-boardroom.png",
 } as const;
 
@@ -22,10 +22,10 @@ export function HeroVideoBackground({ className }: { className?: string; }) {
   }, [reduceMotion]);
 
   return (
-    <div className={cn("pointer-events-none absolute inset-0 z-0", className)} aria-hidden>
+    <div className={cn("pointer-events-none absolute inset-0 z-0 overflow-hidden", className)} aria-hidden>
       <video
         ref={videoRef}
-        className="h-full w-full scale-105 object-cover"
+        className="box-border h-full w-full max-w-none object-cover"
         autoPlay={!reduceMotion}
         muted
         loop

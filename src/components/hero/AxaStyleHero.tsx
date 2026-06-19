@@ -19,9 +19,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const SLIDE_TRANSITION = { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const };
 
-// Added a fluid responsive text scale stack to prevent horizontal clipping across ultra-wide desktop layouts
+// Fluid headline — sizes from .hero-editorial-headline in globals.css (no nowrap; avoids 100vw overflow)
 const HEADLINE_CLASS =
-  "hero-editorial-headline block w-full font-poppins font-medium uppercase tracking-tight text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[6.5rem] leading-[1.05] whitespace-nowrap";
+  "hero-editorial-headline block w-full max-w-full min-w-0 box-border font-poppins font-medium uppercase tracking-tight text-white";
 
 const EPIGRAPH_CLASS =
   "text-sm font-inter font-medium italic leading-relaxed text-white/92 sm:text-[0.95rem] lg:text-base";
@@ -183,7 +183,7 @@ function HeroStackedHeadline({
 }
 
 export function AxaStyleHero({ content: _content }: { content: SiteContent; }) {
-  const { introComplete } = useSiteIntro();
+  const { introComplete, layoutReady } = useSiteIntro();
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
 
@@ -225,26 +225,25 @@ export function AxaStyleHero({ content: _content }: { content: SiteContent; }) {
   }, [syncHeroScroll, introComplete]);
 
   useEffect(() => {
-    if (introComplete) {
-      window.scrollTo({ top: 0, behavior: "auto" });
-      scrollToStep(0, "auto");
-      setActiveIndex(0);
-    }
-  }, [introComplete, scrollToStep]);
+    if (!layoutReady) return;
+
+    scrollToStep(0, "auto");
+    setActiveIndex(0);
+    lastScrollY.current = 0;
+  }, [layoutReady, scrollToStep]);
 
   return (
     <div
       ref={containerRef}
-      className="hero-scroll-section relative bg-black/10 w-full"
+      className="hero-scroll-section relative box-border w-full max-w-full"
       style={{ height: `${HERO_SCROLL_VH}vh` }}
       id="hero"
     >
-      <div className="sticky top-0 flex h-[100dvh] items-start overflow-hidden pt-24 sm:pt-28">
+      <div className="sticky top-0 box-border flex h-[100dvh] max-w-full items-start overflow-hidden pt-24 sm:pt-28">
         <HeroVideoBackground />
 
-        {/* Blown wide layout limits: max-w-full lets the component scale smoothly without horizontal grid clipping */}
-        <div className="relative z-10 w-full max-w-full px-4 py-8 md:px-12 lg:px-16 xl:px-24">
-          <div className="w-full max-w-7xl pt-12 md:pt-16 xl:pt-20 text-left">
+        <div className="relative z-10 box-border w-full max-w-full min-w-0 px-4 py-8 md:px-12 lg:px-16 xl:px-24">
+          <div className="box-border w-full max-w-7xl min-w-0 pt-12 text-left md:pt-16 xl:pt-20">
             <div className="relative z-10 w-full min-w-0">
               <AnimatePresence mode="wait" custom={scrollDirection}>
                 {isReady && introComplete && (

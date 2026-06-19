@@ -102,11 +102,16 @@ function EditorialStatRow({ stat }: { stat: (typeof PREMIUM_STATS)[number]; }) {
       </div>
 
       <div
-        className="grid grid-cols-[1.2fr_1.8fr] items-center gap-6 pb-10 sm:grid-cols-[1fr_1.5fr] sm:gap-8 md:pb-12 lg:gap-10 lg:pb-14"
+        className="grid min-w-0 grid-cols-1 items-center gap-6 pb-10 sm:grid-cols-[1fr_1.5fr] sm:gap-8 md:pb-12 lg:gap-10 lg:pb-14"
         aria-label={`${stat.value.toLocaleString("en-IN")}${stat.suffix} ${stat.labelLines.join(" ")}`}
       >
-        <EditorialStatValue value={stat.value} suffix={stat.suffix} isInView={isInView} />
-        <p className="font-inter border-l border-brand-navy/5 pl-4 text-xl font-medium tracking-normal text-brand-navy sm:pl-8 sm:text-2xl sm:leading-snug lg:text-[1.65rem]">
+        <EditorialStatValue
+          value={stat.value}
+          suffix={stat.suffix}
+          isInView={isInView}
+          className="min-w-0 max-w-full [&>span:first-child]:text-[clamp(4.5rem,18vw,11.25rem)] [&>span:last-child]:text-[clamp(2.25rem,9vw,4.5rem)] sm:[&>span:first-child]:text-[clamp(5rem,10vw,11.25rem)] sm:[&>span:last-child]:text-[clamp(2.5rem,5vw,4.5rem)]"
+        />
+        <p className="font-inter min-w-0 w-full max-w-full self-center break-words border-l border-brand-navy/5 pl-4 text-right text-xl font-medium tracking-normal text-brand-navy sm:pl-0 sm:text-2xl sm:leading-snug lg:text-[1.65rem]">
           {stat.labelLines.join(" ")}
         </p>
       </div>
@@ -130,7 +135,7 @@ export function StatsSection({ className }: { className?: string; }) {
         <div className="grid grid-cols-1 items-start gap-16 md:gap-20 lg:grid-cols-[1.1fr_1.9fr] lg:gap-24 xl:gap-32">
           {/* Left — sticky editorial copy & CTAs */}
           <div className="max-w-xl lg:sticky lg:top-32">
-            <h2 className="font-poppins mb-6 text-brand-navy uppercase tracking-[0.14em]">
+            <h2 className="mb-6 font-poppins text-4xl font-medium uppercase tracking-tight !leading-[0.92] text-brand-navy">
               OUR IMPACT IN NUMBERS
             </h2>
             <p className="font-inter font-normal leading-[1.5] text-brand-navy">{LEFT_COPY}</p>
@@ -153,7 +158,7 @@ export function StatsSection({ className }: { className?: string; }) {
           </div>
 
           {/* Right — down-shifted editorial metrics */}
-          <div className="w-full lg:mt-32">
+          <div className="w-full min-w-0 lg:mt-32">
             <div className="flex flex-col">
               {PREMIUM_STATS.map((stat) => (
                 <EditorialStatRow key={stat.id} stat={stat} />

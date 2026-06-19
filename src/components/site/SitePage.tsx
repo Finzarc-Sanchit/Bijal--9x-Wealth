@@ -3,6 +3,11 @@ import { SiteIntroLayout } from "@/components/layout/SiteIntroLayout";
 import { AxaStyleHero } from "@/components/hero/AxaStyleHero";
 import { BrandsBarSection } from "@/components/sections/BrandsBarSection";
 import { StatsSection } from "@/components/sections/StatsSection";
+import { AreasOfPracticeSection } from "@/components/sections/AreasOfPracticeSection";
+import { UHNISection } from "@/components/sections/UHNISection";
+import { ProcessSection } from "@/components/sections/ProcessSection";
+import { WhatWeProtectSection } from "@/components/sections/WhatWeProtectSection";
+import { OurConvictionSection } from "@/components/sections/OurConvictionSection";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteNav } from "@/components/layout/SiteNav";
 import { ConsultationFormSection } from "@/components/sections/ConsultationFormSection";
@@ -11,6 +16,7 @@ import { FinancialHealthQuiz } from "@/components/sections/FinancialHealthQuiz";
 import { GoalSliderSection } from "@/components/sections/GoalSliderSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ContactSection } from "@/templates/shared/sections";
+import { Testimonial } from "../sections/Testimonial";
 
 export function SitePage({ content }: { content: SiteContent; }) {
   return (
@@ -21,6 +27,12 @@ export function SitePage({ content }: { content: SiteContent; }) {
           <AxaStyleHero content={content} />
           <StatsSection />
           <BrandsBarSection />
+          <OurConvictionSection />
+          <WhatWeProtectSection />
+          <AreasOfPracticeSection />
+          <UHNISection />
+          <ProcessSection />
+          <Testimonial />
           <FinancialHealthQuiz />
           <GoalSliderSection />
           <ServicesSection content={content} />

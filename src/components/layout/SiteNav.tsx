@@ -2,45 +2,43 @@
 
 import { EditorialWordmark } from "@/components/brand/EditorialWordmark";
 import { useSiteIntro } from "@/components/layout/SiteIntroLayout";
-import { NavMenuDropdown } from "@/components/layout/NavMenuDropdown";
-import { ServicesNavDropdown } from "@/components/layout/ServicesNavDropdown";
-import {
-  CONTACT,
-  EDITORIAL_NAV_CTA,
-  EDITORIAL_NAV_MENUS,
-  SITE_NAV_LINKS,
-} from "@/lib/constants";
+import { CONTACT, EDITORIAL_NAV_CTA, NAV, type NavItem } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, MessageCircle, Moon, Sun, X } from "lucide-react";
+import { ChevronDown, Menu, MessageCircle, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 const CTA = {
   label: "Book Consultation",
   href: "/#consultation-form",
 } as const;
 
+const POINTER = "cursor-pointer";
+
 function NavLink({
   href,
   label,
   className,
   onClick,
+  onMouseEnter,
 }: {
   href: string;
   label: string;
   className: string;
   onClick?: () => void;
+  onMouseEnter?: () => void;
 }) {
   const isExternal = href.startsWith("http");
   const isHashOnly = href.startsWith("/#") || href.startsWith("#");
+  const classes = cn(className, POINTER);
 
   if (isExternal) {
     return (
-      <a href={href} className={className} onClick={onClick} rel="noopener noreferrer" target="_blank">
+      <a href={href} className={classes} onClick={onClick} onMouseEnter={onMouseEnter} rel="noopener noreferrer" target="_blank">
         {label}
       </a>
     );
@@ -48,20 +46,368 @@ function NavLink({
 
   if (isHashOnly) {
     return (
-      <a href={href} className={className} onClick={onClick}>
+      <a href={href} className={classes} onClick={onClick} onMouseEnter={onMouseEnter}>
         {label}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={className} onClick={onClick}>
+    <Link href={href} className={classes} onClick={onClick} onMouseEnter={onMouseEnter}>
       {label}
     </Link>
   );
 }
 
-function ThemeToggle({ className }: { className?: string }) {
+function NavMenu({
+  item,
+  navLinkClass,
+  onNavigate,
+  variant = "desktop",
+  mobileSubLinkClass,
+  mobileHubClass,
+  mobileGroupHeadingClass,
+  openMenu,
+  onMenuEnter,
+  onMenuLeave,
+}: {
+  item: Extract<NavItem, { kind: "menu"; }>;
+  navLinkClass: string;
+  onNavigate?: () => void;
+  variant?: "desktop" | "mobile";
+  mobileSubLinkClass?: string;
+  mobileHubClass?: string;
+  mobileGroupHeadingClass?: string;
+  openMenu?: string | null;
+  onMenuEnter?: (label: string) => void;
+  onMenuLeave?: (event: React.MouseEvent<HTMLElement> | React.FocusEvent<HTMLElement>) => void;
+}) {
+  const menuId = useId();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const isDesktopOpen = openMenu === item.label;
+
+  const handleOpen = useCallback(() => {
+    onMenuEnter?.(item.label);
+  }, [item.label, onMenuEnter]);
+
+  const handleLeave = useCallback(
+    (event: React.MouseEvent<HTMLElement> | React.FocusEvent<HTMLElement>) => {
+      onMenuLeave?.(event);
+    },
+    [onMenuLeave],
+  );
+
+  if (variant === "mobile") {
+    const subLinkClass =
+      mobileSubLinkClass ??
+      cn(POINTER, "flex min-h-[44px] items-center rounded-lg px-4 py-2 text-sm font-medium text-brand-navy hover:bg-brand-cream");
+    const hubClass = mobileHubClass ?? "font-semibold text-brand-teal";
+    const groupHeadingClass = mobileGroupHeadingClass ?? "text-brand-muted";
+
+    return (
+      <div className="rounded-xl">
+        <button
+          type="button"
+          className={cn(
+            "flex min-h-[44px] w-full items-center justify-between rounded-xl px-4 text-base font-medium",
+            navLinkClass,
+            POINTER,
+          )}
+          aria-expanded={mobileOpen}
+          aria-controls={menuId}
+          onClick={() => setMobileOpen((value) => !value)}
+        >
+          {item.label}
+          <ChevronDown
+            className={cn("h-4 w-4 transition-transform", mobileOpen && "rotate-180")}
+            aria-hidden
+          />
+        </button>
+
+        <AnimatePresence initial={false}>
+          {mobileOpen ? (
+            <motion.div
+              id={menuId}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden pl-2"
+            >
+              <NavLink
+                href={item.hub.href}
+                label={item.hub.label}
+                onClick={onNavigate}
+                className={cn("flex min-h-[44px] items-center rounded-lg px-4 text-sm", hubClass)}
+              />
+
+              {item.groups.map((group) => (
+                <div key={group.heading} className="mt-2">
+                  <p
+                    className={cn(
+                      "px-4 py-1 text-xs font-bold uppercase tracking-[0.16em]",
+                      groupHeadingClass,
+                      POINTER,
+                    )}
+                  >
+                    {group.heading}
+                  </p>
+                  <ul>
+                    {group.items.map((link) => (
+                      <li key={link.href + link.label}>
+                        <NavLink
+                          href={link.href}
+                          label={link.label}
+                          onClick={onNavigate}
+                          className={subLinkClass}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  const panelWidth =
+    item.groups.length > 1
+      ? "w-[min(28rem,calc(100vw-2rem))]"
+      : "w-[min(18rem,calc(100vw-2rem))]";
+
+  return (
+    <li>
+      <div
+        data-nav-menu-root=""
+        className="relative"
+        onMouseEnter={handleOpen}
+        onMouseLeave={handleLeave}
+        onFocus={handleOpen}
+        onBlur={(event) => {
+          const related = event.relatedTarget;
+          if (related instanceof Element && related.closest("[data-nav-menu-root]")) return;
+          onMenuLeave?.(event);
+        }}
+      >
+        <button
+          type="button"
+          className={cn(navLinkClass, "inline-flex items-center gap-1", POINTER)}
+          aria-expanded={isDesktopOpen}
+          aria-haspopup="true"
+          aria-controls={menuId}
+        >
+          {item.label}
+          <ChevronDown
+            className={cn("h-3.5 w-3.5 opacity-70 transition-transform", isDesktopOpen && "rotate-180")}
+            aria-hidden
+          />
+        </button>
+
+        {isDesktopOpen ? (
+          <div className="absolute left-1/2 top-full z-[70] -translate-x-1/2 pt-2">
+            <motion.div
+              id={menuId}
+              role="menu"
+              initial={{ opacity: 0, y: 4, scale: 0.99 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className={cn(
+                "pointer-events-auto overflow-hidden rounded-2xl border border-brand-navy/8 bg-white shadow-[0_20px_48px_-18px_rgba(10,22,40,0.28)]",
+                panelWidth,
+              )}
+            >
+              {/* <div className="border-b border-brand-navy/6 bg-brand-cream/60 px-4 py-3">
+              <NavLink
+                href={item.hub.href}
+                label={item.hub.label}
+                onClick={onNavigate}
+                className="text-sm font-semibold text-brand-teal transition-colors hover:text-brand-navy"
+              />
+            </div> */}
+
+              <div
+                className={cn(
+                  "grid gap-4 p-3",
+                  item.groups.length > 1 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1",
+                )}
+              >
+                {item.groups.map((group) => (
+                  <div key={group.heading}>
+                    <p
+                      className={cn(
+                        "px-2 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-brand-muted",
+                        POINTER,
+                      )}
+                    >
+                      {group.heading}
+                    </p>
+                    <ul className="mt-1.5" role="none">
+                      {group.items.map((link) => (
+                        <li key={link.href + link.label} role="none">
+                          <NavLink
+                            href={link.href}
+                            label={link.label}
+                            onClick={onNavigate}
+                            className="flex min-h-[40px] items-center rounded-lg px-2 text-sm font-medium text-brand-navy transition-colors hover:bg-brand-cream hover:text-brand-teal"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        ) : null}
+      </div>
+    </li>
+  );
+}
+
+function NavItems({
+  navLinkClass,
+  onNavigate,
+  variant = "desktop",
+  mobileSubLinkClass,
+  mobileHubClass,
+  mobileGroupHeadingClass,
+  mobileTopLinkClass,
+  listLeaveRef,
+}: {
+  navLinkClass: string;
+  onNavigate?: () => void;
+  variant?: "desktop" | "mobile";
+  mobileSubLinkClass?: string;
+  mobileHubClass?: string;
+  mobileGroupHeadingClass?: string;
+  mobileTopLinkClass?: string;
+  listLeaveRef?: React.MutableRefObject<((event: React.MouseEvent<HTMLUListElement>) => void) | null>;
+}) {
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const closeTimer = useRef<number | undefined>(undefined);
+
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimer.current !== undefined) {
+      window.clearTimeout(closeTimer.current);
+      closeTimer.current = undefined;
+    }
+  }, []);
+
+  const handleMenuEnter = useCallback(
+    (label: string) => {
+      clearCloseTimer();
+      setOpenMenu(label);
+    },
+    [clearCloseTimer],
+  );
+
+  const handleMenuLeave = useCallback(
+    (event: React.MouseEvent<HTMLElement> | React.FocusEvent<HTMLElement>) => {
+      const related = event.relatedTarget;
+      if (related instanceof Element && related.closest("[data-nav-menu-root]")) return;
+
+      clearCloseTimer();
+      closeTimer.current = window.setTimeout(() => setOpenMenu(null), 150);
+    },
+    [clearCloseTimer],
+  );
+
+  const handleNavListLeave = useCallback(
+    (event: React.MouseEvent<HTMLUListElement>) => {
+      const related = event.relatedTarget as Node | null;
+      if (event.currentTarget.contains(related)) return;
+
+      clearCloseTimer();
+      setOpenMenu(null);
+    },
+    [clearCloseTimer],
+  );
+
+  useEffect(() => {
+    if (variant !== "desktop" || !listLeaveRef) return;
+    listLeaveRef.current = handleNavListLeave;
+    return () => {
+      listLeaveRef.current = null;
+    };
+  }, [handleNavListLeave, listLeaveRef, variant]);
+
+  const resolvedMobileSubLinkClass =
+    mobileSubLinkClass ??
+    cn(POINTER, "flex min-h-[44px] items-center rounded-lg px-4 py-2 text-sm font-medium text-brand-navy hover:bg-brand-cream");
+  const resolvedMobileHubClass = mobileHubClass ?? "font-semibold text-brand-teal";
+  const resolvedMobileGroupHeadingClass = mobileGroupHeadingClass ?? "text-brand-muted";
+
+  return (
+    <>
+      {NAV.map((entry) => {
+        if (entry.kind === "link") {
+          if (variant === "mobile") {
+            return (
+              <NavLink
+                key={entry.href}
+                href={entry.href}
+                label={entry.label}
+                onClick={onNavigate}
+                className={cn(
+                  "flex min-h-[44px] items-center rounded-xl px-4 text-base font-medium",
+                  mobileTopLinkClass ?? navLinkClass,
+                )}
+              />
+            );
+          }
+
+          return (
+            <li key={entry.href}>
+              <NavLink
+                href={entry.href}
+                label={entry.label}
+                className={navLinkClass}
+                onClick={onNavigate}
+                onMouseEnter={() => {
+                  clearCloseTimer();
+                  setOpenMenu(null);
+                }}
+              />
+            </li>
+          );
+        }
+
+        if (variant === "mobile") {
+          return (
+            <NavMenu
+              key={entry.label}
+              item={entry}
+              navLinkClass={navLinkClass}
+              onNavigate={onNavigate}
+              variant="mobile"
+              mobileSubLinkClass={resolvedMobileSubLinkClass}
+              mobileHubClass={resolvedMobileHubClass}
+              mobileGroupHeadingClass={resolvedMobileGroupHeadingClass}
+            />
+          );
+        }
+
+        return (
+          <NavMenu
+            key={entry.label}
+            item={entry}
+            navLinkClass={navLinkClass}
+            onNavigate={onNavigate}
+            variant="desktop"
+            openMenu={openMenu}
+            onMenuEnter={handleMenuEnter}
+            onMenuLeave={handleMenuLeave}
+          />
+        );
+      })}
+    </>
+  );
+}
+
+function ThemeToggle({ className }: { className?: string; }) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -78,6 +424,7 @@ function ThemeToggle({ className }: { className?: string }) {
       type="button"
       className={cn(
         "inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full text-brand-muted transition hover:text-brand-navy",
+        POINTER,
         className,
       )}
       onClick={() => setTheme(isDark ? "light" : "dark")}
@@ -98,6 +445,7 @@ export function SiteNav({
   const { showNavLogo } = useSiteIntro();
   const { scrolled, navVisible } = useScrollDirection();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navListLeaveRef = useRef<((event: React.MouseEvent<HTMLUListElement>) => void) | null>(null);
   const isFloating = variant === "floating";
   const isEditorial = variant === "editorial";
 
@@ -112,6 +460,7 @@ export function SiteNav({
   const useSolidNav = isFloating || isEditorial || scrolled;
 
   const navLinkClass = cn(
+    POINTER,
     "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
     useSolidNav
       ? "text-brand-navy/80 hover:bg-brand-cream hover:text-brand-navy"
@@ -121,19 +470,26 @@ export function SiteNav({
   const showHeader = pinVisible || navVisible || mobileOpen || isEditorial;
 
   if (isEditorial) {
-    const editorialLinkClass =
-      "rounded-lg px-3 py-2 text-sm font-medium text-brand-muted transition-colors duration-300 hover:bg-brand-gold/10 hover:text-brand-navy";
+    const editorialLinkClass = cn(
+      POINTER,
+      "rounded-lg px-3 py-2 text-sm font-medium text-brand-muted transition-colors duration-300 hover:bg-brand-gold/10 hover:text-brand-navy",
+    );
+
+    const editorialMobileSubLink = cn(
+      POINTER,
+      "flex min-h-[44px] items-center rounded-lg px-4 py-2 text-sm font-medium text-brand-muted transition-colors hover:bg-brand-gold/10 hover:text-brand-navy",
+    );
 
     return (
       <motion.header
-        className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6"
+        className="fixed inset-x-0 top-0 z-50 overflow-visible px-4 pt-4 sm:px-6"
         initial={{ y: -24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         <motion.nav
           aria-label="Main navigation"
-          className="editorial-floating-nav mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 rounded-2xl border border-brand-gold/25 bg-[#f3ece0]/90 px-4 shadow-[0_18px_48px_-22px_rgba(10,22,40,0.28)] backdrop-blur-xl sm:px-6 lg:px-8"
+          className="editorial-floating-nav mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 overflow-visible rounded-2xl border border-brand-gold/25 bg-[#f3ece0]/90 px-4 shadow-[0_18px_48px_-22px_rgba(10,22,40,0.28)] backdrop-blur-xl sm:px-6 lg:px-8"
           style={{ minHeight: 68 }}
           animate={{
             boxShadow: [
@@ -146,24 +502,15 @@ export function SiteNav({
         >
           <EditorialWordmark onNavigate={closeMobile} />
 
-          <ul className="hidden items-center justify-center gap-1 lg:flex xl:gap-2">
-            {EDITORIAL_NAV_MENUS.map((menu) => (
-              <NavMenuDropdown
-                key={menu.label}
-                label={menu.label}
-                items={menu.items}
-                navLinkClass={editorialLinkClass}
-                onNavigate={closeMobile}
-              />
-            ))}
-            <li>
-              <NavLink
-                href="/#contact"
-                label="Contact"
-                className={editorialLinkClass}
-                onClick={closeMobile}
-              />
-            </li>
+          <ul
+            className="hidden items-center justify-center gap-1 overflow-visible lg:flex xl:gap-2"
+            onMouseLeave={(event) => navListLeaveRef.current?.(event)}
+          >
+            <NavItems
+              navLinkClass={editorialLinkClass}
+              onNavigate={closeMobile}
+              listLeaveRef={navListLeaveRef}
+            />
           </ul>
 
           <div className="flex items-center justify-end gap-2 sm:gap-3">
@@ -171,7 +518,10 @@ export function SiteNav({
               href={EDITORIAL_NAV_CTA.portalHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden text-sm font-medium text-brand-muted transition hover:text-brand-navy md:inline"
+              className={cn(
+                "hidden text-sm font-medium text-brand-muted transition hover:text-brand-navy md:inline",
+                POINTER,
+              )}
             >
               {EDITORIAL_NAV_CTA.portalLabel}
             </a>
@@ -179,13 +529,19 @@ export function SiteNav({
             <Link
               href={EDITORIAL_NAV_CTA.scheduleHref}
               onClick={closeMobile}
-              className="hidden min-h-[44px] items-center rounded-md bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition hover:bg-brand-gold-light sm:inline-flex sm:px-5 sm:text-sm"
+              className={cn(
+                "hidden min-h-[44px] items-center rounded-md bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition hover:bg-brand-gold-light sm:inline-flex sm:px-5 sm:text-sm",
+                POINTER,
+              )}
             >
               {EDITORIAL_NAV_CTA.scheduleLabel}
             </Link>
             <button
               type="button"
-              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-brand-navy lg:hidden"
+              className={cn(
+                "inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-brand-navy lg:hidden",
+                POINTER,
+              )}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav-panel"
               onClick={() => setMobileOpen((open) => !open)}
@@ -206,21 +562,14 @@ export function SiteNav({
               className="editorial-floating-nav mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-brand-gold/20 bg-[#f3ece0]/95 shadow-lg backdrop-blur-xl lg:hidden"
             >
               <div className="space-y-1 px-5 py-4">
-                {EDITORIAL_NAV_MENUS.map((menu) => (
-                  <NavMenuDropdown
-                    key={menu.label}
-                    label={menu.label}
-                    items={menu.items}
-                    navLinkClass={navLinkClass}
-                    onNavigate={closeMobile}
-                    variant="mobile"
-                  />
-                ))}
-                <NavLink
-                  href="/#contact"
-                  label="Contact"
-                  onClick={closeMobile}
-                  className="flex min-h-[44px] items-center rounded-xl px-4 text-base font-medium text-brand-muted"
+                <NavItems
+                  navLinkClass={editorialLinkClass}
+                  onNavigate={closeMobile}
+                  variant="mobile"
+                  mobileSubLinkClass={editorialMobileSubLink}
+                  mobileHubClass="font-semibold text-brand-teal"
+                  mobileGroupHeadingClass="text-brand-muted"
+                  mobileTopLinkClass="text-brand-muted"
                 />
               </div>
               <div className="flex flex-col gap-3 border-t border-brand-navy/8 px-5 py-4">
@@ -228,14 +577,17 @@ export function SiteNav({
                   href={EDITORIAL_NAV_CTA.portalHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-medium text-brand-muted"
+                  className={cn("text-sm font-medium text-brand-muted transition hover:text-brand-navy", POINTER)}
                 >
                   {EDITORIAL_NAV_CTA.portalLabel}
                 </a>
                 <Link
                   href={EDITORIAL_NAV_CTA.scheduleHref}
                   onClick={closeMobile}
-                  className="inline-flex min-h-[48px] items-center justify-center rounded-md bg-brand-gold text-sm font-semibold text-brand-navy"
+                  className={cn(
+                    "inline-flex min-h-[48px] items-center justify-center rounded-md bg-brand-gold text-sm font-semibold text-brand-navy transition hover:bg-brand-gold-light",
+                    POINTER,
+                  )}
                 >
                   {EDITORIAL_NAV_CTA.scheduleLabel}
                 </Link>
@@ -247,18 +599,23 @@ export function SiteNav({
     );
   }
 
+  const defaultMobileSubLink = cn(
+    POINTER,
+    "flex min-h-[44px] items-center rounded-lg px-4 py-2 text-sm font-medium text-brand-navy transition-colors hover:bg-brand-cream",
+  );
+
   return (
     <motion.header
-      className={cn("fixed inset-x-0 top-0 z-50", isFloating && "pointer-events-none")}
+      className={cn("fixed inset-x-0 top-0 z-50 overflow-visible", isFloating && "pointer-events-none")}
       initial={false}
       animate={{ y: showHeader ? 0 : "-100%" }}
       transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className={cn(isFloating && "pointer-events-auto mx-auto max-w-6xl px-4 pt-3 sm:px-6")}>
+      <div className={cn(isFloating && "pointer-events-auto mx-auto max-w-6xl overflow-visible px-4 pt-3 sm:px-6")}>
         <nav
           aria-label="Main navigation"
           className={cn(
-            "transition-all duration-300",
+            "overflow-visible transition-all duration-300",
             isFloating
               ? "rounded-2xl border border-brand-navy/8 bg-white/92 text-brand-navy shadow-[0_12px_40px_-16px_rgba(10,22,40,0.18)] backdrop-blur-md"
               : useSolidNav
@@ -268,13 +625,13 @@ export function SiteNav({
         >
           <div
             className={cn(
-              "mx-auto flex items-center justify-between gap-4",
+              "mx-auto flex items-center justify-between gap-4 overflow-visible",
               isFloating ? "h-[64px] max-w-none px-4 sm:px-5" : "h-[72px] max-w-6xl px-4 sm:px-6",
             )}
           >
             <Link
               href="/"
-              className="relative flex shrink-0 items-center"
+              className={cn("relative flex shrink-0 items-center", POINTER)}
               onClick={closeMobile}
               aria-label="9X Wealth Financial Services — Home"
             >
@@ -295,20 +652,15 @@ export function SiteNav({
               )}
             </Link>
 
-            <ul className="hidden items-center gap-0.5 lg:flex xl:gap-1">
-              {SITE_NAV_LINKS.map((link) =>
-                link.label === "Services" ? (
-                  <ServicesNavDropdown
-                    key={link.href}
-                    navLinkClass={navLinkClass}
-                    onNavigate={closeMobile}
-                  />
-                ) : (
-                  <li key={link.href}>
-                    <NavLink href={link.href} label={link.label} className={navLinkClass} />
-                  </li>
-                ),
-              )}
+            <ul
+              className="hidden items-center gap-0.5 overflow-visible lg:flex xl:gap-1"
+              onMouseLeave={(event) => navListLeaveRef.current?.(event)}
+            >
+              <NavItems
+                navLinkClass={navLinkClass}
+                onNavigate={closeMobile}
+                listLeaveRef={navListLeaveRef}
+              />
             </ul>
 
             <div className="hidden items-center gap-2 lg:flex">
@@ -318,6 +670,7 @@ export function SiteNav({
                 rel="noopener noreferrer"
                 className={cn(
                   "inline-flex min-h-[44px] items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition",
+                  POINTER,
                   useSolidNav
                     ? "text-brand-teal ring-1 ring-brand-teal/30 hover:bg-brand-teal/5"
                     : "text-white ring-1 ring-white/25 hover:bg-white/10",
@@ -328,7 +681,10 @@ export function SiteNav({
               </a>
               <Link
                 href={CTA.href}
-                className="inline-flex min-h-[44px] items-center rounded-full bg-[#22A559] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1d8f4c]"
+                className={cn(
+                  "inline-flex min-h-[44px] items-center rounded-full bg-[#22A559] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1d8f4c]",
+                  POINTER,
+                )}
               >
                 {CTA.label}
               </Link>
@@ -338,6 +694,7 @@ export function SiteNav({
               type="button"
               className={cn(
                 "inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl transition lg:hidden",
+                POINTER,
                 useSolidNav
                   ? "text-brand-navy ring-1 ring-brand-navy/10"
                   : "text-white ring-1 ring-white/15",
@@ -361,6 +718,7 @@ export function SiteNav({
               aria-label="Close menu overlay"
               className={cn(
                 "fixed inset-0 z-40 bg-brand-navy/30 lg:hidden",
+                POINTER,
                 isFloating ? "top-[88px]" : "top-[72px]",
               )}
               initial={{ opacity: 0 }}
@@ -379,35 +737,27 @@ export function SiteNav({
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
             >
-              <ul className="space-y-1">
-                {SITE_NAV_LINKS.map((link) =>
-                  link.label === "Services" ? (
-                    <li key={link.href}>
-                      <ServicesNavDropdown
-                        navLinkClass={navLinkClass}
-                        onNavigate={closeMobile}
-                        variant="mobile"
-                      />
-                    </li>
-                  ) : (
-                    <li key={link.href}>
-                      <NavLink
-                        href={link.href}
-                        label={link.label}
-                        onClick={closeMobile}
-                        className="flex min-h-[44px] items-center rounded-xl px-4 text-base font-medium text-brand-navy hover:bg-brand-cream"
-                      />
-                    </li>
-                  ),
-                )}
-              </ul>
+              <div className="space-y-1">
+                <NavItems
+                  navLinkClass={navLinkClass}
+                  onNavigate={closeMobile}
+                  variant="mobile"
+                  mobileSubLinkClass={defaultMobileSubLink}
+                  mobileHubClass="font-semibold text-brand-teal"
+                  mobileGroupHeadingClass="text-brand-muted"
+                  mobileTopLinkClass="text-brand-navy hover:bg-brand-cream"
+                />
+              </div>
               <div className="mt-4 space-y-3 border-t border-brand-navy/10 pt-4">
                 <a
                   href={CONTACT.whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={closeMobile}
-                  className="flex min-h-[44px] items-center justify-center gap-2 rounded-full ring-1 ring-brand-teal/40 text-brand-teal"
+                  className={cn(
+                    "flex min-h-[44px] items-center justify-center gap-2 rounded-full ring-1 ring-brand-teal/40 text-brand-teal transition hover:bg-brand-teal/5",
+                    POINTER,
+                  )}
                 >
                   <MessageCircle className="h-4 w-4" />
                   WhatsApp Bijal
@@ -415,7 +765,10 @@ export function SiteNav({
                 <Link
                   href={CTA.href}
                   onClick={closeMobile}
-                  className="flex min-h-[44px] items-center justify-center rounded-full bg-[#22A559] text-base font-semibold text-white"
+                  className={cn(
+                    "flex min-h-[44px] items-center justify-center rounded-full bg-[#22A559] text-base font-semibold text-white transition hover:bg-[#1d8f4c]",
+                    POINTER,
+                  )}
                 >
                   {CTA.label}
                 </Link>

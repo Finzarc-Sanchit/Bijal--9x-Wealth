@@ -1,6 +1,7 @@
 "use client";
 
 import { TypewriterText } from "@/components/motion/TypewriterText";
+import { refreshScrollLayoutAfterIntro } from "@/lib/scroll-layout";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import {
@@ -19,12 +20,14 @@ export type IntroPhase = "hold" | "transition" | "complete";
 type IntroContextValue = {
   phase: IntroPhase;
   introComplete: boolean;
+  layoutReady: boolean;
   showNavLogo: boolean;
 };
 
 const IntroContext = createContext<IntroContextValue>({
   phase: "complete",
   introComplete: true,
+  layoutReady: true,
   showNavLogo: true,
 });
 
@@ -78,7 +81,11 @@ function IntroSplash({
   }, [isMoving]);
 
   return (
-    <>
+    <motion.div
+      className="pointer-events-none fixed inset-0 z-[100]"
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+    >
       <motion.div
         className="pointer-events-none fixed inset-0 z-[100] bg-brand-cream"
         initial={{ opacity: 1 }}
@@ -164,7 +171,7 @@ function IntroSplash({
           />
         </motion.div>
       </motion.div>
-    </>
+    </motion.div>
   );
 }
 
@@ -181,15 +188,19 @@ export function SiteIntroLayout({
     "pending",
   );
   const [phase, setPhase] = useState<IntroPhase>("hold");
+  const [splashMounted, setSplashMounted] = useState(false);
+  const [splashExited, setSplashExited] = useState(false);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) {
       setIntroState("skipped");
+      setSplashExited(true);
       return;
     }
 
     setIntroState("active");
+    setSplashMounted(true);
 
     const transitionTimer = window.setTimeout(() => {
       setPhase("transition");
@@ -198,6 +209,7 @@ export function SiteIntroLayout({
     const completeTimer = window.setTimeout(() => {
       setPhase("complete");
       setIntroState("done");
+      setSplashMounted(false);
     }, INTRO_HOLD_MS + INTRO_TRANSITION_MS);
 
     return () => {
@@ -207,34 +219,44 @@ export function SiteIntroLayout({
   }, []);
 
   const introComplete = introState === "skipped" || introState === "done";
-  const showIntro = introState === "pending" || introState === "active";
+  const layoutReady = introComplete && splashExited;
   const showNavLogo = introComplete;
 
   useEffect(() => {
-    if (showIntro && !introComplete) {
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = "";
-      };
-    }
-  }, [showIntro, introComplete]);
+    if (layoutReady) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [layoutReady]);
 
   useEffect(() => {
-    if (introComplete) {
-      window.scrollTo(0, 0);
-    }
-  }, [introComplete]);
+    if (!layoutReady) return;
+    refreshScrollLayoutAfterIntro();
+  }, [layoutReady]);
+
+  const handleSplashExitComplete = () => {
+    setSplashExited(true);
+  };
+
+  useEffect(() => {
+    if (!introComplete || splashExited) return;
+    const fallback = window.setTimeout(() => setSplashExited(true), 400);
+    return () => window.clearTimeout(fallback);
+  }, [introComplete, splashExited]);
 
   return (
-    <IntroContext.Provider value={{ phase, introComplete, showNavLogo }}>
+    <IntroContext.Provider value={{ phase, introComplete, layoutReady, showNavLogo }}>
+      {/* Do not translate this wrapper — transform breaks position:fixed/sticky children */}
       <motion.div
-        className="min-h-screen will-change-transform"
+        className="min-h-screen overflow-x-clip"
         initial={false}
-        animate={
-          introComplete || phase === "transition"
-            ? { y: 0, opacity: 1 }
-            : { y: "100vh", opacity: 0.5 }
-        }
+        animate={{
+          opacity: introComplete || phase === "transition" ? 1 : 0,
+        }}
         transition={{
           duration: INTRO_TRANSITION_MS / 1000,
           ease: [0.22, 1, 0.36, 1],
@@ -243,10 +265,10 @@ export function SiteIntroLayout({
         {children}
       </motion.div>
 
-      <AnimatePresence>
-        {showIntro && !introComplete && (
+      <AnimatePresence onExitComplete={handleSplashExitComplete}>
+        {splashMounted ? (
           <IntroSplash key="intro-splash" tagline={tagline} siteName={siteName} phase={phase} />
-        )}
+        ) : null}
       </AnimatePresence>
     </IntroContext.Provider>
   );
