@@ -55,7 +55,6 @@ export function OurConvictionSection({ className }: { className?: string; }) {
     offset: ["start end", "end start"],
   });
 
-  // Tamed the parallax motion range down slightly to account for the tighter container bounds
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
 
   const backgroundImageSrc = OUR_CONVICTION_CONTENT?.background?.src || "/images/our-conviction.png";
@@ -66,9 +65,10 @@ export function OurConvictionSection({ className }: { className?: string; }) {
       className={cn("our-conviction-section relative isolate overflow-hidden", className)}
       aria-labelledby="our-conviction-heading"
     >
+      {/* Background Container */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         {imageFailed ? (
-          <div className="absolute inset-0" />
+          <div className="absolute inset-0 bg-brand-navy" />
         ) : null}
 
         <motion.div
@@ -88,6 +88,11 @@ export function OurConvictionSection({ className }: { className?: string; }) {
             />
           ) : null}
         </motion.div>
+
+        {/* MODIFIED: Added overlay layer to darken image and increase text contrast */}
+        {/* You can change bg-black/45 to bg-brand-navy/50 depending on your design preferences */}
+        <div className="absolute inset-0 bg-black/45 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-full px-4 py-24 md:px-12 md:py-32 lg:px-16 lg:py-40">

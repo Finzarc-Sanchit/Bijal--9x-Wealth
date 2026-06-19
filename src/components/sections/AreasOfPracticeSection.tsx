@@ -140,7 +140,7 @@ export function AreasOfPracticeSection({ className }: { className?: string; }) {
   return (
     <section
       className={cn(
-        "w-full bg-brand-cream px-4 py-24 md:px-12 md:py-32 lg:px-16 lg:py-40 overflow-hidden",
+        "w-full bg-brand-cream px-4 py-16 md:px-12 md:py-24 lg:px-16 lg:py-32 overflow-hidden",
         className,
       )}
       aria-labelledby="areas-of-practice-heading"
