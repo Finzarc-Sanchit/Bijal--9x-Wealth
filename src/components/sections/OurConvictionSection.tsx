@@ -54,9 +54,10 @@ export function OurConvictionSection({ className }: { className?: string; }) {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ["16%", "-16%"]);
 
-  // Use the newly specified asset path, falling back seamlessly if the data store isn't migrated yet
+  // Tamed the parallax motion range down slightly to account for the tighter container bounds
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+
   const backgroundImageSrc = OUR_CONVICTION_CONTENT?.background?.src || "/images/our-conviction.png";
 
   return (
@@ -71,7 +72,7 @@ export function OurConvictionSection({ className }: { className?: string; }) {
         ) : null}
 
         <motion.div
-          className="our-conviction-parallax absolute -inset-x-0 -top-[20%] h-[140%]"
+          className="our-conviction-parallax absolute -inset-x-0 -top-[10%] h-[115%]"
           style={{ y: reduceMotion ? 0 : parallaxY }}
         >
           {!imageFailed ? (
