@@ -17,7 +17,7 @@ import {
 export function ProductsSection({ content }: { content: SiteContent }) {
   return (
     <section id="products" className="scroll-mt-8">
-      <LiveBackground variant="teal" className="py-20 md:py-24">
+      <LiveBackground variant="teal" className="section-py">
         <div className="mx-auto max-w-6xl px-6">
           <ScrollReveal>
             <p className="mb-2 text-sm font-medium uppercase tracking-widest text-brand-teal">
@@ -59,7 +59,7 @@ export function ProductsSection({ content }: { content: SiteContent }) {
 export function ContactSection({ content }: { content: SiteContent }) {
   return (
     <section id="contact" className="scroll-mt-8">
-      <LiveBackground variant="navy" className="py-20 text-white md:py-24">
+      <LiveBackground variant="navy" className="section-py text-white">
         <div className="mx-auto max-w-6xl px-6">
           <ScrollReveal>
             <p className="mb-2 text-sm font-medium uppercase tracking-widest text-brand-gold">

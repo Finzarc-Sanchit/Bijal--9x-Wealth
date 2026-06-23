@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ContactCTASlot } from "@/components/layout/ContactCTASlot";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { SiteNav } from "@/components/layout/SiteNav";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { getSiteContent } from "@/lib/content/store";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -26,19 +31,29 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const content = await getSiteContent();
+
   return (
     <html
       lang="en"
       suppressHydrationWarning
       className={`${poppins.variable} ${inter.variable}`}
     >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
+      <body suppressHydrationWarning>
+        <ThemeProvider>
+          <ScrollToTop />
+          <div className="min-h-screen bg-brand-cream text-brand-navy">
+            <SiteNav pinVisible />
+            {children}
+            <ContactCTASlot />
+            <SiteFooter content={content} />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

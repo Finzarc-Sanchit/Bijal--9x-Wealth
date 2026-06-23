@@ -5,42 +5,29 @@ import { BrandsBarSection } from "@/components/sections/BrandsBarSection";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { AreasOfPracticeSection } from "@/components/sections/AreasOfPracticeSection";
 import { UHNISection } from "@/components/sections/UHNISection";
-import { ProcessSection } from "@/components/sections/ProcessSection";
-import { WhatWeProtectSection } from "@/components/sections/WhatWeProtectSection";
+import { ProcessSectionDefault } from "@/components/sections/ProcessSection";
+import { WhatWeProtectSectionDefault } from "@/components/sections/WhatWeProtectSection";
 import { OurConvictionSection } from "@/components/sections/OurConvictionSection";
-import { SiteFooter } from "@/components/layout/SiteFooter";
-import { SiteNav } from "@/components/layout/SiteNav";
-import { ConsultationFormSection } from "@/components/sections/ConsultationFormSection";
-import { TestimonialCarouselSection } from "@/components/sections/TestimonialCarouselSection";
-import { FinancialHealthQuiz } from "@/components/sections/FinancialHealthQuiz";
-import { GoalSliderSection } from "@/components/sections/GoalSliderSection";
-import { ServicesSection } from "@/components/sections/ServicesSection";
-import { ContactSection } from "@/templates/shared/sections";
 import { Testimonial } from "../sections/Testimonial";
 
 export function SitePage({ content }: { content: SiteContent; }) {
   return (
     <SiteIntroLayout tagline={content.site.tagline} siteName={content.site.name}>
-      <div className="min-h-screen bg-[#f9f6f1] text-brand-navy">
-        <SiteNav variant="editorial" pinVisible />
+      <div className="bg-surface text-brand-navy">
         <main>
           <AxaStyleHero content={content} />
           <StatsSection />
           <BrandsBarSection />
           <OurConvictionSection />
-          <WhatWeProtectSection />
-          <AreasOfPracticeSection />
-          <UHNISection />
-          <ProcessSection />
-          <Testimonial />
-          <FinancialHealthQuiz />
-          <GoalSliderSection />
-          <ServicesSection content={content} />
-          <TestimonialCarouselSection content={content} />
-          <ConsultationFormSection />
-          <ContactSection content={content} />
+          <WhatWeProtectSectionDefault className="bg-surface" />
+          <ProcessSectionDefault className="bg-white" />
+          {/* Pinned Stacking Block */}
+          <div className="relative isolate">
+            <AreasOfPracticeSection stackPinned className="bg-surface" />
+            <UHNISection className="bg-white" />
+          </div>
+          <Testimonial className="bg-surface" />
         </main>
-        <SiteFooter content={content} />
       </div>
     </SiteIntroLayout>
   );

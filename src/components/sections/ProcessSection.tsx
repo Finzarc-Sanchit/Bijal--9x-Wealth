@@ -5,7 +5,9 @@ import {
   PROCESS_STEPS,
   type ProcessStep,
 } from "@/data/process-section";
+import { parseProcessHeading } from "@/lib/grid-to-process";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -191,36 +193,69 @@ function ProcessCard({
   );
 }
 
-export function ProcessSection({ className }: { className?: string; }) {
+export type ProcessSectionProps = {
+  eyebrow: string;
+  heading: string | readonly [string, string];
+  description: string;
+  steps: readonly ProcessStep[];
+  className?: string;
+  stackPinned?: boolean;
+  id?: string;
+};
+
+function processGridClassName(stepCount: number) {
+  if (stepCount <= 3) {
+    return "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 w-full items-stretch";
+  }
+
+  return "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8 w-full items-stretch";
+}
+
+export function ProcessSection({
+  eyebrow,
+  heading,
+  description,
+  steps,
+  className,
+  stackPinned = false,
+  id = "process",
+}: ProcessSectionProps) {
+  const reduceMotion = useReducedMotion();
+  const usePinnedLayout = stackPinned && !reduceMotion;
+  const [headingPrimary, headingAccent] = parseProcessHeading(heading);
+  const headingId = `${id}-heading`;
+
   return (
     <section
-      id="process"
-      aria-labelledby="process-heading"
-      className={cn("bg-brand-cream py-24 md:py-32 lg:py-40 w-full overflow-hidden", className)}
+      id={id}
+      aria-labelledby={headingId}
+      className={cn(
+        "section-py relative w-full px-6 md:px-12 lg:px-16 xl:px-20",
+        usePinnedLayout && "sticky bottom-0 z-10",
+        className,
+      )}
     >
-      <div className="w-full px-6 md:px-12 lg:px-16 xl:px-20">
-
-        {/* Redesigned Heading Block Supporting Array Configurations */}
+      <div className="w-full overflow-hidden">
         <header className="mb-14 max-w-3xl md:mb-20">
           <p className="font-inter text-xs font-semibold uppercase tracking-[0.22em] text-brand-teal">
-            {PROCESS_SECTION_META.eyebrow}
+            {eyebrow}
           </p>
           <h2
-            id="process-heading"
+            id={headingId}
             className="mt-3 font-display text-3xl font-semibold leading-tight text-brand-navy md:text-4xl lg:text-[2.75rem]"
           >
-            {PROCESS_SECTION_META.heading[0]}{" "}
-            <span className="block text-brand-teal lg:inline">
-              {PROCESS_SECTION_META.heading[1]}
-            </span>
+            {headingPrimary}{" "}
+            {headingAccent ? (
+              <span className="block text-brand-teal lg:inline">{headingAccent}</span>
+            ) : null}
           </h2>
           <p className="mt-4 font-inter text-base leading-relaxed text-brand-navy/70 md:text-lg">
-            {PROCESS_SECTION_META.description}
+            {description}
           </p>
         </header>
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8 w-full items-stretch">
-          {PROCESS_STEPS.map((step, index) => (
+        <div className={processGridClassName(steps.length)}>
+          {steps.map((step, index) => (
             <ProcessCard
               key={step.id}
               step={step}
@@ -229,8 +264,26 @@ export function ProcessSection({ className }: { className?: string; }) {
             />
           ))}
         </div>
-
       </div>
     </section>
+  );
+}
+
+export function ProcessSectionDefault({
+  className,
+  stackPinned = false,
+}: {
+  className?: string;
+  stackPinned?: boolean;
+}) {
+  return (
+    <ProcessSection
+      eyebrow={PROCESS_SECTION_META.eyebrow}
+      heading={PROCESS_SECTION_META.heading}
+      description={PROCESS_SECTION_META.description}
+      steps={PROCESS_STEPS}
+      className={className}
+      stackPinned={stackPinned}
+    />
   );
 }

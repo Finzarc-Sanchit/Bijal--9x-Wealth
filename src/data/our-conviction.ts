@@ -2,7 +2,7 @@ export const OUR_CONVICTION_CONTENT = {
   eyebrow: "OUR CONVICTION",
   heading: "Insurance, properly considered, is how love continues across decades you will not see.",
   description:
-    "We do not think of ourselves as agents. We are stewards. The architecture we build for a family is meant to outlast us all — to keep a child in school, a parent in care, a business in family hands, and a home in the family it was built for.",
+    "Credentials open the door. This is the standard we hold once we're inside. We do not think of ourselves as agents. We are stewards. The architecture we build for a family is meant to outlast us all — to keep a child in school, a parent in care, a business in family hands, and a home in the family it was built for.",
   background: {
     src: "/images/our-conviction-1.webp",
     alt: "Warm, bright background for the Our Conviction section",

@@ -1,5 +1,6 @@
 "use client";
 
+import { SITE_METRICS } from "@/data/site-metrics";
 import { UHNI_SECTION_META } from "@/data/uhni-section";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -39,16 +40,41 @@ function Reveal({
   );
 }
 
+function AnimatedLetter({ letter }: { letter: string; }) {
+  return (
+    <div className="inline-block overflow-hidden h-[20px] md:h-[24px]">
+      <motion.span
+        className="flex min-w-[4px] flex-col text-sm md:text-base font-inter leading-relaxed"
+        style={{ y: "0%" }}
+        variants={{
+          hover: { y: "-50%" }
+        }}
+        transition={{ duration: 0.38, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        <span className="text-brand-navy/75">{letter === " " ? "\u00A0" : letter}</span>
+        <span className="text-brand-teal font-medium">{letter === " " ? "\u00A0" : letter}</span>
+      </motion.span>
+    </div>
+  );
+}
+
 function InclusionCell({ item }: { item: string; }) {
   return (
-    <li className="flex items-start gap-3 bg-white p-5 sm:p-6">
+    <motion.li
+      whileHover="hover"
+      initial="initial"
+      transition={{ staggerChildren: 0.008 }}
+      className="flex items-start gap-3 bg-white p-5 sm:p-6 cursor-default transition-colors duration-300 hover:bg-brand-navy/[0.01]"
+    >
       <span className="mt-0.5 shrink-0 font-inter text-xs font-semibold uppercase tracking-[0.22em] text-brand-teal">
         —
       </span>
-      <span className="font-inter text-sm leading-relaxed text-brand-navy/75 md:text-base">
-        {item}
+      <span className="flex flex-wrap items-center">
+        {item.split("").map((letter, i) => (
+          <AnimatedLetter key={`${letter}-${i}`} letter={letter} />
+        ))}
       </span>
-    </li>
+    </motion.li>
   );
 }
 
@@ -59,18 +85,23 @@ export function UHNISection({ className }: { className?: string; }) {
     <section
       id="uhni"
       className={cn(
-        "relative w-full overflow-hidden bg-white px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40",
+        "relative z-20 w-full overflow-hidden section-py shadow-[0_-30px_60px_rgba(10,22,40,0.08)] px-6 md:px-12 lg:px-20",
         className,
       )}
       aria-labelledby="uhni-section-heading"
     >
-      {/* MODIFIED: Removed max-w-[1400px] and stripped outer wrapper card borders/padding so everything stretches edge to edge */}
       <div className="w-full">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
           <div className="lg:col-span-7 lg:pr-4">
             <Reveal>
               <p className="font-mono text-xs font-semibold uppercase tracking-[0.28em] text-brand-teal">
                 {UHNI_SECTION_META.eyebrow}
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.06}>
+              <p className="mt-4 font-inter text-base leading-relaxed text-brand-navy/80 md:text-lg">
+                {UHNI_SECTION_META.leadIn}
               </p>
             </Reveal>
 
@@ -99,7 +130,7 @@ export function UHNISection({ className }: { className?: string; }) {
                 Private mandate
               </p>
               <p className="mt-3 font-display text-2xl font-medium tracking-tight text-brand-navy md:text-3xl">
-                142 families
+                {SITE_METRICS.uhniMandates} families
               </p>
               <p className="mt-2 font-inter text-sm leading-relaxed text-brand-navy/60">
                 India &amp; the diaspora — one coordinated relationship across every protection
@@ -109,7 +140,6 @@ export function UHNISection({ className }: { className?: string; }) {
           </div>
         </div>
 
-        {/* MODIFIED: Changed aspect ratio slightly to [25/9] or custom height so the image scales nicely across widescreen monitor widths */}
         <Reveal delay={0.24} className="mt-12 md:mt-16">
           <div className="relative aspect-[25/9] w-full overflow-hidden rounded-xl border-[1.5px] border-brand-navy/20 bg-brand-cream">
             {!imageFailed ? (
@@ -120,6 +150,7 @@ export function UHNISection({ className }: { className?: string; }) {
                 className="object-cover"
                 sizes="100vw"
                 onError={() => setImageFailed(true)}
+                aria-hidden
               />
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-brand-cream via-brand-teal/10 to-brand-gold/10" />

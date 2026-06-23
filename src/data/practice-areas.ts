@@ -16,7 +16,7 @@ export const PRACTICE_AREAS_META = {
   eyebrow: "AREAS OF PRACTICE",
   heading: ["Six disciplines.", "One coherent architecture."],
   description:
-    "From family protection and health coverage to global risk architecture, every solution is designed to safeguard wealth, preserve legacy, and create long-term certainty.",
+    "Once the method is clear, the architecture spans six disciplines. From family protection and health coverage to global risk architecture, every solution is designed to safeguard wealth, preserve legacy, and create long-term certainty.",
 } as const;
 
 /** Paths resolve from `public/images/practice-areas/` at runtime */

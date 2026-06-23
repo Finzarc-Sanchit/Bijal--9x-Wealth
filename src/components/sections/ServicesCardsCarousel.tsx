@@ -214,7 +214,7 @@ export function ServicesCardsCarousel({
 
   return (
     <section
-      className="relative overflow-hidden bg-brand-navy py-16 md:py-20"
+      className="relative overflow-hidden bg-brand-navy section-py"
       aria-labelledby="services-carousel-heading"
       onMouseLeave={handleDeactivate}
     >

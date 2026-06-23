@@ -124,7 +124,7 @@ export function TestimonialCarouselSection({ content }: { content: SiteContent }
   return (
     <section
       id="testimonials"
-      className="relative overflow-hidden bg-gradient-to-br from-brand-cream via-[#f3f7f6] to-[#faf8f5] py-16 md:py-24"
+      className="relative overflow-hidden bg-gradient-to-br from-brand-cream via-[#f3f7f6] to-[#faf8f5] section-py"
       aria-labelledby="testimonials-heading"
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden>

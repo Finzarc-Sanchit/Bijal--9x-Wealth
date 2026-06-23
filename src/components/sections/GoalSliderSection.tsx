@@ -159,7 +159,7 @@ export function GoalSliderSection() {
 
   return (
     <section id="goal-planning" className="scroll-mt-8">
-      <GoalSliderBackground activeIndex={activeIndex} className="py-20 md:py-24">
+      <GoalSliderBackground activeIndex={activeIndex} className="section-py">
         <div className="mx-auto max-w-6xl px-6">
           <ScrollReveal>
             <div className="mb-10 max-w-2xl">

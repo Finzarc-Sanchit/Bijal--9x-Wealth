@@ -14,7 +14,7 @@ import { CheckCircle2, Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-export function ConsultationFormSection() {
+export function ConsultationFormSection({ className }: { className?: string; }) {
   const [submitted, setSubmitted] = useState(false);
   const {
     register,
@@ -48,8 +48,8 @@ export function ConsultationFormSection() {
   };
 
   return (
-    <section id="consultation-form" className="scroll-mt-8">
-      <LiveBackground variant="cream" className="py-20 md:py-24">
+    <section id="consultation-form" className={cn("scroll-mt-8", className)}>
+      <LiveBackground variant="cream" className="section-py">
         <div className="mx-auto max-w-2xl px-6">
           <ScrollReveal>
             <div className="mb-10 text-center">

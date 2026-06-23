@@ -10,6 +10,7 @@ import { ChevronDown, Menu, MessageCircle, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 const CTA = {
@@ -19,26 +20,53 @@ const CTA = {
 
 const POINTER = "cursor-pointer";
 
+function isRouteActive(pathname: string, href: string): boolean {
+  if (href.startsWith("http") || href.includes("#")) return false;
+  if (pathname === href) return true;
+  return href !== "/" && pathname.startsWith(`${href}/`);
+}
+
+function isNavMenuActive(
+  pathname: string,
+  item: Extract<NavItem, { kind: "menu" }>
+): boolean {
+  if (isRouteActive(pathname, item.hub.href)) return true;
+
+  return item.groups.some((group) =>
+    group.items.some((link) => isRouteActive(pathname, link.href))
+  );
+}
+
 function NavLink({
   href,
   label,
   className,
   onClick,
   onMouseEnter,
+  isActive = false,
 }: {
   href: string;
   label: string;
   className: string;
   onClick?: () => void;
   onMouseEnter?: () => void;
+  isActive?: boolean;
 }) {
   const isExternal = href.startsWith("http");
   const isHashOnly = href.startsWith("/#") || href.startsWith("#");
-  const classes = cn(className, POINTER);
+  const classes = cn(className, POINTER, isActive && "font-semibold text-brand-teal");
 
   if (isExternal) {
     return (
-      <a href={href} className={classes} onClick={onClick} onMouseEnter={onMouseEnter} rel="noopener noreferrer" target="_blank">
+      <a
+        href={href}
+        className={classes}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        rel="noopener noreferrer"
+        target="_blank"
+        aria-current={isActive ? "page" : undefined}
+      >
         {label}
       </a>
     );
@@ -46,14 +74,27 @@ function NavLink({
 
   if (isHashOnly) {
     return (
-      <a href={href} className={classes} onClick={onClick} onMouseEnter={onMouseEnter}>
+      <a
+        href={href}
+        className={classes}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        aria-current={isActive ? "page" : undefined}
+      >
         {label}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={classes} onClick={onClick} onMouseEnter={onMouseEnter}>
+    <Link
+      href={href}
+      prefetch={false}
+      className={classes}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      aria-current={isActive ? "page" : undefined}
+    >
       {label}
     </Link>
   );
@@ -70,6 +111,7 @@ function NavMenu({
   openMenu,
   onMenuEnter,
   onMenuLeave,
+  pathname,
 }: {
   item: Extract<NavItem, { kind: "menu"; }>;
   navLinkClass: string;
@@ -81,10 +123,12 @@ function NavMenu({
   openMenu?: string | null;
   onMenuEnter?: (label: string) => void;
   onMenuLeave?: (event: React.MouseEvent<HTMLElement> | React.FocusEvent<HTMLElement>) => void;
+  pathname: string;
 }) {
   const menuId = useId();
   const [mobileOpen, setMobileOpen] = useState(false);
   const isDesktopOpen = openMenu === item.label;
+  const menuIsActive = isNavMenuActive(pathname, item);
 
   const handleOpen = useCallback(() => {
     onMenuEnter?.(item.label);
@@ -112,9 +156,11 @@ function NavMenu({
             "flex min-h-[44px] w-full items-center justify-between rounded-xl px-4 text-base font-medium",
             navLinkClass,
             POINTER,
+            menuIsActive && "font-semibold text-brand-teal",
           )}
           aria-expanded={mobileOpen}
           aria-controls={menuId}
+          aria-current={menuIsActive ? "true" : undefined}
           onClick={() => setMobileOpen((value) => !value)}
         >
           {item.label}
@@ -138,6 +184,7 @@ function NavMenu({
                 href={item.hub.href}
                 label={item.hub.label}
                 onClick={onNavigate}
+                isActive={isRouteActive(pathname, item.hub.href)}
                 className={cn("flex min-h-[44px] items-center rounded-lg px-4 text-sm", hubClass)}
               />
 
@@ -159,6 +206,7 @@ function NavMenu({
                           href={link.href}
                           label={link.label}
                           onClick={onNavigate}
+                          isActive={isRouteActive(pathname, link.href)}
                           className={subLinkClass}
                         />
                       </li>
@@ -194,10 +242,11 @@ function NavMenu({
       >
         <button
           type="button"
-          className={cn(navLinkClass, "inline-flex items-center gap-1", POINTER)}
+          className={cn(navLinkClass, "inline-flex items-center gap-1", POINTER, menuIsActive && "font-semibold text-brand-teal")}
           aria-expanded={isDesktopOpen}
           aria-haspopup="true"
           aria-controls={menuId}
+          aria-current={menuIsActive ? "true" : undefined}
         >
           {item.label}
           <ChevronDown
@@ -251,6 +300,7 @@ function NavMenu({
                             href={link.href}
                             label={link.label}
                             onClick={onNavigate}
+                            isActive={isRouteActive(pathname, link.href)}
                             className="flex min-h-[40px] items-center rounded-lg px-2 text-sm font-medium text-brand-navy transition-colors hover:bg-brand-cream hover:text-brand-teal"
                           />
                         </li>
@@ -288,6 +338,7 @@ function NavItems({
 }) {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const closeTimer = useRef<number | undefined>(undefined);
+  const pathname = usePathname();
 
   const clearCloseTimer = useCallback(() => {
     if (closeTimer.current !== undefined) {
@@ -317,8 +368,8 @@ function NavItems({
 
   const handleNavListLeave = useCallback(
     (event: React.MouseEvent<HTMLUListElement>) => {
-      const related = event.relatedTarget as Node | null;
-      if (event.currentTarget.contains(related)) return;
+      const related = event.relatedTarget;
+      if (related instanceof Node && event.currentTarget.contains(related)) return;
 
       clearCloseTimer();
       setOpenMenu(null);
@@ -383,6 +434,7 @@ function NavItems({
               navLinkClass={navLinkClass}
               onNavigate={onNavigate}
               variant="mobile"
+              pathname={pathname}
               mobileSubLinkClass={resolvedMobileSubLinkClass}
               mobileHubClass={resolvedMobileHubClass}
               mobileGroupHeadingClass={resolvedMobileGroupHeadingClass}
@@ -397,6 +449,7 @@ function NavItems({
             navLinkClass={navLinkClass}
             onNavigate={onNavigate}
             variant="desktop"
+            pathname={pathname}
             openMenu={openMenu}
             onMenuEnter={handleMenuEnter}
             onMenuLeave={handleMenuLeave}
@@ -436,18 +489,21 @@ function ThemeToggle({ className }: { className?: string; }) {
 }
 
 export function SiteNav({
-  variant = "default",
+  variant = "auto",
   pinVisible = false,
 }: {
-  variant?: "default" | "floating" | "editorial";
+  variant?: "auto" | "default" | "floating" | "editorial";
   pinVisible?: boolean;
 }) {
   const { showNavLogo } = useSiteIntro();
   const { scrolled, navVisible } = useScrollDirection();
   const [mobileOpen, setMobileOpen] = useState(false);
   const navListLeaveRef = useRef<((event: React.MouseEvent<HTMLUListElement>) => void) | null>(null);
-  const isFloating = variant === "floating";
-  const isEditorial = variant === "editorial";
+  const pathname = usePathname();
+  const resolvedVariant =
+    variant === "auto" ? (pathname === "/" ? "editorial" : "floating") : variant;
+  const isFloating = resolvedVariant === "floating";
+  const isEditorial = resolvedVariant === "editorial";
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";

@@ -1,5 +1,6 @@
 "use client";
 
+import { parseMetricDisplay, SITE_METRICS } from "@/data/site-metrics";
 import { cn } from "@/lib/utils";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -9,26 +10,23 @@ import { useEffect, useRef, useState } from "react";
 const PREMIUM_STATS = [
   {
     id: "premiums",
-    value: 10000,
-    suffix: "+",
+    ...parseMetricDisplay(SITE_METRICS.premiumsCrore),
     labelLines: ["Crore in annual", "premiums"] as const,
   },
   {
     id: "families",
-    value: 2400,
-    suffix: "+",
+    ...parseMetricDisplay(SITE_METRICS.familiesProtected),
     labelLines: ["Families", "protected"] as const,
   },
   {
-    id: "stewardship",
-    value: 12,
-    suffix: "+",
-    labelLines: ["Years of", "stewardship"] as const,
+    id: "years",
+    ...parseMetricDisplay(SITE_METRICS.yearsInPractice),
+    labelLines: ["Years of", "counsel"] as const,
   },
 ] as const;
 
 const LEFT_COPY =
-  "Disciplined stewardship for Mumbai families — transparent planning, creditor-aware structures, and protection that endures across generations. We bridge institutional precision with bespoke family office advisory to safeguard your legacy against volatile market shifts.";
+  "Transparent planning, creditor-aware structures, and protection that endures across generations. We bridge institutional precision with bespoke family office advisory to safeguard your legacy against volatile market shifts.";
 
 const DIVIDER_EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -126,7 +124,7 @@ export function StatsSection({ className }: { className?: string; }) {
   return (
     <section
       className={cn(
-        "bg-brand-cream px-4 py-24 md:px-12 md:py-32 lg:px-16 lg:py-40",
+        "section-py bg-brand-cream px-4 md:px-12 lg:px-16",
         className,
       )}
       aria-label="Key impact metrics"

@@ -195,7 +195,7 @@ function PillarCard({ pillar }: { pillar: ServiceBlueprintPillar }) {
 export function ServicesBlueprintSection({ content }: { content: SiteContent }) {
   return (
     <div className="border-t border-brand-navy/8 bg-brand-cream">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 md:py-24">
+      <div className="mx-auto max-w-6xl px-5 section-py sm:px-8">
         <motion.header
           className="mx-auto max-w-3xl text-center"
           initial={{ opacity: 0, y: 20 }}

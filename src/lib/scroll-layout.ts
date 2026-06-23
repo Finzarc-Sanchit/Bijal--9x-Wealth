@@ -1,8 +1,10 @@
+import { scrollToTopInstant } from "@/lib/scroll-to-top";
+
 /** Re-measure scroll/pin layouts after intro unmount or major DOM height changes. */
 export function refreshScrollLayout() {
   if (typeof window === "undefined") return;
 
-  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  scrollToTopInstant();
   window.dispatchEvent(new Event("resize"));
 
   void import("gsap/ScrollTrigger")

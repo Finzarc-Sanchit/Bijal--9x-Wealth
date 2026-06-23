@@ -38,50 +38,56 @@ export const SITE_NAV_LINKS = [
   { label: "Contact", href: "/#contact" },
 ] as const;
 
-/** Editorial hero nav — Coverage, Families, Resources, House, Contact */
+/** Editorial hero nav — mirrors live site dropdown structure */
 export const EDITORIAL_NAV_MENUS = [
   {
     label: "Coverage",
     items: [
       { label: "Term & Legacy Cover", href: "/services/term-legacy" },
-      { label: "Private Health Coverae", href: "/services/health" },
+      { label: "Private Health Coverage", href: "/services/health" },
       { label: "Keyman & Enterprise", href: "/services/keyman" },
       { label: "Wealth & ULIPs", href: "/services/wealth-ulips" },
-      { label: "Global Solutions", href: "/services/global-solutions" },
-      { label: "Specie & High-Value", href: "/services/specie-high-value" },
+      { label: "Global Solutions", href: "/services/global" },
+      { label: "Specie & High-Value", href: "/services/specie" },
     ],
   },
   {
     label: "Families",
     items: [
-      { label: "Family Protection", href: "/services#pure-risk" },
-      { label: "Senior-Friendly Plans", href: "/services#pure-risk" },
-      { label: "Financial Health Check", href: "/#financial-health-check" },
+      { label: "UHNI Families", href: "/families/uhni" },
+      { label: "NRI & Global Indian Households", href: "/families/nri" },
+      { label: "Business Owners", href: "/families/business-owners" },
+      { label: "Listed Promoters", href: "/families/listed-promoters" },
     ],
   },
   {
     label: "Resources",
     items: [
-      { label: "Goal Planning", href: "/#goal-planning" },
-      { label: "All Services", href: "/services" },
-      { label: "Tata AIA Portal", href: SOCIAL.tataAiaPortal },
+      { label: "Glossary", href: "/resources/glossary" },
+      { label: "Frequently Asked", href: "/resources/faq" },
+      { label: "MWPA: A Complete Guide", href: "/resources/mwpa-guide" },
+      { label: "Calculators", href: "/resources/calculators" },
     ],
   },
   {
     label: "House",
     items: [
-      { label: "About Bijal Pathak", href: "/about" },
-      { label: "Home", href: "/#hero" },
-      { label: "Contact", href: "/#contact" },
+      { label: "Our Story", href: "/about" },
+      { label: "The Practice", href: "/about/practice" },
+      { label: "Team", href: "/about/team" },
+      { label: "Press & Recognition", href: "/about/press" },
+      { label: "The Folio", href: "/insights" },
+      { label: "Careers", href: "/careers" },
+      { label: "Contact", href: "/contact" },
     ],
   },
 ] as const;
 
 export const EDITORIAL_NAV_CTA = {
   portalLabel: "Client Portal",
-  portalHref: SOCIAL.tataAiaPortal,
+  portalHref: "/portal",
   scheduleLabel: "Schedule a Conversation",
-  scheduleHref: "/#consultation-form",
+  scheduleHref: "/contact",
 } as const;
 
 /** Legacy routes — for future multi-page expansion */
@@ -104,24 +110,42 @@ export const SERVICE_LINKS = {
   wealthPlanning: { href: "/services#wealth-planning", title: "Wealth Planning" },
 } as const satisfies Record<string, SeoLink>;
 
+export const COVERAGE_LINKS = {
+  termLegacy: { href: "/services/term-legacy", title: "Term & Legacy Cover" },
+  health: { href: "/services/health", title: "Private Health Coverage" },
+  keyman: { href: "/services/keyman", title: "Keyman & Enterprise" },
+  wealthUlips: { href: "/services/wealth-ulips", title: "Wealth & ULIPs" },
+  global: { href: "/services/global", title: "Global Solutions" },
+  specie: { href: "/services/specie", title: "Specie & High-Value" },
+} as const satisfies Record<string, SeoLink>;
+
 export const FAMILY_LINKS = {
-  families: { href: "/families", title: "Families" },
-  seniors: { href: "/families/seniors", title: "Senior Citizens" },
-  women: { href: "/families/women", title: "Women & Protection" },
-  professionals: { href: "/families/professionals", title: "Professionals & HNIs" },
+  uhni: { href: "/families/uhni", title: "UHNI Families" },
+  nri: { href: "/families/nri", title: "NRI & Global Indian Households" },
+  businessOwners: { href: "/families/business-owners", title: "Business Owners" },
+  listedPromoters: { href: "/families/listed-promoters", title: "Listed Promoters" },
 } as const satisfies Record<string, SeoLink>;
 
 export const RESOURCE_LINKS = {
-  healthCheck: { href: "/#financial-health-check", title: "Financial Health Check" },
-  goalPlanning: { href: "/#goal-planning", title: "Goal Planning" },
-  riskCalculator: { href: "/risk-calculator", title: "Risk Calculator" },
-  compare: { href: "/compare", title: "Compare Plans" },
-  tataAiaPortal: { href: SOCIAL.tataAiaPortal, title: "Tata AIA Client Portal" },
+  glossary: { href: "/resources/glossary", title: "Glossary" },
+  faq: { href: "/resources/faq", title: "Frequently Asked" },
+  mwpaGuide: { href: "/resources/mwpa-guide", title: "MWPA: A Complete Guide" },
+  calculators: { href: "/resources/calculators", title: "Calculators" },
+} as const satisfies Record<string, SeoLink>;
+
+export const HOUSE_LINKS = {
+  ourStory: { href: "/about", title: "Our Story" },
+  practice: { href: "/about/practice", title: "The Practice" },
+  team: { href: "/about/team", title: "Team" },
+  press: { href: "/about/press", title: "Press & Recognition" },
+  folio: { href: "/insights", title: "The Folio" },
+  careers: { href: "/careers", title: "Careers" },
 } as const satisfies Record<string, SeoLink>;
 
 export const OFFICE_LINKS = {
-  borivali: { href: "/#contact", title: "Borivali Office" },
-  consultation: { href: "/#consultation-form", title: "Book a Consultation" },
+  mumbai: { href: "/offices/mumbai", title: "Mumbai" },
+  bengaluru: { href: "/offices/bengaluru", title: "Bengaluru" },
+  delhi: { href: "/offices/delhi", title: "New Delhi" },
 } as const satisfies Record<string, SeoLink>;
 
 export type NavItem =
@@ -141,7 +165,10 @@ export const NAV: NavItem[] = [
     groups: [
       {
         heading: "Practice areas",
-        items: Object.values(SERVICE_LINKS).map((l) => ({ href: l.href, label: l.title })),
+        items: Object.values(COVERAGE_LINKS).map((link) => ({
+          href: link.href,
+          label: link.title,
+        })),
       },
     ],
   },
@@ -175,17 +202,17 @@ export const NAV: NavItem[] = [
       {
         heading: "About 9xWealth",
         items: [
-          { href: "/about", label: "Our story" },
-          { href: "/about/practice", label: "The Practice" },
-          { href: "/about/team", label: "Team" },
-          { href: "/about/press", label: "Press & Recognition" },
-        ],
+          HOUSE_LINKS.ourStory,
+          HOUSE_LINKS.practice,
+          HOUSE_LINKS.team,
+          HOUSE_LINKS.press,
+        ].map((l) => ({ href: l.href, label: l.title })),
       },
       {
         heading: "Other",
         items: [
-          { href: "/insights", label: "Insights" },
-          { href: "/careers", label: "Careers" },
+          { href: HOUSE_LINKS.folio.href, label: HOUSE_LINKS.folio.title },
+          { href: HOUSE_LINKS.careers.href, label: HOUSE_LINKS.careers.title },
           ...Object.values(OFFICE_LINKS).map((l) => ({ href: l.href, label: l.title })),
         ],
       },

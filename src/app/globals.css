@@ -31,10 +31,22 @@
   }
 }
 
+@layer utilities {
+  .section-py {
+    @apply py-14 md:py-16 lg:py-18;
+  }
+}
+
 html {
-  scroll-behavior: smooth;
   overflow-x: clip;
   scrollbar-gutter: stable;
+}
+
+/* Route changes use instant scroll (default auto). Smooth only for #anchor jumps. */
+@media (prefers-reduced-motion: no-preference) {
+  html:has([id]:target) {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Fixed nav anchor offset */
@@ -73,6 +85,11 @@ p {
   color: var(--color-brand-teal);
 }
 
+.editorial-highlight {
+  color: var(--color-brand-teal);
+  font-style: italic;
+}
+
 .photo-caption {
   font-family: var(--font-inter);
   font-size: 0.6875rem;
@@ -93,11 +110,9 @@ p {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    transparent 45%,
-    color-mix(in srgb, var(--color-gold-500) 12%, transparent) 100%
-  );
+  background: linear-gradient(180deg,
+      transparent 45%,
+      color-mix(in srgb, var(--color-gold-500) 12%, transparent) 100%);
 }
 
 .orb {
@@ -109,11 +124,9 @@ p {
 }
 
 .orb-gold {
-  background: radial-gradient(
-    circle at center,
-    color-mix(in srgb, var(--color-gold-500) 55%, transparent) 0%,
-    transparent 68%
-  );
+  background: radial-gradient(circle at center,
+      color-mix(in srgb, var(--color-gold-500) 55%, transparent) 0%,
+      transparent 68%);
 }
 
 /* Scroll-pinned hero — GPU-friendly, reduce motion for accessibility */

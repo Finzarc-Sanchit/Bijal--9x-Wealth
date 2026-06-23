@@ -1,24 +1,24 @@
-import { ServicesPage } from "@/components/site/ServicesPage";
-import { getSiteContent } from "@/lib/content/store";
+import { InteriorPageShell } from "@/components/layout/InteriorPageShell";
 import type { Metadata } from "next";
+import { ServicesFamilyLinks } from "./_components/ServicesFamilyLinks";
+import { ServicesHero } from "./_components/ServicesHero";
+import { ServicesPractice } from "./_components/ServicesPractice";
+import { ServicesProcess } from "./_components/ServicesProcess";
+import { SERVICES_METADATA } from "./_data/content";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const content = await getSiteContent();
-  return {
-    title: "Services | 9X Wealth — Insurance, Investments & Wealth Planning",
-    description:
-      "Life insurance via Tata AIA, mutual fund SIPs, retirement planning, and goal-based wealth strategies with Bijal Pathak in Borivali, Mumbai.",
-    keywords: [
-      "insurance Borivali",
-      "mutual funds Mumbai",
-      "wealth planning Borivali",
-      "Tata AIA partner",
-      "financial advisor Mumbai West",
-    ],
-  };
-}
+export const metadata: Metadata = {
+  title: SERVICES_METADATA.title,
+  description: SERVICES_METADATA.description,
+  keywords: [...SERVICES_METADATA.keywords],
+};
 
-export default async function Services() {
-  const content = await getSiteContent();
-  return <ServicesPage content={content} />;
+export default function ServicesPage() {
+  return (
+    <InteriorPageShell>
+      <ServicesHero />
+      <ServicesPractice />
+      <ServicesProcess />
+      <ServicesFamilyLinks />
+    </InteriorPageShell>
+  );
 }

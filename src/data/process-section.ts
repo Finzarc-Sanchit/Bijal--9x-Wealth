@@ -13,7 +13,7 @@ export const PROCESS_SECTION_META = {
   eyebrow: "HOW WE WORK ",
   heading: ["A four-act engagement.", "Considered, never rushed."],
   description:
-    "Every family mandate follows the same disciplined sequence — conversation first, architecture models next, seamless activation, and lifelong stewardship long after policies are issued.",
+    "These are the stakes. Here is the sequence every mandate follows. Every family mandate follows the same disciplined sequence — conversation first, architecture models next, seamless activation, and lifelong advocacy long after policies are issued.",
 } as const;
 
 export const PROCESS_STEPS: ProcessStep[] = [
