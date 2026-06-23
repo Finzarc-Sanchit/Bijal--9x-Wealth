@@ -57,7 +57,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     body:
       "Quarterly reviews, annual repricing, and lifelong claims advocacy. Your coverage evolves as your wealth and circumstances do..",
     image: {
-      src: "/images/process/stewardship.jpg",
+      src: "/images/process/stewardship.webp",
       alt: "Long-term partnership and support between advisor and family",
     },
   },

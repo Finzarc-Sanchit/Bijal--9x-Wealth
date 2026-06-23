@@ -164,18 +164,18 @@ function ProcessCard({
             alt={step.image.alt}
             fill
             className="object-cover" // Object-cover class maintains ratio
-            sizes="(max-w: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             onError={() => setImageFailed(true)}
           />
         ) : (
           <div className="absolute inset-0 bg-brand-navy/10" aria-hidden />
         )}
 
-        {/* Glassmorphism content box overlay */}
+        {/* Glassmorphism content box overlay - Removed fixed pixel heights to avoid vertical scrolling layout box locks */}
         <div
           ref={glassRef}
           className={cn(
-            "absolute inset-x-5 top-5 border rounded-xl p-6 md:p-7 shadow-lg shadow-black/5 opacity-0 flex flex-col h-[200px] md:h-[220px]",
+            "absolute inset-x-5 top-5 border rounded-xl p-6 md:p-7 shadow-lg shadow-black/5 opacity-0 flex flex-col h-auto min-h-fit",
             isFirst
               ? "border-white/25 bg-white/15 backdrop-blur-xl text-white"
               : "border-white/15 bg-white/10 backdrop-blur-lg text-white"
@@ -184,7 +184,7 @@ function ProcessCard({
           <h3 className="font-display text-xl font-semibold leading-snug md:text-[1.4rem] drop-shadow-sm shrink-0">
             {step.title}
           </h3>
-          <div className="mt-3 font-inter text-sm leading-relaxed text-white/90 md:text-[15px] overflow-y-auto pr-1 flex-1 custom-scrollbar">
+          <div className="mt-3 font-inter text-sm leading-relaxed text-white/90 md:text-[15px] flex-1">
             <p className="drop-shadow-sm">{step.body}</p>
           </div>
         </div>
