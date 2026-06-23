@@ -131,7 +131,7 @@ export function StepProcessLayout({
   title,
   subtitle,
   steps,
-  stepLabelPrefix = "Commitment",
+  stepLabelPrefix = "",
   ctas,
   className,
   id = "step-process-layout",

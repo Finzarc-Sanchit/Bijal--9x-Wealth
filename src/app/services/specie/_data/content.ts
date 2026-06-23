@@ -20,7 +20,7 @@ export const SPECIE_METADATA = {
 
 export const SPECIE_HERO = {
   backgroundImage: {
-    src: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?fm=jpg&q=85&w=1920&auto=format&fit=crop",
+    src: "/images/specie/hero.webp",
     alt: "Fine art gallery evoking high-value asset stewardship",
   },
   pillImage: {

@@ -21,15 +21,15 @@ export const GLOBAL_METADATA = {
 
 export const GLOBAL_HERO = {
   backgroundImage: {
-    src: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?fm=jpg&q=85&w=1920&auto=format&fit=crop",
+    src: "/images/global/hero.webp",
     alt: "Global travel vista evoking cross-border family wealth",
   },
   pillImage: {
     src: "/images/practice-areas/global-solutions.jpg",
     alt: "International insurance and global family planning",
   },
-  leadWord: "For families who already ",
-  headlineLines: ["cross", "borders."] as const,
+  leadWord: "For families  ",
+  headlineLines: ["who already ", "cross borders."] as const,
   epigraph:
     "Dollar cover via GIFT City IFSC and Lloyd's of London. For NRI households, cross-border successors, and sums that exceed Indian domestic capacity.",
 } as const;
@@ -49,7 +49,7 @@ export const GLOBAL_CTAS = [
 
 export const GLOBAL_CONVICTION = {
   badge: "The thesis",
-  headline: "An Indian house with\nglobal\nreach.",
+  headline: "An Indian house with global\nreach.",
   paragraphs: [
     "For a generation, Indian families with international wealth had a choice: insure in India, in rupees, with whatever capacity the local market allowed — or insure offshore through fragmented relationships with foreign brokers who did not understand Indian succession or tax. Neither was satisfactory.",
     [
