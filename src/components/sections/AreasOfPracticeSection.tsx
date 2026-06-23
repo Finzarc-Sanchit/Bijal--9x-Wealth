@@ -120,9 +120,16 @@ function UniformPracticeCard({ area, isActive }: { area: PracticeArea; isActive:
   );
 }
 
-export function AreasOfPracticeSection({ className }: { className?: string; }) {
+export function AreasOfPracticeSection({
+  className,
+  stackPinned = false,
+}: {
+  className?: string;
+  stackPinned?: boolean;
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = useReducedMotion();
+  const usePinnedLayout = stackPinned && !reduceMotion;
   const total = PRACTICE_AREAS.length;
 
   const goTo = useCallback((index: number) => {
@@ -141,6 +148,7 @@ export function AreasOfPracticeSection({ className }: { className?: string; }) {
     <section
       className={cn(
         "w-full bg-brand-cream px-4 py-16 md:px-12 md:py-24 lg:px-16 lg:py-32 overflow-hidden",
+        usePinnedLayout && "sticky top-0 z-10",
         className,
       )}
       aria-labelledby="areas-of-practice-heading"
