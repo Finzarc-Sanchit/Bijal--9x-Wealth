@@ -26,8 +26,8 @@ export const FAMILIES_NRI_HERO = {
     src: "/images/practice-areas/global-solutions.jpg",
     alt: "NRI and global Indian household insurance",
   },
-  leadWord: "Cover that travels with ",
-  headlineLines: ["the", "family."] as const,
+  leadWord: "Cover that  ",
+  headlineLines: ["travels with", "the family."] as const,
   epigraph:
     "For NRI and OCI households whose wealth, dependants, and obligations span jurisdictions. An Indian house with global reach, registered in GIFT City, partnered with Lloyd's.",
 } as const;
@@ -53,6 +53,8 @@ export const FAMILIES_NRI_CONVICTION = {
 export const FAMILIES_NRI_CONSIDERATIONS = {
   badge: "Six considerations",
   headline: "What changes when the family crosses borders.",
+  subtitle:
+    "When a family spans jurisdictions, insurance cannot be a set of disconnected policies. These six considerations guide how we structure every NRI and OCI mandate — from currency alignment and FATCA treatment to cover that travels with the family.",
   items: [
     {
       id: "01",

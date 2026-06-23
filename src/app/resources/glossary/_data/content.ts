@@ -25,7 +25,7 @@ export const GLOSSARY_HERO = {
     alt: "Insurance and estate glossary",
   },
   leadWord: "The vocabulary ",
-  headlineLines: ["of", "stewardship."] as const,
+  headlineLines: ["of stewardship."] as const,
   epigraph:
     "Terms used across our practice, and across the Indian insurance and estate ecosystem more broadly. Linked into the relevant pages where the structure or product is treated in depth.",
 } as const;

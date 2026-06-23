@@ -21,6 +21,9 @@ const INSIDE_SPRING = {
   damping: 20,
 };
 
+const SECTION_SURFACE_CLASSES =
+  "w-full bg-brand-cream px-4 py-16 md:px-12 md:py-24 lg:px-16 lg:py-32";
+
 export type PracticeAreasMeta = {
   eyebrow: string;
   heading: readonly [string, string];
@@ -31,7 +34,6 @@ export type PracticeAreasSectionProps = {
   meta: PracticeAreasMeta;
   areas: readonly PracticeArea[];
   className?: string;
-  stackPinned?: boolean;
   id?: string;
 };
 
@@ -47,7 +49,7 @@ function UniformPracticeCard({
   return (
     <div
       className={cn(
-        "relative flex min-h-[360px] h-full flex-col overflow-hidden rounded-xl p-8 transition-all duration-500 ease-out sm:min-h-[400px] sm:p-10 lg:min-h-[440px] lg:p-12",
+        "relative flex min-h-[240px] h-full flex-col overflow-hidden rounded-xl p-5 sm:min-h-[360px] sm:p-10 lg:min-h-[440px] lg:p-12 transition-all duration-500 ease-out",
         isActive ? "bg-[#2d3136]" : "bg-black",
       )}
     >
@@ -95,7 +97,9 @@ function UniformPracticeCard({
             transition={INSIDE_SPRING}
             className={cn(
               "font-display leading-tight tracking-tight text-white transition-all duration-500",
-              isActive ? "text-3xl md:text-4xl font-medium" : "text-2xl md:text-3xl font-normal",
+              isActive
+                ? "text-2xl sm:text-3xl md:text-4xl font-medium"
+                : "text-xl sm:text-2xl md:text-3xl font-normal",
             )}
           >
             {area.title}
@@ -139,12 +143,10 @@ export function PracticeAreasSection({
   meta,
   areas,
   className,
-  stackPinned = false,
   id = "areas-of-practice",
 }: PracticeAreasSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = useReducedMotion();
-  const usePinnedLayout = stackPinned && !reduceMotion;
   const total = areas.length;
   const headingId = `${id}-heading`;
 
@@ -166,11 +168,7 @@ export function PracticeAreasSection({
   return (
     <section
       id={id}
-      className={cn(
-        "section-py w-full px-4 md:px-12 lg:px-16",
-        usePinnedLayout && "sticky top-0 z-10",
-        className,
-      )}
+      className={cn(SECTION_SURFACE_CLASSES, "overflow-hidden", className)}
       aria-labelledby={headingId}
     >
       <div className="mx-auto w-full">
@@ -226,10 +224,10 @@ export function PracticeAreasSection({
           </nav>
 
           <div className="relative min-w-0 w-full overflow-hidden">
-            {/* Added items-stretch here to align track elements identically with working homepage component layouts */}
+            {/* Aligned slider layout variables to use clean native Framer animate metrics directly matching the working code */}
             <motion.div
               className="flex w-full items-stretch"
-              animate={{ x: `-${activeIndex * 72}%` }}
+              animate={{ x: `-${activeIndex * 85}%` }}
               transition={reduceMotion ? { duration: 0.2 } : SLIDE_SPRING}
             >
               {areas.map((area, index) => {
@@ -238,7 +236,7 @@ export function PracticeAreasSection({
                 return (
                   <div
                     key={area.id}
-                    className="min-w-0 w-[72%] shrink-0 flex flex-col gap-6 pr-8 lg:flex-row lg:items-stretch"
+                    className="min-w-0 w-[85%] shrink-0 flex flex-col gap-6 pr-4 sm:w-[72%] sm:pr-8 lg:flex-row lg:items-stretch"
                   >
                     <UniformPracticeCard area={area} isActive={isActive} />
                   </div>

@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { ContactCTASlot } from "@/components/layout/ContactCTASlot";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { SiteNav } from "@/components/layout/SiteNav";
+import { LenisProvider } from "@/components/providers/lenis-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { getSiteContent } from "@/lib/content/store";
 import "./globals.css";
@@ -46,13 +47,15 @@ export default async function RootLayout({
     >
       <body suppressHydrationWarning>
         <ThemeProvider>
-          <ScrollToTop />
-          <div className="min-h-screen bg-brand-cream text-brand-navy">
-            <SiteNav pinVisible />
-            {children}
-            <ContactCTASlot />
-            <SiteFooter content={content} />
-          </div>
+          <LenisProvider>
+            <ScrollToTop />
+            <div className="min-h-screen bg-brand-cream text-brand-navy">
+              <SiteNav />
+              {children}
+              <ContactCTASlot />
+              <SiteFooter content={content} />
+            </div>
+          </LenisProvider>
         </ThemeProvider>
       </body>
     </html>

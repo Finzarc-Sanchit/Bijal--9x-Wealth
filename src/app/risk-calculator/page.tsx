@@ -1,5 +1,4 @@
-import { RiskCalculatorPage } from "@/components/site/RiskCalculatorPage";
-import { getSiteContent } from "@/lib/content/store";
+import { RiskCalculatorExperience } from "@/components/risk-calculator/RiskCalculatorExperience";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,7 +16,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RiskCalculator() {
-  const content = await getSiteContent();
-  return <RiskCalculatorPage content={content} />;
+export default function RiskCalculator() {
+  return (
+    <div className="risk-calc-page min-h-screen bg-surface text-brand-navy">
+      <main className="pt-[88px] pb-16 sm:pt-[92px] sm:pb-20">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <RiskCalculatorExperience />
+        </div>
+      </main>
+    </div>
+  );
 }

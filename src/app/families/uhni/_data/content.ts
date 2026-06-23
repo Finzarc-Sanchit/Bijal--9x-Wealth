@@ -27,8 +27,8 @@ export const FAMILIES_UHNI_HERO = {
     src: "/images/practice-areas/specie-high-value.jpg",
     alt: "The UHNI practice — for families of ₹100 Cr+",
   },
-  leadWord: "Reserved for ",
-  headlineLines: ["the", "few."] as const,
+  leadWord: "Reserved ",
+  headlineLines: ["for the few."] as const,
   epigraph:
     "A private practice for 142 ultra-high-net-worth families. The single relationship that coordinates every protection decision — across jurisdictions, generations, and the unexpected.",
 } as const;
@@ -38,11 +38,6 @@ export const FAMILIES_UHNI_CTAS = [
     label: "Request an Audience",
     href: "/contact",
     variant: "primary",
-  },
-  {
-    label: "Request a Conversation",
-    href: "/contact",
-    variant: "secondary",
   },
   {
     label: "Read about the practice",

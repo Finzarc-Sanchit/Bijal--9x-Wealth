@@ -14,7 +14,12 @@ const HEADLINE_CLASS =
   "hero-editorial-headline block w-full max-w-full min-w-0 box-border font-poppins font-medium uppercase tracking-tight text-white";
 
 const EPIGRAPH_CLASS =
-  "text-sm font-inter font-medium italic leading-relaxed text-white/92 sm:text-[0.95rem] lg:text-base";
+  "text-sm font-inter font-medium italic leading-relaxed text-white/92 md:text-[0.95rem] lg:text-base";
+
+const MOBILE_FADE_VARIANTS = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+};
 
 const LINE_VARIANTS = {
   initial: { y: "100%" },
@@ -156,78 +161,129 @@ function HeroStackedHeadline({
 }) {
   const [line2, line3] = headlineLines;
   const closingLine = headlineLines.length === 3 ? headlineLines[2] : null;
+  const mobileTitle = `${leadWord}${line2}`.trim();
 
   return (
     <div className="m-0 flex w-full max-w-full select-none flex-col items-start p-0 text-left">
-      <h1 className="contents">
-        <div className="w-full overflow-hidden pb-1">
-          <motion.div
-            className="flex w-full max-w-full flex-wrap items-center gap-3 sm:gap-4 md:gap-5"
-            variants={LINE_VARIANTS}
+      {/* Mobile — full copy, no overflow clip, opacity-only entrance */}
+      <div className="w-full min-w-0 sm:hidden">
+        <h1 className="flex w-full min-w-0 flex-col gap-2">
+          <motion.span
+            className={HEADLINE_CLASS}
+            variants={MOBILE_FADE_VARIANTS}
             initial="initial"
             animate={animateIn ? "animate" : "initial"}
             transition={SLIDE_TRANSITION}
           >
-            <span className="relative h-11 w-32 shrink-0 overflow-hidden rounded-full bg-white/10 ring-2 ring-white/30 sm:h-14 sm:w-44 md:h-16 md:w-52 lg:h-18 lg:w-56">
-              <HeroAnimatedPillImage
-                src={pillImage.src}
-                alt={pillImage.alt}
-                priority
-                isActive={animateIn}
-              />
-            </span>
-            <span className={cn(HEADLINE_CLASS, "min-w-0 flex-1")}>{leadWord}</span>
-          </motion.div>
-        </div>
-
-        <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
-          <motion.div
-            variants={LINE_VARIANTS}
+            {mobileTitle}
+          </motion.span>
+          <motion.span
+            className={HEADLINE_CLASS}
+            variants={MOBILE_FADE_VARIANTS}
             initial="initial"
             animate={animateIn ? "animate" : "initial"}
-            transition={SLIDE_TRANSITION}
+            transition={{ ...SLIDE_TRANSITION, delay: 0.06 }}
           >
-            <span className={HEADLINE_CLASS}>{line2}</span>
-          </motion.div>
-        </div>
+            {line3}
+          </motion.span>
+          {closingLine ? (
+            <motion.span
+              className={HEADLINE_CLASS}
+              variants={MOBILE_FADE_VARIANTS}
+              initial="initial"
+              animate={animateIn ? "animate" : "initial"}
+              transition={{ ...SLIDE_TRANSITION, delay: 0.1 }}
+            >
+              {closingLine}
+            </motion.span>
+          ) : null}
+        </h1>
 
-        <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
-          <motion.div
-            variants={LINE_VARIANTS}
-            initial="initial"
-            animate={animateIn ? "animate" : "initial"}
-            transition={SLIDE_TRANSITION}
-          >
-            <span className={HEADLINE_CLASS}>{line3}</span>
-          </motion.div>
-        </div>
+        <motion.div
+          className="relative mt-5 w-full min-w-0"
+          variants={MOBILE_FADE_VARIANTS}
+          initial="initial"
+          animate={animateIn ? "animate" : "initial"}
+          transition={{ duration: 0.45, ease: "easeInOut", delay: 0.14 }}
+        >
+          <p className={EPIGRAPH_CLASS}>{`"${epigraph}"`}</p>
+        </motion.div>
 
-        {closingLine ? (
-          <div className="mt-2 w-full overflow-hidden pb-1 sm:mt-3">
+        {ctas ? <HeroCtaGroup ctas={ctas} /> : null}
+      </div>
+
+      {/* Desktop / tablet — preserved stacked slide-in layout */}
+      <div className="hidden w-full sm:block">
+        <h1 className="contents">
+          <div className="w-full overflow-hidden pb-1">
+            <motion.div
+              className="flex w-full max-w-full flex-wrap items-center gap-3 sm:gap-4 md:gap-5"
+              variants={LINE_VARIANTS}
+              initial="initial"
+              animate={animateIn ? "animate" : "initial"}
+              transition={SLIDE_TRANSITION}
+            >
+              <span className="relative h-11 w-32 shrink-0 overflow-hidden rounded-full bg-white/10 ring-2 ring-white/30 sm:h-14 sm:w-44 md:h-16 md:w-52 lg:h-18 lg:w-56">
+                <HeroAnimatedPillImage
+                  src={pillImage.src}
+                  alt={pillImage.alt}
+                  priority
+                  isActive={animateIn}
+                />
+              </span>
+              <span className={cn(HEADLINE_CLASS, "min-w-0 flex-1")}>{leadWord}</span>
+            </motion.div>
+          </div>
+
+          <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
             <motion.div
               variants={LINE_VARIANTS}
               initial="initial"
               animate={animateIn ? "animate" : "initial"}
               transition={SLIDE_TRANSITION}
             >
-              <span className={HEADLINE_CLASS}>{closingLine}</span>
+              <span className={HEADLINE_CLASS}>{line2}</span>
             </motion.div>
           </div>
-        ) : null}
-      </h1>
 
-      <div className="relative mt-6 w-full min-w-0 overflow-hidden md:mt-8">
-        <motion.div
-          className="w-full max-w-xl text-left md:max-w-2xl lg:max-w-3xl"
-          initial={{ opacity: 0, y: 12 }}
-          animate={animateIn ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-          transition={{ duration: 0.45, ease: "easeInOut", delay: 0.12 }}
-        >
-          <p className={EPIGRAPH_CLASS}>{`"${epigraph}"`}</p>
-        </motion.div>
+          <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
+            <motion.div
+              variants={LINE_VARIANTS}
+              initial="initial"
+              animate={animateIn ? "animate" : "initial"}
+              transition={SLIDE_TRANSITION}
+            >
+              <span className={HEADLINE_CLASS}>{line3}</span>
+            </motion.div>
+          </div>
+
+          {closingLine ? (
+            <div className="mt-2 w-full overflow-hidden pb-1 sm:mt-3">
+              <motion.div
+                variants={LINE_VARIANTS}
+                initial="initial"
+                animate={animateIn ? "animate" : "initial"}
+                transition={SLIDE_TRANSITION}
+              >
+                <span className={HEADLINE_CLASS}>{closingLine}</span>
+              </motion.div>
+            </div>
+          ) : null}
+        </h1>
+
+        <div className="relative mt-6 w-full min-w-0 overflow-hidden sm:mt-8 md:mt-8">
+          <motion.div
+            className="w-full max-w-xl text-left md:max-w-2xl lg:max-w-3xl"
+            initial={{ opacity: 0, y: 12 }}
+            animate={animateIn ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+            transition={{ duration: 0.45, ease: "easeInOut", delay: 0.12 }}
+          >
+            <p className={EPIGRAPH_CLASS}>{`"${epigraph}"`}</p>
+          </motion.div>
+        </div>
+
+        {ctas ? <HeroCtaGroup ctas={ctas} /> : null}
       </div>
-
-      {ctas ? <HeroCtaGroup ctas={ctas} /> : null}
     </div>
   );
 }
@@ -262,15 +318,15 @@ export function InteriorPageHero({
     <section
       id={id}
       className={cn(
-        "hero-scroll-section relative box-border min-h-[100dvh] w-full max-w-full",
+        "hero-scroll-section relative box-border min-h-[100dvh] h-auto w-full max-w-full",
         className
       )}
     >
-      <div className="relative box-border flex min-h-[100dvh] max-w-full items-start overflow-hidden pt-24 sm:pt-28">
+      <div className="relative box-border flex h-auto min-h-[100dvh] max-w-full items-start overflow-x-clip overflow-y-visible pb-10 pt-20 sm:overflow-hidden sm:pb-0 sm:pt-28">
         <HeroStaticBackground src={backgroundImage.src} alt={backgroundImage.alt} />
 
-        <div className="relative z-10 box-border w-full max-w-full min-w-0 px-4 py-8 md:px-12 lg:px-16 xl:px-24">
-          <div className="box-border w-full min-w-0 max-w-7xl pt-12 text-left md:pt-16 xl:pt-20">
+        <div className="relative z-10 box-border w-full max-w-full min-w-0 px-4 py-6 sm:py-8 md:px-12 lg:px-16 xl:px-24">
+          <div className="box-border w-full min-w-0 max-w-7xl pt-6 text-left sm:pt-12 md:pt-16 xl:pt-20">
             <div className="relative z-10 w-full min-w-0">
               <HeroStackedHeadline
                 leadWord={leadWord}

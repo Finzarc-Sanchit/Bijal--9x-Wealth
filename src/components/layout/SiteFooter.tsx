@@ -1,290 +1,138 @@
 "use client";
 
+import { FooterColumn } from "@/components/ui/footer-column";
+import { FooterNewsletter } from "@/components/ui/footer-newsletter";
 import type { SiteContent } from "@/lib/content/schema";
-import { DISCLAIMER, SITE_NAV_LINKS, SOCIAL } from "@/lib/constants";
-import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowUpRight, CheckCircle2, ExternalLink, Mail, Phone, Send } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import {
+  CONTACT,
+  COVERAGE_LINKS,
+  FAMILY_LINKS,
+  HOUSE_LINKS,
+  RESOURCE_LINKS,
+  SOCIAL,
+} from "@/lib/constants";
 
-const newsletterSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-});
+function SocialIcon({ children }: { children: React.ReactNode; }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="h-full w-full"
+      aria-hidden
+    >
+      {children}
+    </svg>
+  );
+}
 
-type NewsletterInput = z.infer<typeof newsletterSchema>;
-
-const FOOTER_SERVICE_LINKS = [
-  { label: "Insurance Planning", href: "/services#insurance" },
-  { label: "Investments & SIPs", href: "/services#investments" },
-  { label: "Wealth Planning", href: "/services#wealth-planning" },
-  { label: "Book Consultation", href: "/#consultation-form" },
+const FOOTER_SOCIAL_LINKS = [
+  {
+    label: "Facebook",
+    href: SOCIAL.facebook,
+    icon: (
+      <SocialIcon>
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+      </SocialIcon>
+    ),
+  },
+  {
+    label: "Instagram",
+    href: SOCIAL.instagram,
+    icon: (
+      <SocialIcon>
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+      </SocialIcon>
+    ),
+  },
+  {
+    label: "LinkedIn",
+    href: SOCIAL.linkedin,
+    icon: (
+      <SocialIcon>
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.063 2.063 0 01-2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+      </SocialIcon>
+    ),
+  },
 ] as const;
 
-const TRUST_BADGES = ["Tata AIA Partner", "BNI Arjuna", "Borivali, Mumbai"] as const;
+const FOOTER_ABOUT_LINKS = [
+  { text: HOUSE_LINKS.ourStory.title, href: HOUSE_LINKS.ourStory.href },
+  { text: HOUSE_LINKS.team.title, href: HOUSE_LINKS.team.href },
+  { text: HOUSE_LINKS.practice.title, href: HOUSE_LINKS.practice.href },
+  { text: HOUSE_LINKS.careers.title, href: HOUSE_LINKS.careers.href },
+] as const;
 
-function FooterHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">
-      {children}
-    </h3>
-  );
+const FOOTER_SERVICE_LINKS = [
+  COVERAGE_LINKS.termLegacy,
+  COVERAGE_LINKS.health,
+  COVERAGE_LINKS.keyman,
+  COVERAGE_LINKS.wealthUlips,
+  COVERAGE_LINKS.global,
+  COVERAGE_LINKS.specie,
+].map((link) => ({ text: link.title, href: link.href }));
+
+const FOOTER_FAMILY_LINKS = [
+  FAMILY_LINKS.uhni,
+  FAMILY_LINKS.nri,
+  FAMILY_LINKS.businessOwners,
+  FAMILY_LINKS.listedPromoters,
+].map((link) => ({ text: link.title, href: link.href }));
+
+const FOOTER_HELPFUL_LINKS = [
+  RESOURCE_LINKS.faq,
+  RESOURCE_LINKS.glossary,
+  RESOURCE_LINKS.mwpaGuide,
+  RESOURCE_LINKS.calculators,
+].map((link) => ({ text: link.title, href: link.href }));
+
+function formatAddress() {
+  const { line1, city, postalCode, state } = CONTACT.address;
+  return `${line1}, ${city}, ${state} ${postalCode}`;
 }
 
-function FooterLink({
-  href,
-  children,
-  external,
-}: {
-  href: string;
-  children: React.ReactNode;
-  external?: boolean;
-}) {
-  const className =
-    "group/link inline-flex min-h-[44px] items-center gap-1 text-sm text-white/70 transition-colors duration-200 hover:text-white";
-
-  if (external) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
-        {children}
-        <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover/link:opacity-70" />
-      </a>
-    );
-  }
-
-  if (href.startsWith("#")) {
-    return (
-      <a href={href} className={className}>
-        {children}
-      </a>
-    );
-  }
-
+export function SiteFooter({ content }: { content: SiteContent; }) {
   return (
-    <Link href={href} className={className}>
-      {children}
-    </Link>
-  );
-}
-
-function SocialLinks() {
-  const links = [
-    { href: SOCIAL.facebook, label: "Facebook" },
-    { href: SOCIAL.instagram, label: "Instagram" },
-    { href: SOCIAL.linkedin, label: "LinkedIn" },
-  ] as const;
-
-  return (
-    <div className="flex flex-wrap gap-2">
-      {links.map(({ href, label }) => (
-        <a
-          key={href}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={label}
-          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white/[0.07] px-4 text-xs font-semibold text-white/75 ring-1 ring-white/10 transition hover:bg-brand-gold/15 hover:text-white hover:ring-brand-gold/30"
-        >
-          {label}
-        </a>
-      ))}
-    </div>
-  );
-}
-
-function FooterNewsletter() {
-  const [submitted, setSubmitted] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<NewsletterInput>({
-    resolver: zodResolver(newsletterSchema),
-    defaultValues: { email: "" },
-  });
-
-  const onSubmit = async (_data: NewsletterInput) => {
-    await new Promise((r) => setTimeout(r, 600));
-    setSubmitted(true);
-    reset();
-  };
-
-  if (submitted) {
-    return (
-      <div className="flex items-start gap-3 rounded-2xl bg-white/[0.06] p-4 ring-1 ring-brand-gold/25">
-        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand-gold" />
-        <div>
-          <p className="text-sm font-semibold text-white">You&apos;re subscribed!</p>
-          <p className="mt-1 text-sm text-white/55">
-            Thank you. We&apos;ll share practical insurance and wealth planning insights with you.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-3" noValidate>
-      <label htmlFor="footer-newsletter-email" className="sr-only">
-        Email for newsletter
-      </label>
-      <div className="flex flex-col gap-2 sm:flex-row">
-        <input
-          id="footer-newsletter-email"
-          type="email"
-          autoComplete="email"
-          placeholder="Your email address"
-          className={cn(
-            "min-h-[48px] flex-1 rounded-xl border-0 bg-white/[0.07] px-4 text-base text-white placeholder:text-white/35 ring-1 ring-white/10 transition focus:outline-none focus:ring-2 focus:ring-brand-gold/45",
-            errors.email && "ring-red-400/60",
-          )}
-          {...register("email")}
-        />
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-brand-gold px-5 text-sm font-bold text-brand-navy transition hover:bg-brand-gold-light disabled:opacity-60"
-        >
-          <Send className="h-4 w-4" />
-          {isSubmitting ? "Subscribing…" : "Subscribe"}
-        </button>
-      </div>
-      {errors.email && (
-        <p className="text-sm text-red-300" role="alert">
-          {errors.email.message}
-        </p>
-      )}
-      <p className="text-xs leading-relaxed text-white/40">
-        Practical tips on insurance, investments, and goal-based planning. Unsubscribe anytime.
-      </p>
-    </form>
-  );
-}
-
-export function SiteFooter({ content }: { content: SiteContent }) {
-  return (
-    <footer className="relative overflow-hidden border-t border-brand-gold/20 bg-[#0d1829] text-white">
+    <footer className="relative w-full max-w-none overflow-hidden bg-brand-navy text-white">
       <div
-        className="pointer-events-none absolute -left-[15%] bottom-0 h-[45%] w-[40%] rounded-full bg-brand-teal/8 blur-3xl"
+        className="pointer-events-none absolute -left-[12%] bottom-0 h-[42%] w-[38%] rounded-full bg-brand-teal/10 blur-3xl"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -right-[10%] top-0 h-[40%] w-[35%] rounded-full bg-brand-gold/8 blur-3xl"
+        className="pointer-events-none absolute -right-[8%] top-0 h-[36%] w-[32%] rounded-full bg-brand-gold/10 blur-3xl"
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pt-14 pb-8 md:pt-16">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-4">
-            <Link href="/" className="inline-block" aria-label={`${content.site.name} — Home`}>
-              <Image
-                src="/images/9x-wealth-logo.png"
-                alt="9X Wealth Financial Services"
-                width={180}
-                height={50}
-                className="h-10 w-auto brightness-0 invert"
-              />
-            </Link>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
-              {content.site.description}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {TRUST_BADGES.map((badge) => (
-                <span
-                  key={badge}
-                  className="rounded-full bg-white/[0.06] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white/55 ring-1 ring-white/10"
-                >
-                  {badge}
-                </span>
-              ))}
-            </div>
-            <div className="mt-6">
-              <SocialLinks />
-            </div>
-            <a
-              href={SOCIAL.tataAiaPortal}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex min-h-[44px] items-center gap-1.5 text-sm text-brand-teal/90 transition hover:text-brand-teal"
-            >
-              Tata AIA Partner Portal
-              <ExternalLink className="h-3.5 w-3.5" />
-            </a>
-          </div>
-
-          <div className="lg:col-span-2">
-            <FooterHeading>Explore</FooterHeading>
-            <ul className="space-y-0.5">
-              {SITE_NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <FooterLink href={link.href}>{link.label}</FooterLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="lg:col-span-2">
-            <FooterHeading>Services</FooterHeading>
-            <ul className="space-y-0.5">
-              {FOOTER_SERVICE_LINKS.map((link) => (
-                <li key={link.label}>
-                  <FooterLink href={link.href}>{link.label}</FooterLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="lg:col-span-4">
-            <FooterHeading>Newsletter</FooterHeading>
-            <p className="mb-4 text-sm leading-relaxed text-white/60">
-              Clear, senior-friendly guidance on protecting your family and building wealth — from
-              Bijal Pathak and the 9X Wealth team.
-            </p>
-            <FooterNewsletter />
-          </div>
-        </div>
-
-        <div className="mt-12 border-t border-white/8 pt-8">
-          <p className="text-xs leading-relaxed text-white/40">{content.disclaimer || DISCLAIMER}</p>
-          <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="text-sm text-white/50">
-              <p>
-                © {new Date().getFullYear()} {content.site.name}. All rights reserved.
-              </p>
-              <p className="mt-1 text-xs text-white/40">
-                Founded by {content.about.name} · {content.about.title.split("·")[0]?.trim()}
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <a
-                href={content.contact.phoneHref}
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-white/[0.06] px-4 text-xs font-semibold text-white/70 ring-1 ring-white/10 transition hover:bg-brand-gold/15 hover:text-white"
-              >
-                <Phone className="h-3.5 w-3.5" />
-                Call
-              </a>
-              <a
-                href={`mailto:${content.contact.email}`}
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-white/[0.06] px-4 text-xs font-semibold text-white/70 ring-1 ring-white/10 transition hover:bg-brand-gold/15 hover:text-white"
-              >
-                <Mail className="h-3.5 w-3.5" />
-                Email
-              </a>
-              <a
-                href="/#contact"
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-gold/90 px-4 text-xs font-bold text-brand-navy transition hover:bg-brand-gold"
-              >
-                Full contact details
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <FooterColumn
+        company={{
+          name: content.site.name,
+          description: content.site.description,
+          logo: "/images/9x-wealth-logo.png",
+          logoAlt: "9X Wealth Financial Services",
+        }}
+        socialLinks={FOOTER_SOCIAL_LINKS}
+        aboutLinks={FOOTER_ABOUT_LINKS}
+        familyLinks={FOOTER_FAMILY_LINKS}
+        serviceLinks={FOOTER_SERVICE_LINKS}
+        helpfulLinks={FOOTER_HELPFUL_LINKS}
+        contact={{
+          email: content.contact.email,
+          phone: content.contact.phone,
+          phoneHref: content.contact.phoneHref,
+          address: formatAddress(),
+        }}
+        copyrightName={content.site.name}
+        newsletter={
+          <FooterNewsletter
+            heading="Stay informed with 9X Wealth."
+            description="Clear, senior-friendly guidance on protecting your family and building wealth — from Bijal Pathak and the 9X Wealth team."
+            image={{
+              src: "/images/process/conversation.jpg",
+              alt: "A confidential financial planning conversation",
+            }}
+          />
+        }
+      />
     </footer>
   );
 }

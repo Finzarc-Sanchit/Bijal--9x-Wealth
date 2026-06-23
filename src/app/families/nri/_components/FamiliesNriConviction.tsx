@@ -1,9 +1,11 @@
-import { StickyFeatureSection } from "@/components/ui/sticky-scroll-cards-section";
+import { StepProcessLayout } from "@/components/sections/StepProcessLayout";
 import { TermLegacyConvictionSection } from "@/components/sections/TermLegacyConvictionSection";
-import { editorialCardsToStickyFeatures } from "@/lib/editorial-to-sticky";
+import { gridItemsToStepProcessSteps, parseProcessHeading } from "@/lib/grid-to-process";
 import { FAMILIES_NRI_CONSIDERATIONS, FAMILIES_NRI_CONVICTION } from "../_data/content";
 
 export function FamiliesNriConviction() {
+  const [title] = parseProcessHeading(FAMILIES_NRI_CONSIDERATIONS.headline);
+
   return (
     <>
       <TermLegacyConvictionSection
@@ -11,12 +13,12 @@ export function FamiliesNriConviction() {
         headline={FAMILIES_NRI_CONVICTION.headline}
         paragraphs={FAMILIES_NRI_CONVICTION.paragraphs}
       />
-      <StickyFeatureSection
+      <StepProcessLayout
         id="families-nri-considerations"
-        badge={FAMILIES_NRI_CONSIDERATIONS.badge}
-        headline={FAMILIES_NRI_CONSIDERATIONS.headline}
-        subtitle="What changes when the family crosses borders."
-        features={editorialCardsToStickyFeatures(FAMILIES_NRI_CONSIDERATIONS.items)}
+        eyebrow={FAMILIES_NRI_CONSIDERATIONS.badge}
+        title={title}
+        subtitle={FAMILIES_NRI_CONSIDERATIONS.subtitle}
+        steps={gridItemsToStepProcessSteps(FAMILIES_NRI_CONSIDERATIONS.items)}
       />
     </>
   );

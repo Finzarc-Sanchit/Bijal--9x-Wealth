@@ -26,8 +26,8 @@ export const FAMILIES_BUSINESS_OWNERS_HERO = {
     src: "/images/practice-areas/keyman-enterprise.jpg",
     alt: "Insurance for business owners — keyman, buy-sell, family continuity",
   },
-  leadWord: "The business is ",
-  headlineLines: ["the", "family."] as const,
+  leadWord: "The business ",
+  headlineLines: ["is the family."] as const,
   epigraph:
     "When the founder is the firm, an unexpected event affects every part of the family balance sheet at once. The architecture has to anticipate that — across personal cover, partner protection, and operational continuity.",
 } as const;

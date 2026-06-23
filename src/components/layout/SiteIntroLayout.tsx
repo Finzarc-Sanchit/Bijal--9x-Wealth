@@ -35,14 +35,16 @@ export function useSiteIntro() {
   return useContext(IntroContext);
 }
 
-/** Aligns with SiteNav: max-w-6xl (72rem), px-4 sm:px-6, h-[72px] bar */
+/** Aligns with SiteNav floating bar: max-w-6xl, px-4 sm:px-6, pt-3, h-[64px] */
 function navLogoPosition() {
   const containerWidth = Math.min(1152, window.innerWidth);
   const horizontalPadding = window.innerWidth >= 640 ? 24 : 16;
-  const left = (window.innerWidth - containerWidth) / 2 + horizontalPadding;
-  const navHeight = 72;
+  const innerPadding = window.innerWidth >= 640 ? 20 : 16;
+  const left = (window.innerWidth - containerWidth) / 2 + horizontalPadding + innerPadding;
+  const navTopOffset = 12;
+  const navHeight = 64;
   const logoHeight = window.innerWidth >= 768 ? 48 : window.innerWidth >= 640 ? 44 : 40;
-  const top = (navHeight - logoHeight) / 2;
+  const top = navTopOffset + (navHeight - logoHeight) / 2;
   const splashHeight = window.innerWidth >= 640 ? 80 : 64;
   return { top, left, scale: logoHeight / splashHeight };
 }
@@ -250,9 +252,11 @@ export function SiteIntroLayout({
 
   return (
     <IntroContext.Provider value={{ phase, introComplete, layoutReady, showNavLogo }}>
-      {/* Do not translate this wrapper — transform breaks position:fixed/sticky children */}
+      {/* Do not translate this wrapper — transform breaks position:fixed/sticky children.
+          Avoid overflow-* here; html/body already clip horizontal bleed and nested
+          overflow ancestors break position:sticky (especially bottom-pin on mobile). */}
       <motion.div
-        className="min-h-screen overflow-x-clip"
+        className="min-h-screen w-full min-w-0"
         initial={false}
         animate={{
           opacity: introComplete || phase === "transition" ? 1 : 0,

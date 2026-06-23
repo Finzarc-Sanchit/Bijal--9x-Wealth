@@ -25,13 +25,21 @@ const INSIDE_SPRING = {
   damping: 20
 };
 
+/** Bottom-pin on mobile; top-pin on lg+ for stacked section scroll-over. */
+const STACK_PINNED_SHELL_CLASSES =
+  "sticky bottom-0 z-10 lg:sticky lg:top-0 lg:bottom-auto";
+
+const SECTION_SURFACE_CLASSES =
+  "w-full bg-brand-cream px-4 py-16 md:px-12 md:py-24 lg:px-16 lg:py-32";
+
 function UniformPracticeCard({ area, isActive }: { area: PracticeArea; isActive: boolean; }) {
   const [imageFailed, setImageFailed] = useState(false);
 
   return (
     <div
       className={cn(
-        "relative flex min-h-[360px] h-full flex-col overflow-hidden rounded-xl p-8 sm:min-h-[400px] sm:p-10 lg:min-h-[440px] lg:p-12 transition-all duration-500 ease-out",
+        /* Reduced min-height and adjusted inner padding down to p-5 for tight mobile display alignments */
+        "relative flex min-h-[240px] h-full flex-col overflow-hidden rounded-xl p-5 sm:min-h-[360px] sm:p-10 lg:min-h-[440px] lg:p-12 transition-all duration-500 ease-out",
         isActive ? "bg-[#2d3136]" : "bg-black"
       )}
     >
@@ -80,7 +88,7 @@ function UniformPracticeCard({ area, isActive }: { area: PracticeArea; isActive:
             transition={INSIDE_SPRING}
             className={cn(
               "font-display leading-tight tracking-tight text-white transition-all duration-500",
-              isActive ? "text-3xl md:text-4xl font-medium" : "text-2xl md:text-3xl font-normal"
+              isActive ? "text-2xl sm:text-3xl md:text-4xl font-medium" : "text-xl sm:text-2xl md:text-3xl font-normal"
             )}
           >
             {area.title}
@@ -144,133 +152,147 @@ export function AreasOfPracticeSection({
     goTo(activeIndex - 1);
   }, [activeIndex, goTo]);
 
-  return (
-    <section
-      className={cn(
-        "w-full bg-brand-cream px-4 py-16 md:px-12 md:py-24 lg:px-16 lg:py-32 overflow-hidden",
-        usePinnedLayout && "sticky top-0 z-10",
-        className,
-      )}
-      aria-labelledby="areas-of-practice-heading"
-    >
-      <div className="w-full mx-auto">
-        <header className="max-w-4xl">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.28em] text-brand-teal">
-            {PRACTICE_AREAS_META.eyebrow}
+  const sectionContent = (
+    <div className="w-full mx-auto">
+      <header className="max-w-4xl">
+        <p className="font-mono text-xs font-semibold uppercase tracking-[0.28em] text-brand-teal">
+          {PRACTICE_AREAS_META.eyebrow}
+        </p>
+        <h2
+          id="areas-of-practice-heading"
+          className="mt-4 font-poppins text-4xl font-medium leading-[1.15] tracking-tight text-brand-navy sm:text-5xl lg:text-6xl"
+        >
+          {PRACTICE_AREAS_META.heading[0]}
+          <br />
+          {PRACTICE_AREAS_META.heading[1]}
+        </h2>
+      </header>
+
+      <div className="mt-16 grid grid-cols-1 gap-10 lg:mt-24 lg:grid-cols-[minmax(280px,340px)_1fr] lg:gap-28 xl:gap-40">
+        <nav aria-label="Practice area tabs" className="min-w-0 lg:sticky lg:top-32 lg:self-start">
+          <p className="font-inter text-sm leading-relaxed text-brand-navy/70 md:text-base">
+            {PRACTICE_AREAS_META.description}
           </p>
-          <h2
-            id="areas-of-practice-heading"
-            className="mt-4 font-poppins text-4xl font-medium leading-[1.15] tracking-tight text-brand-navy sm:text-5xl lg:text-6xl"
-          >
-            {PRACTICE_AREAS_META.heading[0]}
-            <br />
-            {PRACTICE_AREAS_META.heading[1]}
-          </h2>
-        </header>
 
-        <div className="mt-16 grid grid-cols-1 gap-10 lg:mt-24 lg:grid-cols-[minmax(280px,340px)_1fr] lg:gap-28 xl:gap-40">
-          <nav aria-label="Practice area tabs" className="min-w-0 lg:sticky lg:top-32 lg:self-start">
-            <p className="font-inter text-sm leading-relaxed text-brand-navy/70 md:text-base">
-              {PRACTICE_AREAS_META.description}
-            </p>
+          <div className="mt-8 divide-y-[1.5px] divide-brand-navy/40 border-y-[1.5px] border-brand-navy/40">
+            {PRACTICE_AREAS.map((area, index) => {
+              const isActive = activeIndex === index;
 
-            <div className="mt-8 divide-y-[1.5px] divide-brand-navy/40 border-y-[1.5px] border-brand-navy/40">
-              {PRACTICE_AREAS.map((area, index) => {
-                const isActive = activeIndex === index;
-
-                return (
-                  <motion.button
-                    key={area.id}
-                    type="button"
-                    layout
+              return (
+                <motion.button
+                  key={area.id}
+                  type="button"
+                  layout
+                  transition={INSIDE_SPRING}
+                  aria-selected={isActive}
+                  onClick={() => goTo(index)}
+                  className={cn(
+                    "flex w-full min-h-[44px] items-center py-4 font-inter text-xs uppercase tracking-[0.18em] sm:text-sm cursor-pointer transition-colors duration-500",
+                    isActive
+                      ? "justify-end text-right font-bold text-brand-navy"
+                      : "justify-start text-left font-normal text-brand-navy/40 hover:text-brand-navy/80",
+                  )}
+                >
+                  <motion.span
+                    layout="position"
                     transition={INSIDE_SPRING}
-                    aria-selected={isActive}
-                    onClick={() => goTo(index)}
-                    className={cn(
-                      "flex w-full min-h-[44px] items-center py-4 font-inter text-xs uppercase tracking-[0.18em] sm:text-sm cursor-pointer transition-colors duration-500",
-                      isActive
-                        ? "justify-end text-right font-bold text-brand-navy"
-                        : "justify-start text-left font-normal text-brand-navy/40 hover:text-brand-navy/80",
-                    )}
                   >
-                    <motion.span
-                      layout="position"
-                      transition={INSIDE_SPRING}
-                    >
-                      {area.title}
-                    </motion.span>
-                  </motion.button>
-                );
-              })}
-            </div>
-          </nav>
+                    {area.title}
+                  </motion.span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </nav>
 
-          <div className="relative min-w-0 w-full overflow-hidden">
-            <motion.div
-              className="flex w-full"
-              animate={{ x: `-${activeIndex * 72}%` }}
-              transition={reduceMotion ? { duration: 0.2 } : SLIDE_SPRING}
+        <div className="relative min-w-0 w-full overflow-hidden">
+          <motion.div
+            className="flex w-full"
+            animate={{ x: `-${activeIndex * 85}%` }}
+            transition={reduceMotion ? { duration: 0.2 } : SLIDE_SPRING}
+          >
+            {PRACTICE_AREAS.map((area, index) => {
+              const isActive = activeIndex === index;
+
+              return (
+                /* Reduced layout track card gaps via mobile padding adjustments (pr-4 vs sm:pr-8) */
+                <div
+                  key={area.id}
+                  className="min-w-0 w-[85%] sm:w-[72%] shrink-0 flex flex-col gap-6 lg:flex-row lg:items-stretch pr-4 sm:pr-8"
+                >
+                  <UniformPracticeCard area={area} isActive={isActive} />
+                </div>
+              );
+            })}
+          </motion.div>
+
+          <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div
+              className="flex flex-1 items-center justify-center gap-2 lg:justify-start lg:pl-2"
+              role="tablist"
+              aria-label="Practice area pagination"
             >
-              {PRACTICE_AREAS.map((area, index) => {
-                const isActive = activeIndex === index;
+              {PRACTICE_AREAS.map((area, index) => (
+                <button
+                  key={area.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeIndex === index}
+                  aria-label={`Show ${area.title}`}
+                  onClick={() => goTo(index)}
+                  className={cn(
+                    "rounded-full transition-all duration-300 cursor-pointer",
+                    activeIndex === index
+                      ? "h-2.5 w-8 bg-brand-navy"
+                      : "h-2 w-2 bg-brand-navy/20 hover:bg-brand-navy/40",
+                  )}
+                />
+              ))}
+            </div>
 
-                return (
-                  <div
-                    key={area.id}
-                    className="min-w-0 w-[72%] shrink-0 flex-col gap-6 lg:flex-row lg:items-stretch pr-8"
-                  >
-                    <UniformPracticeCard area={area} isActive={isActive} />
-                  </div>
-                );
-              })}
-            </motion.div>
-
-            <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <div
-                className="flex flex-1 items-center justify-center gap-2 lg:justify-start lg:pl-2"
-                role="tablist"
-                aria-label="Practice area pagination"
+            <div className="flex items-center justify-end gap-3">
+              <button
+                type="button"
+                aria-label="Previous practice area"
+                onClick={goPrev}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-navy/25 text-brand-navy transition-colors duration-300 hover:border-brand-navy hover:bg-brand-navy hover:text-white cursor-pointer"
               >
-                {PRACTICE_AREAS.map((area, index) => (
-                  <button
-                    key={area.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={activeIndex === index}
-                    aria-label={`Show ${area.title}`}
-                    onClick={() => goTo(index)}
-                    className={cn(
-                      "rounded-full transition-all duration-300 cursor-pointer",
-                      activeIndex === index
-                        ? "h-2.5 w-8 bg-brand-navy"
-                        : "h-2 w-2 bg-brand-navy/20 hover:bg-brand-navy/40",
-                    )}
-                  />
-                ))}
-              </div>
-
-              <div className="flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  aria-label="Previous practice area"
-                  onClick={goPrev}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-navy/25 text-brand-navy transition-colors duration-300 hover:border-brand-navy hover:bg-brand-navy hover:text-white cursor-pointer"
-                >
-                  <ChevronLeft className="h-5 w-5" aria-hidden />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Next practice area"
-                  onClick={goNext}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-navy/25 text-brand-navy transition-colors duration-300 hover:border-brand-navy hover:bg-brand-navy hover:text-white cursor-pointer"
-                >
-                  <ChevronRight className="h-5 w-5" aria-hidden />
-                </button>
-              </div>
+                <ChevronLeft className="h-5 w-5" aria-hidden />
+              </button>
+              <button
+                type="button"
+                aria-label="Next practice area"
+                onClick={goNext}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-navy/25 text-brand-navy transition-colors duration-300 hover:border-brand-navy hover:bg-brand-navy hover:text-white cursor-pointer"
+              >
+                <ChevronRight className="h-5 w-5" aria-hidden />
+              </button>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  );
+
+  if (usePinnedLayout) {
+    return (
+      <div className={cn(STACK_PINNED_SHELL_CLASSES, className)}>
+        <section
+          className={cn(SECTION_SURFACE_CLASSES, "min-w-0")}
+          aria-labelledby="areas-of-practice-heading"
+        >
+          {sectionContent}
+        </section>
+      </div>
+    );
+  }
+
+  return (
+    <section
+      className={cn(SECTION_SURFACE_CLASSES, "overflow-hidden", className)}
+      aria-labelledby="areas-of-practice-heading"
+    >
+      {sectionContent}
     </section>
   );
 }

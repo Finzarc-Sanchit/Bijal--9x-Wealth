@@ -1,13 +1,11 @@
 "use client";
 
-import { EditorialWordmark } from "@/components/brand/EditorialWordmark";
 import { useSiteIntro } from "@/components/layout/SiteIntroLayout";
-import { CONTACT, EDITORIAL_NAV_CTA, NAV, type NavItem } from "@/lib/constants";
+import { NAV, type NavItem } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, Menu, MessageCircle, Moon, Sun, X } from "lucide-react";
-import { useTheme } from "next-themes";
+import { ChevronDown, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -192,7 +190,7 @@ function NavMenu({
                 <div key={group.heading} className="mt-2">
                   <p
                     className={cn(
-                      "px-4 py-1 text-xs font-bold uppercase tracking-[0.16em]",
+                      "hidden px-4 py-1 text-xs font-bold uppercase tracking-[0.16em] sm:block",
                       groupHeadingClass,
                       POINTER,
                     )}
@@ -460,50 +458,16 @@ function NavItems({
   );
 }
 
-function ThemeToggle({ className }: { className?: string; }) {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+const NAV_CTA_CLASS = cn(
+  "inline-flex min-h-[44px] items-center rounded-full bg-brand-gold px-5 py-2.5 text-sm font-semibold text-brand-navy shadow-sm transition hover:bg-brand-gold-light",
+  POINTER,
+);
 
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted) {
-    return <span className={cn("inline-flex h-10 w-10", className)} aria-hidden />;
-  }
-
-  const isDark = resolvedTheme === "dark";
-
-  return (
-    <button
-      type="button"
-      className={cn(
-        "inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full text-brand-muted transition hover:text-brand-navy",
-        POINTER,
-        className,
-      )}
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-    >
-      {isDark ? <Sun className="h-[1.15rem] w-[1.15rem]" /> : <Moon className="h-[1.15rem] w-[1.15rem]" />}
-    </button>
-  );
-}
-
-export function SiteNav({
-  variant = "auto",
-  pinVisible = false,
-}: {
-  variant?: "auto" | "default" | "floating" | "editorial";
-  pinVisible?: boolean;
-}) {
+export function SiteNav() {
   const { showNavLogo } = useSiteIntro();
-  const { scrolled, navVisible } = useScrollDirection();
+  const { navVisible } = useScrollDirection();
   const [mobileOpen, setMobileOpen] = useState(false);
   const navListLeaveRef = useRef<((event: React.MouseEvent<HTMLUListElement>) => void) | null>(null);
-  const pathname = usePathname();
-  const resolvedVariant =
-    variant === "auto" ? (pathname === "/" ? "editorial" : "floating") : variant;
-  const isFloating = resolvedVariant === "floating";
-  const isEditorial = resolvedVariant === "editorial";
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -513,178 +477,31 @@ export function SiteNav({
   }, [mobileOpen]);
 
   const closeMobile = () => setMobileOpen(false);
-  const useSolidNav = isFloating || isEditorial || scrolled;
+  const showHeader = navVisible || mobileOpen;
 
   const navLinkClass = cn(
     POINTER,
-    "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-    useSolidNav
-      ? "text-brand-navy/80 hover:bg-brand-cream hover:text-brand-navy"
-      : "text-white/80 hover:bg-white/10 hover:text-white",
+    "rounded-lg px-3 py-2 text-sm font-medium text-brand-navy/80 transition-colors hover:bg-brand-cream hover:text-brand-navy",
   );
-
-  const showHeader = pinVisible || navVisible || mobileOpen || isEditorial;
-
-  if (isEditorial) {
-    const editorialLinkClass = cn(
-      POINTER,
-      "rounded-lg px-3 py-2 text-sm font-medium text-brand-muted transition-colors duration-300 hover:bg-brand-gold/10 hover:text-brand-navy",
-    );
-
-    const editorialMobileSubLink = cn(
-      POINTER,
-      "flex min-h-[44px] items-center rounded-lg px-4 py-2 text-sm font-medium text-brand-muted transition-colors hover:bg-brand-gold/10 hover:text-brand-navy",
-    );
-
-    return (
-      <motion.header
-        className="fixed inset-x-0 top-0 z-50 overflow-visible px-4 pt-4 sm:px-6"
-        initial={{ y: -24, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <motion.nav
-          aria-label="Main navigation"
-          className="editorial-floating-nav mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 overflow-visible rounded-2xl border border-brand-gold/25 bg-[#f3ece0]/90 px-4 shadow-[0_18px_48px_-22px_rgba(10,22,40,0.28)] backdrop-blur-xl sm:px-6 lg:px-8"
-          style={{ minHeight: 68 }}
-          animate={{
-            boxShadow: [
-              "0 18px 48px -22px rgba(10, 22, 40, 0.28)",
-              "0 22px 56px -18px rgba(201, 162, 39, 0.18)",
-              "0 18px 48px -22px rgba(10, 22, 40, 0.28)",
-            ],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <EditorialWordmark onNavigate={closeMobile} />
-
-          <ul
-            className="hidden items-center justify-center gap-1 overflow-visible lg:flex xl:gap-2"
-            onMouseLeave={(event) => navListLeaveRef.current?.(event)}
-          >
-            <NavItems
-              navLinkClass={editorialLinkClass}
-              onNavigate={closeMobile}
-              listLeaveRef={navListLeaveRef}
-            />
-          </ul>
-
-          <div className="flex items-center justify-end gap-2 sm:gap-3">
-            <a
-              href={EDITORIAL_NAV_CTA.portalHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "hidden text-sm font-medium text-brand-muted transition hover:text-brand-navy md:inline",
-                POINTER,
-              )}
-            >
-              {EDITORIAL_NAV_CTA.portalLabel}
-            </a>
-            <ThemeToggle className="hidden sm:inline-flex" />
-            <Link
-              href={EDITORIAL_NAV_CTA.scheduleHref}
-              onClick={closeMobile}
-              className={cn(
-                "hidden min-h-[44px] items-center rounded-md bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition hover:bg-brand-gold-light sm:inline-flex sm:px-5 sm:text-sm",
-                POINTER,
-              )}
-            >
-              {EDITORIAL_NAV_CTA.scheduleLabel}
-            </Link>
-            <button
-              type="button"
-              className={cn(
-                "inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-brand-navy lg:hidden",
-                POINTER,
-              )}
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-nav-panel"
-              onClick={() => setMobileOpen((open) => !open)}
-            >
-              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
-            </button>
-          </div>
-        </motion.nav>
-
-        <AnimatePresence>
-          {mobileOpen ? (
-            <motion.div
-              id="mobile-nav-panel"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="editorial-floating-nav mx-auto mt-3 max-w-7xl overflow-hidden rounded-2xl border border-brand-gold/20 bg-[#f3ece0]/95 shadow-lg backdrop-blur-xl lg:hidden"
-            >
-              <div className="space-y-1 px-5 py-4">
-                <NavItems
-                  navLinkClass={editorialLinkClass}
-                  onNavigate={closeMobile}
-                  variant="mobile"
-                  mobileSubLinkClass={editorialMobileSubLink}
-                  mobileHubClass="font-semibold text-brand-teal"
-                  mobileGroupHeadingClass="text-brand-muted"
-                  mobileTopLinkClass="text-brand-muted"
-                />
-              </div>
-              <div className="flex flex-col gap-3 border-t border-brand-navy/8 px-5 py-4">
-                <a
-                  href={EDITORIAL_NAV_CTA.portalHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn("text-sm font-medium text-brand-muted transition hover:text-brand-navy", POINTER)}
-                >
-                  {EDITORIAL_NAV_CTA.portalLabel}
-                </a>
-                <Link
-                  href={EDITORIAL_NAV_CTA.scheduleHref}
-                  onClick={closeMobile}
-                  className={cn(
-                    "inline-flex min-h-[48px] items-center justify-center rounded-md bg-brand-gold text-sm font-semibold text-brand-navy transition hover:bg-brand-gold-light",
-                    POINTER,
-                  )}
-                >
-                  {EDITORIAL_NAV_CTA.scheduleLabel}
-                </Link>
-              </div>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-      </motion.header>
-    );
-  }
 
   const defaultMobileSubLink = cn(
     POINTER,
-    "flex min-h-[44px] items-center rounded-lg px-4 py-2 text-sm font-medium text-brand-navy transition-colors hover:bg-brand-cream",
+    "flex min-h-[44px] items-center rounded-lg px-4 py-2 text-sm font-medium text-brand-navy transition-colors hover:bg-brand-cream hover:text-brand-teal",
   );
 
   return (
-    <motion.header
-      className={cn("fixed inset-x-0 top-0 z-50 overflow-visible", isFloating && "pointer-events-none")}
-      initial={false}
-      animate={{ y: showHeader ? 0 : "-100%" }}
-      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 overflow-visible transition-transform duration-300 ease-out",
+        showHeader ? "translate-y-0" : "-translate-y-full",
+      )}
     >
-      <div className={cn(isFloating && "pointer-events-auto mx-auto max-w-6xl overflow-visible px-4 pt-3 sm:px-6")}>
+      <div className="pointer-events-none mx-auto max-w-6xl overflow-visible px-4 pt-3 sm:px-6">
         <nav
           aria-label="Main navigation"
-          className={cn(
-            "overflow-visible transition-all duration-300",
-            isFloating
-              ? "rounded-2xl border border-brand-navy/8 bg-white/92 text-brand-navy shadow-[0_12px_40px_-16px_rgba(10,22,40,0.18)] backdrop-blur-md"
-              : useSolidNav
-                ? "border-b border-brand-navy/5 bg-white/90 shadow-sm backdrop-blur-md text-brand-navy"
-                : "bg-transparent text-white",
-          )}
+          className="pointer-events-auto overflow-visible rounded-2xl border border-brand-navy/8 bg-surface/92 text-brand-navy shadow-[0_12px_40px_-16px_rgba(10,22,40,0.18)] backdrop-blur-md transition-all duration-300"
         >
-          <div
-            className={cn(
-              "mx-auto flex items-center justify-between gap-4 overflow-visible",
-              isFloating ? "h-[64px] max-w-none px-4 sm:px-5" : "h-[72px] max-w-6xl px-4 sm:px-6",
-            )}
-          >
+          <div className="mx-auto flex h-[64px] max-w-none items-center justify-between gap-4 overflow-visible px-4 sm:px-5">
             <Link
               href="/"
               className={cn("relative flex shrink-0 items-center", POINTER)}
@@ -698,10 +515,7 @@ export function SiteNav({
                   width={200}
                   height={56}
                   priority
-                  className={cn(
-                    "h-10 w-auto sm:h-11 md:h-12 transition-all",
-                    !useSolidNav && "brightness-0 invert",
-                  )}
+                  className="h-10 w-auto transition-all sm:h-11 md:h-12"
                 />
               ) : (
                 <span className="block h-10 w-[140px] sm:h-11 sm:w-[155px] md:h-12 md:w-[168px]" aria-hidden />
@@ -720,28 +534,7 @@ export function SiteNav({
             </ul>
 
             <div className="hidden items-center gap-2 lg:flex">
-              <a
-                href={CONTACT.whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "inline-flex min-h-[44px] items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition",
-                  POINTER,
-                  useSolidNav
-                    ? "text-brand-teal ring-1 ring-brand-teal/30 hover:bg-brand-teal/5"
-                    : "text-white ring-1 ring-white/25 hover:bg-white/10",
-                )}
-              >
-                <MessageCircle className="h-4 w-4" />
-                WhatsApp
-              </a>
-              <Link
-                href={CTA.href}
-                className={cn(
-                  "inline-flex min-h-[44px] items-center rounded-full bg-[#22A559] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1d8f4c]",
-                  POINTER,
-                )}
-              >
+              <Link href={CTA.href} className={NAV_CTA_CLASS}>
                 {CTA.label}
               </Link>
             </div>
@@ -749,11 +542,8 @@ export function SiteNav({
             <button
               type="button"
               className={cn(
-                "inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl transition lg:hidden",
+                "inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl text-brand-navy ring-1 ring-brand-navy/10 transition lg:hidden",
                 POINTER,
-                useSolidNav
-                  ? "text-brand-navy ring-1 ring-brand-navy/10"
-                  : "text-white ring-1 ring-white/15",
               )}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav-panel"
@@ -766,16 +556,15 @@ export function SiteNav({
         </nav>
       </div>
 
-      <AnimatePresence>
-        {mobileOpen && (
+      <AnimatePresence initial={false}>
+        {mobileOpen ? (
           <>
             <motion.button
               type="button"
               aria-label="Close menu overlay"
               className={cn(
-                "fixed inset-0 z-40 bg-brand-navy/30 lg:hidden",
+                "pointer-events-auto fixed inset-x-0 top-[88px] bottom-0 z-[60] bg-brand-navy/30 lg:hidden",
                 POINTER,
-                isFloating ? "top-[88px]" : "top-[72px]",
               )}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -784,10 +573,7 @@ export function SiteNav({
             />
             <motion.div
               id="mobile-nav-panel"
-              className={cn(
-                "fixed inset-x-0 z-50 max-h-[calc(100vh-72px)] overflow-y-auto border-b border-brand-navy/10 bg-white px-4 py-4 shadow-lg lg:hidden",
-                isFloating ? "top-[88px] rounded-b-2xl border-x" : "top-[72px]",
-              )}
+              className="pointer-events-auto fixed inset-x-4 top-[88px] z-[70] max-h-[calc(100dvh-88px)] overflow-y-auto rounded-b-2xl border border-brand-navy/10 bg-surface px-4 py-4 shadow-lg sm:inset-x-6 lg:hidden"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -801,38 +587,18 @@ export function SiteNav({
                   mobileSubLinkClass={defaultMobileSubLink}
                   mobileHubClass="font-semibold text-brand-teal"
                   mobileGroupHeadingClass="text-brand-muted"
-                  mobileTopLinkClass="text-brand-navy hover:bg-brand-cream"
+                  mobileTopLinkClass="text-brand-navy hover:bg-brand-cream hover:text-brand-teal"
                 />
               </div>
-              <div className="mt-4 space-y-3 border-t border-brand-navy/10 pt-4">
-                <a
-                  href={CONTACT.whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMobile}
-                  className={cn(
-                    "flex min-h-[44px] items-center justify-center gap-2 rounded-full ring-1 ring-brand-teal/40 text-brand-teal transition hover:bg-brand-teal/5",
-                    POINTER,
-                  )}
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  WhatsApp Bijal
-                </a>
-                <Link
-                  href={CTA.href}
-                  onClick={closeMobile}
-                  className={cn(
-                    "flex min-h-[44px] items-center justify-center rounded-full bg-[#22A559] text-base font-semibold text-white transition hover:bg-[#1d8f4c]",
-                    POINTER,
-                  )}
-                >
+              <div className="mt-4 border-t border-brand-navy/10 pt-4">
+                <Link href={CTA.href} onClick={closeMobile} className={cn(NAV_CTA_CLASS, "w-full justify-center")}>
                   {CTA.label}
                 </Link>
               </div>
             </motion.div>
           </>
-        )}
+        ) : null}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

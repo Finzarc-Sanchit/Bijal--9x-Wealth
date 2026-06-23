@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @config "../../tailwind.config.ts";
+@import "lenis/dist/lenis.css";
 
 @theme inline {
   --color-brand-navy: #0a1628;
@@ -234,9 +235,17 @@ p {
   box-sizing: border-box;
   max-width: 100%;
   letter-spacing: -0.02em;
-  font-size: clamp(2rem, 4.2vw, 3.75rem);
-  line-height: 0.92;
+  /* Fixed mobile footprint — no fluid clamp below tablet */
+  font-size: 1.875rem;
+  line-height: 1.15;
   overflow-wrap: anywhere;
+}
+
+@media (min-width: 640px) {
+  .hero-editorial-headline {
+    font-size: clamp(2rem, 4.2vw, 3.75rem);
+    line-height: 0.92;
+  }
 }
 
 @media (min-width: 1024px) {

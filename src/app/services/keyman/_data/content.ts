@@ -2,9 +2,8 @@ import type { EditorialCard } from "@/components/sections/EditorialCardGrid";
 import type { EditorialConvictionParagraph } from "@/components/sections/EditorialConvictionSection";
 import type { FaqItem } from "@/components/sections/EditorialFaqSection";
 import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
-import type { PracticeAreasMeta } from "@/components/sections/PracticeAreasSection";
+import type { WhatWeProtectContent } from "@/components/sections/WhatWeProtectSection";
 import type { RelatedLink } from "@/components/sections/RelatedLinksSection";
-import type { PracticeArea } from "@/data/practice-areas";
 
 export const KEYMAN_METADATA = {
   title: "Keyman & Enterprise Insurance — Buy-Sell, Partner Protection, Family Business Continuity · 9X Wealth",
@@ -96,81 +95,68 @@ export const KEYMAN_STRUCTURES = {
   ] as const satisfies readonly EditorialCard[],
 } as const;
 
-export const KEYMAN_STRUCTURES_META = {
+export const KEYMAN_STRUCTURES_PROTECT_CONTENT = {
   eyebrow: KEYMAN_STRUCTURES.badge,
-  heading: ["Cover sized to the situation,", "not the brochure."],
+  heading: KEYMAN_STRUCTURES.headline,
   description:
     "The operational and strategic pillars defining our Keyman framework.",
-} as const satisfies PracticeAreasMeta;
-
-export const KEYMAN_STRUCTURE_AREAS = [
-  {
-    id: KEYMAN_STRUCTURES.items[0].id,
-    title: KEYMAN_STRUCTURES.items[0].title,
-    description: KEYMAN_STRUCTURES.items[0].description,
-    cta: "Schedule a Conversation",
-    href: "/contact",
-    image: {
+  cards: [
+    {
+      id: KEYMAN_STRUCTURES.items[0].id,
+      title: KEYMAN_STRUCTURES.items[0].title,
+      body: KEYMAN_STRUCTURES.items[0].description,
+      cta: "Schedule a Conversation",
+      href: "/contact",
       src: "/images/practice-areas/keyman-enterprise.jpg",
       alt: "Pure keyman policy protecting critical business leadership",
     },
-  },
-  {
-    id: KEYMAN_STRUCTURES.items[1].id,
-    title: KEYMAN_STRUCTURES.items[1].title,
-    description: KEYMAN_STRUCTURES.items[1].description,
-    cta: "Schedule a Conversation",
-    href: "/contact",
-    image: {
+    {
+      id: KEYMAN_STRUCTURES.items[1].id,
+      title: KEYMAN_STRUCTURES.items[1].title,
+      body: KEYMAN_STRUCTURES.items[1].description,
+      cta: "Schedule a Conversation",
+      href: "/contact",
       src: "/images/process/conversation.jpg",
       alt: "Cross-purchase buy-sell agreement between business partners",
     },
-  },
-  {
-    id: KEYMAN_STRUCTURES.items[2].id,
-    title: KEYMAN_STRUCTURES.items[2].title,
-    description: KEYMAN_STRUCTURES.items[2].description,
-    cta: "Schedule a Conversation",
-    href: "/contact",
-    image: {
+    {
+      id: KEYMAN_STRUCTURES.items[2].id,
+      title: KEYMAN_STRUCTURES.items[2].title,
+      body: KEYMAN_STRUCTURES.items[2].description,
+      cta: "Schedule a Conversation",
+      href: "/contact",
       src: "/images/process/architecture.jpg",
       alt: "Entity-redemption buy-sell structure for shareholder continuity",
     },
-  },
-  {
-    id: KEYMAN_STRUCTURES.items[3].id,
-    title: KEYMAN_STRUCTURES.items[3].title,
-    description: KEYMAN_STRUCTURES.items[3].description,
-    cta: "Schedule a Conversation",
-    href: "/contact",
-    image: {
+    {
+      id: KEYMAN_STRUCTURES.items[3].id,
+      title: KEYMAN_STRUCTURES.items[3].title,
+      body: KEYMAN_STRUCTURES.items[3].description,
+      cta: "Schedule a Conversation",
+      href: "/contact",
       src: "/images/process/stewardship.jpg",
       alt: "Loan-protection cover aligned to outstanding business liabilities",
     },
-  },
-  {
-    id: KEYMAN_STRUCTURES.items[4].id,
-    title: KEYMAN_STRUCTURES.items[4].title,
-    description: KEYMAN_STRUCTURES.items[4].description,
-    cta: "Schedule a Conversation",
-    href: "/contact",
-    image: {
+    {
+      id: KEYMAN_STRUCTURES.items[4].id,
+      title: KEYMAN_STRUCTURES.items[4].title,
+      body: KEYMAN_STRUCTURES.items[4].description,
+      cta: "Schedule a Conversation",
+      href: "/contact",
       src: "/images/practice-areas/private-health-coverage.jpg",
       alt: "Critical-illness rider funding succession and treatment",
     },
-  },
-  {
-    id: KEYMAN_STRUCTURES.items[5].id,
-    title: KEYMAN_STRUCTURES.items[5].title,
-    description: KEYMAN_STRUCTURES.items[5].description,
-    cta: "Schedule a Conversation",
-    href: "/contact",
-    image: {
+    {
+      id: KEYMAN_STRUCTURES.items[5].id,
+      title: KEYMAN_STRUCTURES.items[5].title,
+      body: KEYMAN_STRUCTURES.items[5].description,
+      cta: "Schedule a Conversation",
+      href: "/contact",
       src: "/images/process/activation.jpg",
       alt: "Disability income rider sustaining operations through handover",
     },
-  },
-] as const satisfies readonly PracticeArea[];
+  ],
+} as const satisfies WhatWeProtectContent;
 
 export const KEYMAN_FAQ = {
   badge: "Frequently asked",
