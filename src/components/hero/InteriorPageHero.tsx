@@ -116,35 +116,15 @@ function HeroCtaButton({ label, href, variant = "primary" }: HeroCtaConfig) {
   );
 }
 
-function HeroCtaGroup({ ctas }: { ctas: readonly HeroCtaConfig[] }) {
+function HeroCtaGroup({ ctas }: { ctas: readonly HeroCtaConfig[]; }) {
   if (ctas.length === 0) return null;
 
   return (
-    <div className="relative z-30 mt-8 flex w-full flex-col gap-4 sm:mt-10 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
+    /* `items-start` maintains left-alignment and keeps buttons from expanding to full-width constraints */
+    <div className="relative z-30 mt-8 flex w-full flex-col items-start gap-4 sm:mt-10 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
       {ctas.map((cta) => (
         <HeroCtaButton key={`${cta.href}-${cta.label}`} {...cta} />
       ))}
-    </div>
-  );
-}
-
-function HeroStaticBackground({
-  src,
-  alt,
-}: {
-  src: string;
-  alt: string;
-}) {
-  return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        priority
-        className="box-border h-full w-full max-w-none object-cover"
-        sizes="100vw"
-      />
     </div>
   );
 }
@@ -170,11 +150,11 @@ function HeroStackedHeadline({
 
   return (
     <div className="m-0 flex w-full max-w-full select-none flex-col items-start p-0 text-left">
-      {/* Mobile — pill + stacked lines, opacity-only entrance (no overflow clip) */}
-      <div className="w-full min-w-0 sm:hidden">
-        <h1 className="flex w-full min-w-0 flex-col gap-2">
+      {/* Mobile — Maintained clean left alignment throughout text tracks */}
+      <div className="w-full min-w-0 sm:hidden flex flex-col items-start">
+        <h1 className="flex w-full min-w-0 flex-col items-start gap-2 text-left">
           <motion.div
-            className="flex w-full max-w-full flex-wrap items-center gap-3"
+            className="flex w-full max-w-full flex-wrap items-center justify-start gap-3"
             variants={MOBILE_FADE_VARIANTS}
             initial="initial"
             animate={animateIn ? "animate" : "initial"}
@@ -188,11 +168,11 @@ function HeroStackedHeadline({
                 isActive={animateIn}
               />
             </span>
-            <span className={cn(HEADLINE_CLASS, "min-w-0 flex-1")}>{leadWord}</span>
+            <span className={cn(HEADLINE_CLASS, "min-w-0 flex-none w-auto text-left")}>{leadWord}</span>
           </motion.div>
 
           <motion.span
-            className={HEADLINE_CLASS}
+            className={cn(HEADLINE_CLASS, "text-left")}
             variants={MOBILE_FADE_VARIANTS}
             initial="initial"
             animate={animateIn ? "animate" : "initial"}
@@ -203,7 +183,7 @@ function HeroStackedHeadline({
 
           {line3 ? (
             <motion.span
-              className={HEADLINE_CLASS}
+              className={cn(HEADLINE_CLASS, "text-left")}
               variants={MOBILE_FADE_VARIANTS}
               initial="initial"
               animate={animateIn ? "animate" : "initial"}
@@ -215,7 +195,7 @@ function HeroStackedHeadline({
 
           {closingLine ? (
             <motion.span
-              className={HEADLINE_CLASS}
+              className={cn(HEADLINE_CLASS, "text-left")}
               variants={MOBILE_FADE_VARIANTS}
               initial="initial"
               animate={animateIn ? "animate" : "initial"}
@@ -227,13 +207,13 @@ function HeroStackedHeadline({
         </h1>
 
         <motion.div
-          className="relative mt-5 w-full min-w-0"
+          className="relative mt-5 w-full min-w-0 text-left"
           variants={MOBILE_FADE_VARIANTS}
           initial="initial"
           animate={animateIn ? "animate" : "initial"}
           transition={{ duration: 0.45, ease: "easeInOut", delay: 0.14 }}
         >
-          <p className={EPIGRAPH_CLASS}>{`"${epigraph}"`}</p>
+          <p className={cn(EPIGRAPH_CLASS, "text-left")}>{`"${epigraph}"`}</p>
         </motion.div>
 
         {ctas ? <HeroCtaGroup ctas={ctas} /> : null}
@@ -317,6 +297,27 @@ function HeroStackedHeadline({
   );
 }
 
+function HeroStaticBackground({
+  src,
+  alt,
+}: {
+  src: string;
+  alt: string;
+}) {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority
+        className="box-border h-full w-full max-w-none object-cover"
+        sizes="100vw"
+      />
+    </div>
+  );
+}
+
 export function InteriorPageHero({
   id = "hero",
   backgroundImage,
@@ -351,11 +352,13 @@ export function InteriorPageHero({
         className
       )}
     >
-      <div className="relative box-border flex h-auto min-h-[100dvh] max-w-full items-start overflow-x-clip overflow-y-visible pb-10 pt-20 sm:overflow-hidden sm:pb-0 sm:pt-28">
+      {/* Changed `items-start` to `items-center` inside the root wrapper to position 
+          the layout content block perfectly into the vertical center of mobile screens */}
+      <div className="relative box-border flex h-auto min-h-[100dvh] max-w-full items-center overflow-x-clip overflow-y-visible pb-10 pt-10 sm:overflow-hidden sm:pb-0 sm:pt-28">
         <HeroStaticBackground src={backgroundImage.src} alt={backgroundImage.alt} />
 
         <div className="relative z-10 box-border w-full max-w-full min-w-0 px-4 py-6 sm:py-8 md:px-12 lg:px-16 xl:px-24">
-          <div className="box-border w-full min-w-0 max-w-7xl pt-6 text-left sm:pt-12 md:pt-16 xl:pt-20">
+          <div className="box-border w-full min-w-0 max-w-7xl text-left sm:pt-12 md:pt-16 xl:pt-20">
             <div className="relative z-10 w-full min-w-0">
               <HeroStackedHeadline
                 leadWord={leadWord}
@@ -373,5 +376,4 @@ export function InteriorPageHero({
   );
 }
 
-/** Alias for interior / practice-area routes */
 export { InteriorPageHero as InnerPageHero };
