@@ -28,6 +28,26 @@ export const CONTACT_HERO = {
 
 export const CONTACT_CTAS = [] as const satisfies readonly HeroCtaConfig[];
 
+export const CONTACT_DETAILS = {
+  badge: "Direct line",
+  headline: "How to reach us",
+  description:
+    "Your enquiry is reviewed only by a senior partner. We respond within one business day — by phone or email, at your preference.",
+  labels: {
+    phone: "Phone",
+    email: "Email",
+    address: "Principal office",
+    hours: "Office hours",
+  },
+  hours: "Monday – Friday, 9:30 AM – 6:30 PM IST",
+  officeHeading: "Our offices",
+  offices: [
+    { label: "Mumbai", href: "/offices/mumbai" },
+    { label: "Bengaluru", href: "/offices/bengaluru" },
+    { label: "New Delhi", href: "/offices/delhi" },
+  ],
+} as const;
+
 export const CONTACT_FORM = {
   badge: "Audience",
   headline: "Request audience",

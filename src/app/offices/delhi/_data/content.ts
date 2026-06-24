@@ -24,8 +24,8 @@ export const DELHI_OFFICE_HERO = {
     src: "/images/practice-areas/term-legacy-cover.jpg",
     alt: "9xWealth Delhi-NCR office",
   },
-  leadWord: "For the families that ",
-  headlineLines: ["hold the", "listings."] as const,
+  leadWord: "For the families",
+  headlineLines: ["that hold the", "listings."] as const,
   epigraph:
     "The North India practice serves listed-company promoters, family offices, and multi-generational households across Delhi, Gurugram, Punjab, and the northern states. Pledge cover, D&O, succession architecture.",
 } as const;

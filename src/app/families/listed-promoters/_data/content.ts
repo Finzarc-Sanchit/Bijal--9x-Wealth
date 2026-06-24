@@ -26,8 +26,8 @@ export const FAMILIES_LISTED_PROMOTERS_HERO = {
     src: "/images/practice-areas/keyman-enterprise.jpg",
     alt: "Insurance for listed promoters — pledge cover, SEBI, MWPA",
   },
-  leadWord: "When the equity is ",
-  headlineLines: ["public, but the", "risk is personal."] as const,
+  leadWord: "When the equity",
+  headlineLines: ["is public, but the", "risk is personal."] as const,
   epigraph:
     "For promoters of listed entities, every protection decision sits inside a regulatory framework — SEBI, the lender consortium, the analyst community, the family trust. The architecture has to satisfy each one.",
 } as const;

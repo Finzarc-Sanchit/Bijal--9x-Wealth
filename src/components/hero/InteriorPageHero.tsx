@@ -32,6 +32,11 @@ export type HeroCtaConfig = {
   variant?: "primary" | "secondary";
 };
 
+export type HeroHeadlineLines =
+  | readonly [string]
+  | readonly [string, string]
+  | readonly [string, string, string];
+
 export type InteriorPageHeroProps = {
   id?: string;
   backgroundImage: {
@@ -43,8 +48,8 @@ export type InteriorPageHeroProps = {
     alt: string;
   };
   leadWord: string;
-  /** Stacked headline lines after the lead word row (two or three lines) */
-  headlineLines: readonly [string, string] | readonly [string, string, string];
+  /** Stacked headline lines after the lead word row (one to three lines) */
+  headlineLines: HeroHeadlineLines;
   epigraph: string;
   ctas?: readonly HeroCtaConfig[];
   className?: string;
@@ -153,30 +158,39 @@ function HeroStackedHeadline({
   animateIn,
 }: {
   leadWord: string;
-  headlineLines: readonly [string, string] | readonly [string, string, string];
+  headlineLines: HeroHeadlineLines;
   pillImage: InteriorPageHeroProps["pillImage"];
   epigraph: string;
   ctas?: readonly HeroCtaConfig[];
   animateIn: boolean;
 }) {
-  const [line2, line3] = headlineLines;
+  const line2 = headlineLines[0];
+  const line3 = headlineLines[1] ?? null;
   const closingLine = headlineLines.length === 3 ? headlineLines[2] : null;
-  const mobileTitle = `${leadWord}${line2}`.trim();
 
   return (
     <div className="m-0 flex w-full max-w-full select-none flex-col items-start p-0 text-left">
-      {/* Mobile — full copy, no overflow clip, opacity-only entrance */}
+      {/* Mobile — pill + stacked lines, opacity-only entrance (no overflow clip) */}
       <div className="w-full min-w-0 sm:hidden">
         <h1 className="flex w-full min-w-0 flex-col gap-2">
-          <motion.span
-            className={HEADLINE_CLASS}
+          <motion.div
+            className="flex w-full max-w-full flex-wrap items-center gap-3"
             variants={MOBILE_FADE_VARIANTS}
             initial="initial"
             animate={animateIn ? "animate" : "initial"}
             transition={SLIDE_TRANSITION}
           >
-            {mobileTitle}
-          </motion.span>
+            <span className="relative h-11 w-32 shrink-0 overflow-hidden rounded-full bg-white/10 ring-2 ring-white/30">
+              <HeroAnimatedPillImage
+                src={pillImage.src}
+                alt={pillImage.alt}
+                priority
+                isActive={animateIn}
+              />
+            </span>
+            <span className={cn(HEADLINE_CLASS, "min-w-0 flex-1")}>{leadWord}</span>
+          </motion.div>
+
           <motion.span
             className={HEADLINE_CLASS}
             variants={MOBILE_FADE_VARIANTS}
@@ -184,15 +198,28 @@ function HeroStackedHeadline({
             animate={animateIn ? "animate" : "initial"}
             transition={{ ...SLIDE_TRANSITION, delay: 0.06 }}
           >
-            {line3}
+            {line2}
           </motion.span>
-          {closingLine ? (
+
+          {line3 ? (
             <motion.span
               className={HEADLINE_CLASS}
               variants={MOBILE_FADE_VARIANTS}
               initial="initial"
               animate={animateIn ? "animate" : "initial"}
               transition={{ ...SLIDE_TRANSITION, delay: 0.1 }}
+            >
+              {line3}
+            </motion.span>
+          ) : null}
+
+          {closingLine ? (
+            <motion.span
+              className={HEADLINE_CLASS}
+              variants={MOBILE_FADE_VARIANTS}
+              initial="initial"
+              animate={animateIn ? "animate" : "initial"}
+              transition={{ ...SLIDE_TRANSITION, delay: 0.14 }}
             >
               {closingLine}
             </motion.span>
@@ -246,16 +273,18 @@ function HeroStackedHeadline({
             </motion.div>
           </div>
 
-          <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
-            <motion.div
-              variants={LINE_VARIANTS}
-              initial="initial"
-              animate={animateIn ? "animate" : "initial"}
-              transition={SLIDE_TRANSITION}
-            >
-              <span className={HEADLINE_CLASS}>{line3}</span>
-            </motion.div>
-          </div>
+          {line3 ? (
+            <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
+              <motion.div
+                variants={LINE_VARIANTS}
+                initial="initial"
+                animate={animateIn ? "animate" : "initial"}
+                transition={SLIDE_TRANSITION}
+              >
+                <span className={HEADLINE_CLASS}>{line3}</span>
+              </motion.div>
+            </div>
+          ) : null}
 
           {closingLine ? (
             <div className="mt-2 w-full overflow-hidden pb-1 sm:mt-3">

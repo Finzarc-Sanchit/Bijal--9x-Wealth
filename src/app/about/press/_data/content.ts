@@ -26,7 +26,7 @@ export const ABOUT_PRESS_HERO = {
     alt: "Press and recognition — the standing of the practice",
   },
   leadWord: "The standing of ",
-  headlineLines: ["the", "practice."] as const,
+  headlineLines: ["the practice."] as const,
   epigraph:
     "Regulatory registrations, industry recognitions, and the independent verifications that govern how we operate.",
 } as const;

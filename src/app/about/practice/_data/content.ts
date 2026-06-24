@@ -26,7 +26,7 @@ export const ABOUT_PRACTICE_HERO = {
     alt: "The Practice — how 9xWealth works",
   },
   leadWord: "How we work, ",
-  headlineLines: ["without", "exception."] as const,
+  headlineLines: ["without exception."] as const,
   epigraph:
     "Every mandate proceeds through four acts and is governed by six principles. The standard is not negotiable; the rate of work is.",
 } as const;

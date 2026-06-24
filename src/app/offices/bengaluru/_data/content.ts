@@ -24,7 +24,7 @@ export const BENGALURU_OFFICE_HERO = {
     alt: "9xWealth Bengaluru office",
   },
   leadWord: "Where new wealth ",
-  headlineLines: ["meets old", "discipline."] as const,
+  headlineLines: ["meets old discipline."] as const,
   epigraph:
     "The Bengaluru office serves a generation of founders, operators, and second-generation family heads — across Karnataka, Tamil Nadu, and Telangana. New money, conventional structures, considered counsel.",
 } as const;

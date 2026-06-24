@@ -26,7 +26,7 @@ export const ABOUT_TEAM_HERO = {
     alt: "The Team — partners and practitioners",
   },
   leadWord: "The people behind ",
-  headlineLines: ["the", "standard."] as const,
+  headlineLines: ["the standard."] as const,
   epigraph:
     "Three senior partners across Mumbai, Bengaluru, and Delhi, supported by claim advocates, underwriting architects, cross-border specialists, and a discreet specie desk.",
 } as const;

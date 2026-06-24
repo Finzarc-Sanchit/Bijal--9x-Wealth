@@ -24,7 +24,7 @@ export const FAQ_HERO = {
     alt: "Frequently asked questions",
   },
   leadWord: "The questions ",
-  headlineLines: ["we hear", "most often."] as const,
+  headlineLines: ["we hear most often."] as const,
   epigraph:
     "Five chapters of considered answers — about the practice, the engagement, the products, the structuring, and the discretion that surrounds it all.",
 } as const;

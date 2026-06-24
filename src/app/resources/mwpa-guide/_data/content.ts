@@ -28,7 +28,7 @@ export const MWPA_GUIDE_HERO = {
     alt: "MWPA term cover structuring guide",
   },
   leadWord: "MWPA: ",
-  headlineLines: ["a complete", "guide."] as const,
+  headlineLines: ["a complete guide."] as const,
   epigraph:
     "The Married Women's Property Act, 1874 — Section 6 — is the most powerful structural instrument in Indian private wealth that almost no one has heard of. This is the complete treatment.",
 } as const;
