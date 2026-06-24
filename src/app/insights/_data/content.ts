@@ -1,4 +1,3 @@
-import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
 import type { EditorialConvictionParagraph } from "@/components/sections/EditorialConvictionSection";
 import type { EditorialCard } from "@/components/sections/EditorialCardGrid";
 import type { RelatedLink } from "@/components/sections/RelatedLinksSection";
@@ -20,23 +19,10 @@ export const INSIGHTS_HERO = {
     src: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?fm=jpg&q=85&w=1920&auto=format&fit=crop",
     alt: "Editorial letters and long-form writing",
   },
-  pillImage: {
-    src: "/images/practice-areas/term-legacy-cover.jpg",
-    alt: "The Folio quarterly letters",
-  },
-  leadWord: "Letters & ",
-  headlineLines: ["long-form", "thinking."] as const,
-  epigraph:
+  headline: "Letters & long-form thinking.",
+  description:
     "Quarterly letters and considered essays on protection, estate, succession, and stewardship — written for the families we serve and the counsel that advises alongside us.",
 } as const;
-
-export const INSIGHTS_CTAS = [
-  {
-    label: "Schedule a Conversation",
-    href: "/contact",
-    variant: "primary",
-  },
-] as const satisfies readonly HeroCtaConfig[];
 
 export const INSIGHTS_CONVICTION = {
   badge: "The Folio",

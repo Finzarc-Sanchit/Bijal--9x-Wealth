@@ -1,5 +1,4 @@
 import type { EditorialConvictionParagraph } from "@/components/sections/EditorialConvictionSection";
-import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
 import type { GridItem } from "@/components/sections/NumberedProcessGrid";
 import type { RelatedLink } from "@/components/sections/RelatedLinksSection";
 
@@ -17,27 +16,28 @@ export const ABOUT_PRACTICE_METADATA = {
 } as const;
 
 export const ABOUT_PRACTICE_HERO = {
-  backgroundImage: {
+  badge: "The Practice",
+  headlineLines: ["How we work,", "without exception."] as const,
+  intro:
+    "Every mandate proceeds through four acts and is governed by six principles. The standard is not negotiable; the rate of work is.",
+  primaryImage: {
     src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?fm=jpg&q=85&w=1920&auto=format&fit=crop",
     alt: "Considered workspace for private wealth counsel",
   },
-  pillImage: {
+  secondaryImage: {
     src: "/images/process/conversation.jpg",
     alt: "The Practice — how 9xWealth works",
   },
-  leadWord: "How we work, ",
-  headlineLines: ["without exception."] as const,
-  epigraph:
-    "Every mandate proceeds through four acts and is governed by six principles. The standard is not negotiable; the rate of work is.",
-} as const;
-
-export const ABOUT_PRACTICE_CTAS = [
-  {
-    label: "Schedule a Conversation",
-    href: "/contact",
-    variant: "primary",
+  sidePanel: {
+    title: "The thesis",
+    description:
+      "Most insurance brokerages run on volume — placements per relationship manager per quarter, premiums underwritten per office per year. The metric drives the conversation, the conversation drives the placement, and the family receives whatever fits the metric.",
+    cta: {
+      label: "Schedule a Conversation",
+      href: "/contact",
+    },
   },
-] as const satisfies readonly HeroCtaConfig[];
+} as const;
 
 export const ABOUT_PRACTICE_CONVICTION = {
   badge: "The thesis",

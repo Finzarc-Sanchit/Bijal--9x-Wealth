@@ -1,5 +1,3 @@
-import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
-
 export const CONTACT_METADATA = {
   title: "Contact — Begin a Confidential Conversation · 9xWealth",
   description:
@@ -11,28 +9,14 @@ export const CONTACT_METADATA = {
   ],
 } as const;
 
-export const CONTACT_HERO = {
-  backgroundImage: {
-    src: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?fm=jpg&q=85&w=1920&auto=format&fit=crop",
-    alt: "Private consultation setting",
-  },
-  pillImage: {
-    src: "/images/practice-areas/term-legacy-cover.jpg",
-    alt: "Begin a confidential conversation",
-  },
+export const CONTACT_INTRO = {
   leadWord: "Begin a ",
   headlineLines: ["confidential", "conversation."] as const,
   epigraph:
     "Tell us a little about your situation. Your details are held in strict confidence and will be reviewed only by a senior partner.",
 } as const;
 
-export const CONTACT_CTAS = [] as const satisfies readonly HeroCtaConfig[];
-
 export const CONTACT_DETAILS = {
-  badge: "Direct line",
-  headline: "How to reach us",
-  description:
-    "Your enquiry is reviewed only by a senior partner. We respond within one business day — by phone or email, at your preference.",
   labels: {
     phone: "Phone",
     email: "Email",

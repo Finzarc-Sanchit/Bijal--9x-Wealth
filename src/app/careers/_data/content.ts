@@ -1,6 +1,5 @@
-import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
 import type { EditorialConvictionParagraph } from "@/components/sections/EditorialConvictionSection";
-import type { EditorialCard } from "@/components/sections/EditorialCardGrid";
+import type { MethodologyTonalLayerGridItem } from "@/components/sections/MethodologyTonalLayerGridSection";
 import type { GridItem } from "@/components/sections/NumberedProcessGrid";
 import type { RelatedLink } from "@/components/sections/RelatedLinksSection";
 
@@ -21,23 +20,10 @@ export const CAREERS_HERO = {
     src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?fm=jpg&q=85&w=1920&auto=format&fit=crop",
     alt: "Professional team collaboration",
   },
-  pillImage: {
-    src: "/images/practice-areas/term-legacy-cover.jpg",
-    alt: "Careers at 9xWealth",
-  },
-  leadWord: "",
-  headlineLines: ["Join the", "practice."] as const,
-  epigraph:
+  headline: "Join the practice.",
+  description:
     "A small, deliberately small house. We hire when the standard the existing team holds to can absorb a new partner — not when a quarterly target says we should.",
 } as const;
-
-export const CAREERS_CTAS = [
-  {
-    label: "Apply via Contact",
-    href: "/contact",
-    variant: "primary",
-  },
-] as const satisfies readonly HeroCtaConfig[];
 
 export const CAREERS_CONVICTION = {
   badge: "What we look for",
@@ -84,30 +70,34 @@ export const CAREERS_ROLES = {
   headline: "Roles we are actively recruiting for.",
   items: [
     {
-      id: "MUMBAI",
+      id: "MUMBAI-UNDERWRITING",
+      label: "Mumbai",
       title: "Senior Underwriting Architect",
       description:
         "Five-plus years in life or specie underwriting. Modelling, structuring, single-page proposal preparation. Reports to the founding partner.",
     },
     {
       id: "BENGALURU",
+      label: "Bengaluru",
       title: "Relationship Associate, South India",
       description:
         "Three-plus years in private banking, wealth management, or financial planning. CFP preferred, IRDAI certification mandatory before mandate ownership.",
     },
     {
       id: "DELHI-NCR",
+      label: "Delhi NCR",
       title: "Specie Desk Analyst",
       description:
         "Background in fine art, jewellery valuation, classic cars, or marine. We will train the insurance side; the asset literacy must be there.",
     },
     {
-      id: "MUMBAI",
+      id: "MUMBAI-CLAIMS",
+      label: "Mumbai",
       title: "Claims Advocate",
       description:
         "Five-plus years in health or life claim handling — TPA, insurer, or hospital-side. We do not need administrators; we need advocates.",
     },
-  ] as const satisfies readonly EditorialCard[],
+  ] as const satisfies readonly MethodologyTonalLayerGridItem[],
 } as const;
 
 export const CAREERS_APPLY = {

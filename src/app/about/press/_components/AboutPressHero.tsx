@@ -1,15 +1,15 @@
-import { InnerPageHero } from "@/components/hero/InteriorPageHero";
-import { ABOUT_PRESS_CTAS, ABOUT_PRESS_HERO } from "../_data/content";
+import { EditorialTriColumnHero } from "@/components/hero/EditorialTriColumnHero";
+import { ABOUT_PRESS_HERO } from "../_data/content";
 
 export function AboutPressHero() {
   return (
-    <InnerPageHero
-      backgroundImage={ABOUT_PRESS_HERO.backgroundImage}
-      pillImage={ABOUT_PRESS_HERO.pillImage}
-      leadWord={ABOUT_PRESS_HERO.leadWord}
+    <EditorialTriColumnHero
+      badge={ABOUT_PRESS_HERO.badge}
       headlineLines={ABOUT_PRESS_HERO.headlineLines}
-      epigraph={ABOUT_PRESS_HERO.epigraph}
-      ctas={ABOUT_PRESS_CTAS}
+      intro={ABOUT_PRESS_HERO.intro}
+      primaryImage={ABOUT_PRESS_HERO.primaryImage}
+      secondaryImage={ABOUT_PRESS_HERO.secondaryImage}
+      sidePanel={ABOUT_PRESS_HERO.sidePanel}
     />
   );
 }

@@ -15,7 +15,7 @@ const SLIDE_INTERVAL_MS = 5000;
 const SLIDE_TRANSITION = { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const };
 
 const HEADLINE_CLASS =
-  "hero-editorial-headline block w-full max-w-full min-w-0 box-border font-poppins font-medium uppercase tracking-tight text-white";
+  "hero-editorial-headline block w-full max-w-full min-w-0 box-border whitespace-normal font-poppins font-medium uppercase tracking-tight text-white";
 
 const EPIGRAPH_CLASS =
   "text-sm font-inter font-medium italic leading-relaxed text-white/92 md:text-[0.95rem] lg:text-base";
@@ -67,7 +67,7 @@ function HeroStackedHeadline({
   const slide = AXA_HERO_SLIDES[slideIndex];
   const [line2, line3, closingLine] = slide.headlineLines;
   const typingActive = introReady;
-  const mobileTitle = `${slide.leadWord}${line2}`.trim();
+  const mobileHeadlineLines = [slide.leadWord, line2, line3, closingLine] as const;
 
   const lineVariants = {
     initial: (dir: "up" | "down") => ({
@@ -84,33 +84,18 @@ function HeroStackedHeadline({
       {/* Mobile — full copy, no overflow clip, opacity-only entrance */}
       <div className="w-full min-w-0 sm:hidden">
         <h1 className="flex w-full min-w-0 flex-col gap-2">
-          <motion.span
-            className={HEADLINE_CLASS}
-            variants={MOBILE_FADE_VARIANTS}
-            initial="initial"
-            animate={introReady ? "animate" : "initial"}
-            transition={SLIDE_TRANSITION}
-          >
-            {mobileTitle}
-          </motion.span>
-          <motion.span
-            className={HEADLINE_CLASS}
-            variants={MOBILE_FADE_VARIANTS}
-            initial="initial"
-            animate={introReady ? "animate" : "initial"}
-            transition={{ ...SLIDE_TRANSITION, delay: 0.06 }}
-          >
-            {line3}
-          </motion.span>
-          <motion.span
-            className={HEADLINE_CLASS}
-            variants={MOBILE_FADE_VARIANTS}
-            initial="initial"
-            animate={introReady ? "animate" : "initial"}
-            transition={{ ...SLIDE_TRANSITION, delay: 0.1 }}
-          >
-            {closingLine}
-          </motion.span>
+          {mobileHeadlineLines.map((line, index) => (
+            <motion.span
+              key={`${slide.id}-mobile-line-${index}`}
+              className={HEADLINE_CLASS}
+              variants={MOBILE_FADE_VARIANTS}
+              initial="initial"
+              animate={introReady ? "animate" : "initial"}
+              transition={{ ...SLIDE_TRANSITION, delay: index * 0.06 }}
+            >
+              {line}
+            </motion.span>
+          ))}
         </h1>
 
         {introReady ? (
@@ -132,89 +117,89 @@ function HeroStackedHeadline({
 
       {/* Desktop / tablet — preserved stacked slide-in layout */}
       <div className="hidden w-full sm:block">
-      <h1 className="contents">
-        <div className="w-full overflow-hidden pb-1">
-          <motion.div
-            className="flex w-full max-w-full flex-wrap items-center gap-3 sm:gap-4 md:gap-5"
-            custom={scrollDirection}
-            variants={lineVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={SLIDE_TRANSITION}
-          >
-            <span className="relative h-11 w-32 shrink-0 overflow-hidden rounded-full bg-white/10 ring-2 ring-white/30 sm:h-14 sm:w-44 md:h-16 md:w-52 lg:h-18 lg:w-56">
-              <HeroAnimatedPillImage
-                src={slide.pillImage.src}
-                alt={slide.pillImage.alt}
-                priority={slideIndex === 0}
-                isActive={typingActive}
-              />
-            </span>
-            <span className={cn(HEADLINE_CLASS, "min-w-0 flex-1")}>{slide.leadWord}</span>
-          </motion.div>
-        </div>
-
-        <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
-          <motion.div
-            custom={scrollDirection}
-            variants={lineVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={SLIDE_TRANSITION}
-          >
-            <span className={HEADLINE_CLASS}>{line2}</span>
-          </motion.div>
-        </div>
-
-        <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
-          <motion.div
-            custom={scrollDirection}
-            variants={lineVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={SLIDE_TRANSITION}
-          >
-            <span className={HEADLINE_CLASS}>{line3}</span>
-          </motion.div>
-        </div>
-
-        <div className="mt-2 w-full overflow-hidden pb-1 sm:mt-3">
-          <motion.div
-            custom={scrollDirection}
-            variants={lineVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={SLIDE_TRANSITION}
-          >
-            <span className={HEADLINE_CLASS}>{closingLine}</span>
-          </motion.div>
-        </div>
-      </h1>
-
-      <div className="relative mt-6 w-full min-w-0 overflow-hidden sm:mt-8 md:mt-8">
-        <AnimatePresence mode="wait">
-          {introReady ? (
+        <h1 className="contents">
+          <div className="w-full overflow-hidden pb-1">
             <motion.div
-              key={`${slideIndex}-epigraph`}
-              className="w-full max-w-xl text-left md:max-w-2xl lg:max-w-3xl"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.45, ease: "easeInOut" }}
+              className="flex w-full max-w-full flex-wrap items-center gap-3 sm:gap-4 md:gap-5"
+              custom={scrollDirection}
+              variants={lineVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={SLIDE_TRANSITION}
             >
-              <p className={EPIGRAPH_CLASS}>{`"${slide.epigraph}"`}</p>
+              <span className="relative h-11 w-32 shrink-0 overflow-hidden rounded-full bg-white/10 ring-2 ring-white/30 sm:h-14 sm:w-44 md:h-16 md:w-52 lg:h-18 lg:w-56">
+                <HeroAnimatedPillImage
+                  src={slide.pillImage.src}
+                  alt={slide.pillImage.alt}
+                  priority={slideIndex === 0}
+                  isActive={typingActive}
+                />
+              </span>
+              <span className={cn(HEADLINE_CLASS, "min-w-0 flex-1")}>{slide.leadWord}</span>
             </motion.div>
-          ) : null}
-        </AnimatePresence>
-      </div>
+          </div>
 
-      <div className="relative z-30 mt-8 block w-full sm:mt-10 md:mt-10 sm:w-auto">
-        <HeroCta label={slide.cta.label} href={slide.cta.href} />
-      </div>
+          <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
+            <motion.div
+              custom={scrollDirection}
+              variants={lineVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={SLIDE_TRANSITION}
+            >
+              <span className={HEADLINE_CLASS}>{line2}</span>
+            </motion.div>
+          </div>
+
+          <div className="mt-1 w-full overflow-hidden pb-1 sm:mt-2">
+            <motion.div
+              custom={scrollDirection}
+              variants={lineVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={SLIDE_TRANSITION}
+            >
+              <span className={HEADLINE_CLASS}>{line3}</span>
+            </motion.div>
+          </div>
+
+          <div className="mt-2 w-full overflow-hidden pb-1 sm:mt-3">
+            <motion.div
+              custom={scrollDirection}
+              variants={lineVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={SLIDE_TRANSITION}
+            >
+              <span className={HEADLINE_CLASS}>{closingLine}</span>
+            </motion.div>
+          </div>
+        </h1>
+
+        <div className="relative mt-6 w-full min-w-0 overflow-hidden sm:mt-8 md:mt-8">
+          <AnimatePresence mode="wait">
+            {introReady ? (
+              <motion.div
+                key={`${slideIndex}-epigraph`}
+                className="w-full max-w-xl text-left md:max-w-2xl lg:max-w-3xl"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.45, ease: "easeInOut" }}
+              >
+                <p className={EPIGRAPH_CLASS}>{`"${slide.epigraph}"`}</p>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </div>
+
+        <div className="relative z-30 mt-8 block w-full sm:mt-10 md:mt-10 sm:w-auto">
+          <HeroCta label={slide.cta.label} href={slide.cta.href} />
+        </div>
       </div>
     </div>
   );
@@ -250,11 +235,11 @@ export function AxaStyleHero({ content: _content }: { content: SiteContent }) {
       aria-live="polite"
       aria-atomic="true"
     >
-      <div className="relative box-border flex h-auto min-h-[100dvh] max-w-full items-start overflow-x-clip overflow-y-visible pb-10 pt-20 sm:overflow-hidden sm:pb-0 sm:pt-28">
+      <div className="relative box-border flex h-auto min-h-[100dvh] max-w-full items-start overflow-x-clip overflow-y-visible pb-10 pt-24 sm:overflow-hidden sm:pb-0 sm:pt-28">
         <HeroVideoBackground />
 
         <div className="relative z-10 box-border w-full max-w-full min-w-0 px-4 py-6 sm:py-8 md:px-12 lg:px-16 xl:px-24">
-          <div className="box-border w-full min-w-0 max-w-7xl pt-6 text-left sm:pt-12 md:pt-16 xl:pt-20">
+          <div className="box-border w-full min-w-0 max-w-7xl pt-24 text-left sm:pt-12 md:pt-16 xl:pt-20">
             <div className="relative z-10 w-full min-w-0">
               <AnimatePresence mode="wait" custom={scrollDirection}>
                 {isReady && introComplete ? (

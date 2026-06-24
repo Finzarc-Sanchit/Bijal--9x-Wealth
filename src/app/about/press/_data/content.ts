@@ -1,6 +1,5 @@
 import type { EditorialConvictionParagraph } from "@/components/sections/EditorialConvictionSection";
 import type { EditorialCard } from "@/components/sections/EditorialCardGrid";
-import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
 import type { RelatedLink } from "@/components/sections/RelatedLinksSection";
 
 export const ABOUT_PRESS_METADATA = {
@@ -17,27 +16,28 @@ export const ABOUT_PRESS_METADATA = {
 } as const;
 
 export const ABOUT_PRESS_HERO = {
-  backgroundImage: {
+  badge: "Press & Recognition",
+  headlineLines: ["The standing", "of the practice."] as const,
+  intro:
+    "Regulatory registrations, industry recognitions, and the independent verifications that govern how we operate.",
+  primaryImage: {
     src: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?fm=jpg&q=85&w=1920&auto=format&fit=crop",
     alt: "Editorial setting evoking institutional standing",
   },
-  pillImage: {
+  secondaryImage: {
     src: "/images/process/stewardship.jpg",
     alt: "Press and recognition — the standing of the practice",
   },
-  leadWord: "The standing of ",
-  headlineLines: ["the practice."] as const,
-  epigraph:
-    "Regulatory registrations, industry recognitions, and the independent verifications that govern how we operate.",
-} as const;
-
-export const ABOUT_PRESS_CTAS = [
-  {
-    label: "Schedule a Conversation",
-    href: "/contact",
-    variant: "primary",
+  sidePanel: {
+    title: "Recognition",
+    description:
+      "Recognised for the UHNI practice and the structured approach to high-sum life cover.",
+    cta: {
+      label: "Schedule a Conversation",
+      href: "/contact",
+    },
   },
-] as const satisfies readonly HeroCtaConfig[];
+} as const;
 
 export const ABOUT_PRESS_REGULATORY = {
   headline: "Regulatory standing",

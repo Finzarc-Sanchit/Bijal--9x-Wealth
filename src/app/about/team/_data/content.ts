@@ -1,6 +1,5 @@
 import type { EditorialConvictionParagraph } from "@/components/sections/EditorialConvictionSection";
 import type { EditorialCard } from "@/components/sections/EditorialCardGrid";
-import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
 import type { GridItem } from "@/components/sections/NumberedProcessGrid";
 import type { RelatedLink } from "@/components/sections/RelatedLinksSection";
 
@@ -17,27 +16,28 @@ export const ABOUT_TEAM_METADATA = {
 } as const;
 
 export const ABOUT_TEAM_HERO = {
-  backgroundImage: {
+  badge: "The Team",
+  headlineLines: ["The people", "behind the standard."] as const,
+  intro:
+    "Three senior partners across Mumbai, Bengaluru, and Delhi, supported by claim advocates, underwriting architects, cross-border specialists, and a discreet specie desk.",
+  primaryImage: {
     src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?fm=jpg&q=85&w=1920&auto=format&fit=crop",
     alt: "Senior partners in considered discussion",
   },
-  pillImage: {
+  secondaryImage: {
     src: "/images/process/architecture.jpg",
     alt: "The Team — partners and practitioners",
   },
-  leadWord: "The people behind ",
-  headlineLines: ["the standard."] as const,
-  epigraph:
-    "Three senior partners across Mumbai, Bengaluru, and Delhi, supported by claim advocates, underwriting architects, cross-border specialists, and a discreet specie desk.",
-} as const;
-
-export const ABOUT_TEAM_CTAS = [
-  {
-    label: "Schedule a Conversation",
-    href: "/contact",
-    variant: "primary",
+  sidePanel: {
+    title: "The principle",
+    description:
+      "We are a deliberately small practice. The senior partnership knows every UHNI mandate by name, attends material claim matters personally, and reads every quarterly review before it is sent.",
+    cta: {
+      label: "Schedule a Conversation",
+      href: "/contact",
+    },
   },
-] as const satisfies readonly HeroCtaConfig[];
+} as const;
 
 export const ABOUT_TEAM_CONVICTION = {
   badge: "The principle",

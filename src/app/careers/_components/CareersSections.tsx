@@ -1,8 +1,7 @@
 import { StepProcessLayout } from "@/components/sections/StepProcessLayout";
 import { TermLegacyConvictionSection } from "@/components/sections/TermLegacyConvictionSection";
-import { EditorialCardGrid } from "@/components/sections/EditorialCardGrid";
-import { EditorialProseSection } from "@/components/sections/EditorialProseSection";
-import { RelatedLinksSection } from "@/components/sections/RelatedLinksSection";
+import { MethodologyTonalLayerGridSection } from "@/components/sections/MethodologyTonalLayerGridSection";
+import { EditorialProseSection } from "@/components/sections/EditorialProseSection";import { RelatedLinksSection } from "@/components/sections/RelatedLinksSection";
 import { gridItemsToStepProcessSteps } from "@/lib/grid-to-process";
 import {
   CAREERS_APPLY,
@@ -28,12 +27,12 @@ export function CareersSections() {
         steps={gridItemsToStepProcessSteps(CAREERS_VALUES.items)}
         stepLabelPrefix="Value"
       />
-      <EditorialCardGrid
+      <MethodologyTonalLayerGridSection
+        id="careers-roles"
         badge={CAREERS_ROLES.badge}
         headline={CAREERS_ROLES.headline}
         items={CAREERS_ROLES.items}
-      />
-      <EditorialProseSection
+      />      <EditorialProseSection
         badge={CAREERS_APPLY.badge}
         headline={CAREERS_APPLY.headline}
         paragraphs={CAREERS_APPLY.paragraphs}

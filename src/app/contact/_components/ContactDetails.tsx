@@ -17,18 +17,6 @@ export function ContactDetails({ className }: { className?: string }) {
 
   return (
     <aside className={cn("space-y-8", className)} aria-label="Contact information">
-      <Reveal>
-        <div>
-          <p className="label">{CONTACT_DETAILS.badge}</p>
-          <h2 className="mt-4 font-display text-3xl font-light text-brand-navy md:text-4xl">
-            {CONTACT_DETAILS.headline}
-          </h2>
-          <p className="mt-4 font-inter text-base leading-relaxed text-brand-navy/70">
-            {CONTACT_DETAILS.description}
-          </p>
-        </div>
-      </Reveal>
-
       <Reveal delay={0.08}>
         <ul className="space-y-5 rounded-2xl border border-brand-navy/10 bg-white/70 p-6 shadow-sm ring-1 ring-brand-navy/5 backdrop-blur-sm">
           <li className="flex gap-4">

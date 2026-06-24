@@ -1,15 +1,12 @@
-import { InnerPageHero } from "@/components/hero/InteriorPageHero";
-import { CAREERS_CTAS, CAREERS_HERO } from "../_data/content";
+import { PhotoBannerHero } from "@/components/hero/PhotoBannerHero";
+import { CAREERS_HERO } from "../_data/content";
 
 export function CareersHero() {
   return (
-    <InnerPageHero
+    <PhotoBannerHero
       backgroundImage={CAREERS_HERO.backgroundImage}
-      pillImage={CAREERS_HERO.pillImage}
-      leadWord={CAREERS_HERO.leadWord}
-      headlineLines={CAREERS_HERO.headlineLines}
-      epigraph={CAREERS_HERO.epigraph}
-      ctas={CAREERS_CTAS}
+      headline={CAREERS_HERO.headline}
+      description={CAREERS_HERO.description}
     />
   );
 }

@@ -1,15 +1,30 @@
-import { StickyFeatureSection } from "@/components/ui/sticky-scroll-cards-section";
-import { editorialCardsToStickyFeatures } from "@/lib/editorial-to-sticky";
-import { SPECIE_CLASSES } from "../_data/content";
+import { NumberedAccordionSection } from "@/components/sections/NumberedAccordionSection";
+import { SPECIE_CLASSES, SPECIE_HERO } from "../_data/content";
+
+const SPECIE_CLASS_LABELS: Record<string, string> = {
+  "01": "Jewellery",
+  "02": "Fine art",
+  "03": "Watches",
+  "04": "Classic motors",
+  "05": "Marine & aviation",
+  "06": "Kidnap & ransom",
+};
 
 export function SpecieCards() {
   return (
-    <StickyFeatureSection
+    <NumberedAccordionSection
       id="specie-classes"
       badge={SPECIE_CLASSES.badge}
       headline={SPECIE_CLASSES.headline}
-      subtitle="All-risks worldwide cover for the assets ordinary policies overlook."
-      features={editorialCardsToStickyFeatures(SPECIE_CLASSES.items)}
+      intro="All-risks worldwide cover for the assets ordinary policies overlook."
+      backgroundImage={SPECIE_HERO.backgroundImage}
+      variant="overlay"
+      items={SPECIE_CLASSES.items.map((item) => ({
+        label: SPECIE_CLASS_LABELS[item.id] ?? item.title,
+        title: item.title,
+        description: item.description,
+      }))}
+      defaultOpenIndex={0}
     />
   );
 }

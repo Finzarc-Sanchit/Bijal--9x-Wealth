@@ -1,7 +1,6 @@
 import { InteriorPageShell } from "@/components/layout/InteriorPageShell";
 import type { Metadata } from "next";
 import { ContactForm } from "./_components/ContactForm";
-import { ContactHero } from "./_components/ContactHero";
 import { CONTACT_METADATA } from "./_data/content";
 
 export const metadata: Metadata = {
@@ -12,8 +11,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <InteriorPageShell>
-      <ContactHero />
+    <InteriorPageShell heroFirst={false}>
       <ContactForm />
     </InteriorPageShell>
   );

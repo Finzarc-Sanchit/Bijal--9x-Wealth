@@ -1,7 +1,8 @@
 import type { EditorialConvictionParagraph } from "@/components/sections/EditorialConvictionSection";
 import type { EditorialCard } from "@/components/sections/EditorialCardGrid";
-import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
 import type { RelatedLink } from "@/components/sections/RelatedLinksSection";
+import type { StatsSectionStat } from "@/components/sections/StatsSection";
+import { parseMetricDisplay, SITE_METRICS } from "@/data/site-metrics";
 
 export const ABOUT_HUB_METADATA = {
   title: "The House — A Private Wealth-Protection Atelier · 9xWealth",
@@ -17,27 +18,28 @@ export const ABOUT_HUB_METADATA = {
 } as const;
 
 export const ABOUT_HUB_HERO = {
-  backgroundImage: {
+  badge: "The House",
+  headlineLines: ["A private", "wealth-protection", "atelier."] as const,
+  intro:
+    "Founded in 2013 in Mumbai, 9xWealth was born from a singular conviction — that India's wealthiest families deserve insurance counsel as deliberate as their investment counsel.",
+  primaryImage: {
     src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?fm=jpg&q=85&w=1920&auto=format&fit=crop",
     alt: "Editorial view of a distinguished Mumbai office tower at dusk",
   },
-  pillImage: {
+  secondaryImage: {
     src: "/images/our-conviction.jpg",
     alt: "The House — private wealth-protection atelier",
   },
-  leadWord: "A private ",
-  headlineLines: ["wealth-protection", "atelier."] as const,
-  epigraph:
-    "Founded in MMXIII in Mumbai, 9xWealth was born from a singular conviction — that India's wealthiest families deserve insurance counsel as deliberate as their investment counsel.",
-} as const;
-
-export const ABOUT_HUB_CTAS = [
-  {
-    label: "Schedule a Conversation",
-    href: "/contact",
-    variant: "primary",
+  sidePanel: {
+    title: "Our origin",
+    description:
+      "Twelve years ago, our founder — then a chartered accountant advising listed promoters — watched a client family lose a great deal because their term cover was structured against the wrong life. The policy paid. The estate fragmented anyway.",
+    cta: {
+      label: "Schedule a Conversation",
+      href: "/contact",
+    },
   },
-] as const satisfies readonly HeroCtaConfig[];
+} as const;
 
 export const ABOUT_HUB_CONVICTION = {
   badge: "Our origin",
@@ -50,33 +52,40 @@ export const ABOUT_HUB_CONVICTION = {
 } as const;
 
 export const ABOUT_HUB_STATS = {
+  id: "about-hub-stats",
   headline: "Stewardship in numbers",
-  items: [
+  leftCopy:
+    "Today, the firm intermediates over ₹10,000 Cr in annual premiums on behalf of 2,400+ families, listed promoters, and global Indian households across three offices.",
+  primaryCta: {
+    label: "The Practice",
+    href: "/about/practice",
+  },
+  secondaryCta: {
+    label: "Schedule a conversation",
+    href: "/contact",
+  },
+  stats: [
     {
-      id: "01",
-      title: "₹10,000+ Cr",
-      subtitle: "Annual premiums",
-      description: "Annual premiums intermediated on behalf of client families.",
+      id: "premiums",
+      ...parseMetricDisplay(SITE_METRICS.premiumsCrore),
+      labelLines: ["Annual", "premiums"],
     },
     {
-      id: "02",
-      title: "2,400+",
-      subtitle: "Families served",
-      description: "Families served across India and the Indian diaspora.",
+      id: "families",
+      ...parseMetricDisplay(SITE_METRICS.familiesProtected),
+      labelLines: ["Families", "served"],
     },
     {
-      id: "03",
-      title: "12+ years",
-      subtitle: "Of stewardship",
-      description: "Of stewardship since founding in MMXIII Mumbai.",
+      id: "years",
+      ...parseMetricDisplay(SITE_METRICS.yearsInPractice),
+      labelLines: ["Years of", "stewardship"],
     },
     {
-      id: "04",
-      title: "142",
-      subtitle: "Active UHNI mandates",
-      description: "Active UHNI mandates at the standard the practice holds.",
+      id: "mandates",
+      ...parseMetricDisplay(SITE_METRICS.uhniMandates),
+      labelLines: ["Active UHNI", "mandates"],
     },
-  ] as const satisfies readonly EditorialCard[],
+  ] as const satisfies readonly StatsSectionStat[],
 } as const;
 
 export const ABOUT_HUB_REGULATORY = {

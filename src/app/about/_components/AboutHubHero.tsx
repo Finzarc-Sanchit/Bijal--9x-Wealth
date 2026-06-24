@@ -1,15 +1,15 @@
-import { InnerPageHero } from "@/components/hero/InteriorPageHero";
-import { ABOUT_HUB_CTAS, ABOUT_HUB_HERO } from "../_data/content";
+import { EditorialTriColumnHero } from "@/components/hero/EditorialTriColumnHero";
+import { ABOUT_HUB_HERO } from "../_data/content";
 
 export function AboutHubHero() {
   return (
-    <InnerPageHero
-      backgroundImage={ABOUT_HUB_HERO.backgroundImage}
-      pillImage={ABOUT_HUB_HERO.pillImage}
-      leadWord={ABOUT_HUB_HERO.leadWord}
+    <EditorialTriColumnHero
+      badge={ABOUT_HUB_HERO.badge}
       headlineLines={ABOUT_HUB_HERO.headlineLines}
-      epigraph={ABOUT_HUB_HERO.epigraph}
-      ctas={ABOUT_HUB_CTAS}
+      intro={ABOUT_HUB_HERO.intro}
+      primaryImage={ABOUT_HUB_HERO.primaryImage}
+      secondaryImage={ABOUT_HUB_HERO.secondaryImage}
+      sidePanel={ABOUT_HUB_HERO.sidePanel}
     />
   );
 }

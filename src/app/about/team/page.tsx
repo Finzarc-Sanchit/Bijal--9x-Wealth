@@ -1,6 +1,5 @@
 import { InteriorPageShell } from "@/components/layout/InteriorPageShell";
 import type { Metadata } from "next";
-import { AboutTeamConviction } from "./_components/AboutTeamConviction";
 import { AboutTeamHero } from "./_components/AboutTeamHero";
 import { AboutTeamPartners } from "./_components/AboutTeamPartners";
 import { AboutTeamRelated } from "./_components/AboutTeamRelated";
@@ -16,7 +15,6 @@ export default function AboutTeamPage() {
   return (
     <InteriorPageShell>
       <AboutTeamHero />
-      <AboutTeamConviction />
       <AboutTeamPartners />
       <AboutTeamRelated />
     </InteriorPageShell>

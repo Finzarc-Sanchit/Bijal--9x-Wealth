@@ -84,7 +84,7 @@ export function ThreeCardConviction({
     offset: ["start end", "end start"],
   });
 
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
 
   return (
     <section
@@ -92,7 +92,7 @@ export function ThreeCardConviction({
       id={id}
       aria-labelledby={headingId}
       className={cn(
-        "our-conviction-section relative isolate flex min-h-[80vh] items-center overflow-hidden",
+        "our-conviction-section relative isolate flex min-h-[80vh] items-center overflow-hidden bg-brand-navy",
         className,
       )}
     >
@@ -100,7 +100,7 @@ export function ThreeCardConviction({
         {imageFailed ? <div className="absolute inset-0 bg-brand-navy" /> : null}
 
         <motion.div
-          className="our-conviction-parallax absolute -inset-x-0 -top-[10%] h-[115%]"
+          className="our-conviction-parallax absolute inset-0 h-full min-h-full"
           style={{ y: reduceMotion ? 0 : parallaxY }}
         >
           {!imageFailed ? (

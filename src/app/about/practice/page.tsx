@@ -1,6 +1,5 @@
 import { InteriorPageShell } from "@/components/layout/InteriorPageShell";
 import type { Metadata } from "next";
-import { AboutPracticeConviction } from "./_components/AboutPracticeConviction";
 import { AboutPracticeHero } from "./_components/AboutPracticeHero";
 import { AboutPracticeProcess } from "./_components/AboutPracticeProcess";
 import { AboutPracticeRelated } from "./_components/AboutPracticeRelated";
@@ -16,7 +15,6 @@ export default function AboutPracticePage() {
   return (
     <InteriorPageShell>
       <AboutPracticeHero />
-      <AboutPracticeConviction />
       <AboutPracticeProcess />
       <AboutPracticeRelated />
     </InteriorPageShell>

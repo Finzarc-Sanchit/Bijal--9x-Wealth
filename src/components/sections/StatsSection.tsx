@@ -7,26 +7,59 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-const PREMIUM_STATS = [
+export type StatsSectionStat = {
+  id: string;
+  value: number;
+  suffix: string;
+  labelLines: readonly string[];
+};
+
+export type StatsSectionCta = {
+  label: string;
+  href: string;
+};
+
+export type StatsSectionProps = {
+  className?: string;
+  id?: string;
+  ariaLabel?: string;
+  headline?: string;
+  leftCopy?: string;
+  stats?: readonly StatsSectionStat[];
+  primaryCta?: StatsSectionCta;
+  secondaryCta?: StatsSectionCta;
+};
+
+const DEFAULT_STATS: readonly StatsSectionStat[] = [
   {
     id: "premiums",
     ...parseMetricDisplay(SITE_METRICS.premiumsCrore),
-    labelLines: ["Crore in annual", "premiums"] as const,
+    labelLines: ["Crore in annual", "premiums"],
   },
   {
     id: "families",
     ...parseMetricDisplay(SITE_METRICS.familiesProtected),
-    labelLines: ["Families", "protected"] as const,
+    labelLines: ["Families", "protected"],
   },
   {
     id: "years",
     ...parseMetricDisplay(SITE_METRICS.yearsInPractice),
-    labelLines: ["Years of", "counsel"] as const,
+    labelLines: ["Years of", "counsel"],
   },
-] as const;
+];
 
-const LEFT_COPY =
+const DEFAULT_LEFT_COPY =
   "Transparent planning, creditor-aware structures, and protection that endures across generations. We bridge institutional precision with bespoke family office advisory to safeguard your legacy against volatile market shifts.";
+
+const DEFAULT_PRIMARY_CTA: StatsSectionCta = {
+  label: "Explore services",
+  href: "/services",
+};
+
+const DEFAULT_SECONDARY_CTA: StatsSectionCta = {
+  label: "Book a consultation",
+  href: "/#consultation-form",
+};
 
 const DIVIDER_EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -89,7 +122,7 @@ function StatDivider({ isInView }: { isInView: boolean; }) {
   );
 }
 
-function EditorialStatRow({ stat }: { stat: (typeof PREMIUM_STATS)[number]; }) {
+function EditorialStatRow({ stat }: { stat: StatsSectionStat }) {
   const rowRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(rowRef, { once: true, amount: 0.35 });
 
@@ -117,39 +150,49 @@ function EditorialStatRow({ stat }: { stat: (typeof PREMIUM_STATS)[number]; }) {
   );
 }
 
-export function StatsSection({ className }: { className?: string; }) {
+export function StatsSection({
+  className,
+  id,
+  ariaLabel = "Key impact metrics",
+  headline = "Our impact in numbers",
+  leftCopy = DEFAULT_LEFT_COPY,
+  stats = DEFAULT_STATS,
+  primaryCta = DEFAULT_PRIMARY_CTA,
+  secondaryCta = DEFAULT_SECONDARY_CTA,
+}: StatsSectionProps) {
   const footerRef = useRef<HTMLDivElement>(null);
   const footerInView = useInView(footerRef, { once: true, amount: 0.35 });
 
   return (
     <section
+      id={id}
       className={cn(
         "section-py bg-brand-cream px-4 md:px-12 lg:px-16",
         className,
       )}
-      aria-label="Key impact metrics"
+      aria-label={ariaLabel}
     >
       <div className="mx-auto w-full max-w-full">
         <div className="grid grid-cols-1 items-start gap-16 md:gap-20 lg:grid-cols-[1.1fr_1.9fr] lg:gap-24 xl:gap-32">
           {/* Left — sticky editorial copy & CTAs */}
           <div className="max-w-xl lg:sticky lg:top-32">
             <h2 className="mb-6 font-poppins text-4xl font-medium uppercase tracking-tight !leading-[0.92] text-brand-navy">
-              OUR IMPACT IN NUMBERS
+              {headline}
             </h2>
-            <p className="font-inter font-normal leading-[1.5] text-brand-navy">{LEFT_COPY}</p>
+            <p className="font-inter font-normal leading-[1.5] text-brand-navy">{leftCopy}</p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
-                href="/services"
+                href={primaryCta.href}
                 className="font-inter inline-flex min-h-[44px] items-center gap-2 rounded-full border border-brand-navy/15 bg-white px-6 py-2.5 text-sm font-medium text-brand-navy transition-colors hover:border-brand-teal hover:text-brand-teal"
               >
-                Explore services
+                {primaryCta.label}
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               <Link
-                href="/#consultation-form"
+                href={secondaryCta.href}
                 className="font-inter inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-navy px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-teal"
               >
-                Book a consultation
+                {secondaryCta.label}
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
@@ -158,7 +201,7 @@ export function StatsSection({ className }: { className?: string; }) {
           {/* Right — down-shifted editorial metrics */}
           <div className="w-full min-w-0 lg:mt-32">
             <div className="flex flex-col">
-              {PREMIUM_STATS.map((stat) => (
+              {stats.map((stat) => (
                 <EditorialStatRow key={stat.id} stat={stat} />
               ))}
               <div ref={footerRef} className="pt-10 md:pt-12 lg:pt-14">

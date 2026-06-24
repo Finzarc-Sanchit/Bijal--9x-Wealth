@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { CONTACT_FORM } from "../_data/content";
 import { contactFormSchema, type ContactFormValues } from "../_data/schema";
 import { ContactDetails } from "./ContactDetails";
+import { ContactPageIntro } from "./ContactPageIntro";
 
 function RequiredMark() {
   return (
@@ -86,9 +87,11 @@ export function ContactForm() {
     );
 
   return (
-    <section className="section-py">
-      <div className="mx-auto max-w-6xl px-4 md:px-12">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16 lg:items-start">
+    <section className="section-py pt-28 md:pt-36">
+      <div className="mx-auto max-w-7xl px-4 md:px-12">
+        <ContactPageIntro className="mb-12 pt-4 md:mb-16 md:pt-8" />
+
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-16 xl:gap-20 lg:items-start">
           <ContactDetails />
 
           <div>
