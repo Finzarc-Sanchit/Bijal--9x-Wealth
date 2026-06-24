@@ -1,15 +1,15 @@
-import { InnerPageHero } from "@/components/hero/InteriorPageHero";
-import { FAMILIES_UHNI_CTAS, FAMILIES_UHNI_HERO } from "../_data/content";
+import { EditorialImageHero } from "@/components/hero/EditorialImageHero";
+import { FAMILIES_UHNI_HERO } from "../_data/content";
 
 export function FamiliesUhniHero() {
+  const title = `${FAMILIES_UHNI_HERO.leadWord}${FAMILIES_UHNI_HERO.headlineLines.join(" ")}`.trim();
+
   return (
-    <InnerPageHero
-      backgroundImage={FAMILIES_UHNI_HERO.backgroundImage}
-      pillImage={FAMILIES_UHNI_HERO.pillImage}
-      leadWord={FAMILIES_UHNI_HERO.leadWord}
-      headlineLines={FAMILIES_UHNI_HERO.headlineLines}
-      epigraph={FAMILIES_UHNI_HERO.epigraph}
-      ctas={FAMILIES_UHNI_CTAS}
+    <EditorialImageHero
+      title={title}
+      byline="Presented by 9xWealth"
+      subtitle={FAMILIES_UHNI_HERO.epigraph}
+      image={FAMILIES_UHNI_HERO.backgroundImage}
     />
   );
 }

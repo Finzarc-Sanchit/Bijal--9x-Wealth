@@ -2,6 +2,7 @@ import { InteriorPageShell } from "@/components/layout/InteriorPageShell";
 import type { Metadata } from "next";
 import { FamiliesBusinessOwnersConviction } from "./_components/FamiliesBusinessOwnersConviction";
 import { FamiliesBusinessOwnersHero } from "./_components/FamiliesBusinessOwnersHero";
+import { FamiliesBusinessOwnersPriorities } from "./_components/FamiliesBusinessOwnersPriorities";
 import { FamiliesBusinessOwnersRelated } from "./_components/FamiliesBusinessOwnersRelated";
 import { FAMILIES_BUSINESS_OWNERS_METADATA } from "./_data/content";
 
@@ -16,6 +17,7 @@ export default function FamiliesBusinessOwnersPage() {
     <InteriorPageShell>
       <FamiliesBusinessOwnersHero />
       <FamiliesBusinessOwnersConviction />
+      <FamiliesBusinessOwnersPriorities />
       <FamiliesBusinessOwnersRelated />
     </InteriorPageShell>
   );

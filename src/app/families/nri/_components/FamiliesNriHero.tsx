@@ -1,15 +1,16 @@
-import { InnerPageHero } from "@/components/hero/InteriorPageHero";
-import { FAMILIES_NRI_CTAS, FAMILIES_NRI_HERO } from "../_data/content";
+import { EditorialImageHero } from "@/components/hero/EditorialImageHero";
+import { FAMILIES_NRI_HERO } from "../_data/content";
 
 export function FamiliesNriHero() {
+  const title =
+    `${FAMILIES_NRI_HERO.leadWord}${FAMILIES_NRI_HERO.headlineLines.join(" ")}`.trim();
+
   return (
-    <InnerPageHero
-      backgroundImage={FAMILIES_NRI_HERO.backgroundImage}
-      pillImage={FAMILIES_NRI_HERO.pillImage}
-      leadWord={FAMILIES_NRI_HERO.leadWord}
-      headlineLines={FAMILIES_NRI_HERO.headlineLines}
-      epigraph={FAMILIES_NRI_HERO.epigraph}
-      ctas={FAMILIES_NRI_CTAS}
+    <EditorialImageHero
+      title={title}
+      byline="Presented by 9xWealth"
+      subtitle={FAMILIES_NRI_HERO.epigraph}
+      image={FAMILIES_NRI_HERO.backgroundImage}
     />
   );
 }

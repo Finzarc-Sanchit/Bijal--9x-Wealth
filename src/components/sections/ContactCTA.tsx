@@ -80,21 +80,28 @@ export function ContactCTA() {
 
         <div className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-white/20 bg-white/15 md:grid-cols-3">
           {offices.map((o, i) => (
-            <Reveal key={o.city} delay={i * 0.06}>
-              <div className="h-full bg-white/95 p-10 backdrop-blur-sm">
-                <div className="mb-6 flex items-baseline justify-between">
-                  <h3 className="font-display text-2xl font-normal text-brand-navy">{o.city}</h3>
-                  <span className="photo-caption text-brand-gold/80">{o.label}</span>
+            <Reveal key={o.city} delay={i * 0.06} className="h-full">
+              {/* Converted card wrapper into a flex-column layout */}
+              <div className="flex h-full flex-col bg-white/95 p-10 backdrop-blur-sm">
+                <div className="mb-6 flex items-baseline justify-between gap-2">
+                  <h3 className="font-display text-2xl font-normal text-brand-navy shrink-0">{o.city}</h3>
+                  <span className="photo-caption text-right text-brand-gold/80 text-xs tracking-wider uppercase">{o.label}</span>
                 </div>
-                <p className="whitespace-pre-line font-inter text-[14px] leading-[1.8] text-brand-navy/55">
+
+                {/* Enforced a strict minimum height so 2-line and 3-line addresses match perfectly */}
+                <p className="whitespace-pre-line font-inter text-[14px] leading-[1.8] text-brand-navy/55 min-h-[4.5rem]">
                   {o.address}
                 </p>
-                <a
-                  href={`tel:${o.tel}`}
-                  className="mt-4 inline-block font-mono text-[13px] text-brand-navy/70 transition-colors hover:text-brand-gold"
-                >
-                  {o.phone}
-                </a>
+
+                {/* Anchored phone number cleanly to the card floor across all items */}
+                <div className="mt-auto pt-4">
+                  <a
+                    href={`tel:${o.tel}`}
+                    className="inline-block font-mono text-[13px] text-brand-navy/70 transition-colors hover:text-brand-gold"
+                  >
+                    {o.phone}
+                  </a>
+                </div>
               </div>
             </Reveal>
           ))}

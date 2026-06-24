@@ -109,7 +109,11 @@ function IntroSplash({
             animate={{ scale: [0.9, 1.15, 0.9], opacity: [0.4, 0.7, 0.4] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
-          <div className="h-16 sm:h-20" aria-hidden />
+
+          {/* Increased spacer heights (from h-16 sm:h-20 to h-28 sm:h-36) 
+              to push the tagline and text contents down safely on all devices */}
+          <div className="h-28 sm:h-36" aria-hidden />
+
           <div className="text-center">
             <TypewriterText
               text={tagline}
@@ -136,10 +140,10 @@ function IntroSplash({
           isMoving
             ? { opacity: 1, ...navTarget }
             : {
-                opacity: 1,
-                ...LOGO_CENTER,
-                scale: 1,
-              }
+              opacity: 1,
+              ...LOGO_CENTER,
+              scale: 1,
+            }
         }
         transition={{
           duration: isMoving ? INTRO_TRANSITION_MS / 1000 : 0.65,
@@ -151,13 +155,13 @@ function IntroSplash({
             isMoving
               ? {}
               : {
-                  y: [0, -6, 0],
-                  filter: [
-                    "drop-shadow(0 4px 12px rgba(26,107,122,0.12))",
-                    "drop-shadow(0 8px 24px rgba(26,107,122,0.22))",
-                    "drop-shadow(0 4px 12px rgba(26,107,122,0.12))",
-                  ],
-                }
+                y: [0, -6, 0],
+                filter: [
+                  "drop-shadow(0 4px 12px rgba(26,107,122,0.12))",
+                  "drop-shadow(0 8px 24px rgba(26,107,122,0.22))",
+                  "drop-shadow(0 4px 12px rgba(26,107,122,0.12))",
+                ],
+              }
           }
           transition={
             isMoving ? undefined : { duration: 2.8, repeat: Infinity, ease: "easeInOut" }

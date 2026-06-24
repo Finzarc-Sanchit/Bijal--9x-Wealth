@@ -136,18 +136,17 @@ export function FooterColumn({
           <div className="text-center sm:text-left lg:col-span-3 xl:col-span-4">
             <Link
               href="/"
-              className="inline-flex min-h-[44px] items-center justify-center gap-3 sm:justify-start"
+              className="inline-flex min-h-[44px] items-center justify-center sm:justify-start"
               aria-label={`${company.name} — Home`}
             >
-              <Image
-                src={company.logo}
-                alt={company.logoAlt}
-                width={40}
-                height={40}
-                className="h-10 w-10 rounded-full object-contain brightness-0 invert"
-              />
-              <span className="font-poppins text-xl font-semibold tracking-tight text-white md:text-2xl">
-                {company.name}
+              <span className="inline-flex rounded-xl bg-white px-3 py-2 shadow-sm ring-1 ring-white/10">
+                <Image
+                  src={company.logo}
+                  alt={company.logoAlt}
+                  width={200}
+                  height={56}
+                  className="h-9 w-auto object-contain sm:h-10"
+                />
               </span>
             </Link>
 
