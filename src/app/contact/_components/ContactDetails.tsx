@@ -8,6 +8,9 @@ import { CONTACT_DETAILS } from "../_data/content";
 const detailLinkClass =
   "font-inter text-base text-brand-navy transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/30 focus-visible:rounded-sm";
 
+const metaLabelClass =
+  "mb-2 font-inter text-xs font-semibold uppercase tracking-wider text-brand-navy/60";
+
 export function ContactDetails({ className }: { className?: string }) {
   const fullAddress = [
     CONTACT.address.line1,
@@ -18,75 +21,50 @@ export function ContactDetails({ className }: { className?: string }) {
   return (
     <aside className={cn("space-y-8", className)} aria-label="Contact information">
       <Reveal delay={0.08}>
-        <ul className="space-y-5 rounded-2xl border border-brand-navy/10 bg-white/70 p-6 shadow-sm ring-1 ring-brand-navy/5 backdrop-blur-sm">
-          <li className="flex gap-4">
-            <span
-              className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-teal/10 text-brand-teal"
-              aria-hidden
-            >
-              <Phone className="size-5" />
-            </span>
-            <div>
-              <p className="font-inter text-sm font-medium text-brand-navy/60">
-                {CONTACT_DETAILS.labels.phone}
-              </p>
-              <a href={CONTACT.phoneHref} className={cn(detailLinkClass, "mt-1 inline-block")}>
-                {CONTACT.phone}
-              </a>
+        <div className="space-y-12">
+          <div>
+            <div className="flex items-center gap-3">
+              <Phone className="size-4 text-brand-muted" aria-hidden />
+              <p className={metaLabelClass}>{CONTACT_DETAILS.labels.phone}</p>
             </div>
-          </li>
+            <a href={CONTACT.phoneHref} className={cn(detailLinkClass, "mt-2 inline-block")}>
+              {CONTACT.phone}
+            </a>
+          </div>
 
-          <li className="flex gap-4">
-            <span
-              className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-teal/10 text-brand-teal"
-              aria-hidden
-            >
-              <Mail className="size-5" />
-            </span>
-            <div>
-              <p className="font-inter text-sm font-medium text-brand-navy/60">
-                {CONTACT_DETAILS.labels.email}
-              </p>
-              <a href={`mailto:${CONTACT.email}`} className={cn(detailLinkClass, "mt-1 inline-block")}>
-                {CONTACT.email}
-              </a>
+          <div className="border-t border-brand-navy/10 pt-6">
+            <div className="flex items-center gap-3">
+              <Mail className="size-4 text-brand-muted" aria-hidden />
+              <p className={metaLabelClass}>{CONTACT_DETAILS.labels.email}</p>
             </div>
-          </li>
+            <a
+              href={`mailto:${CONTACT.email}`}
+              className={cn(detailLinkClass, "mt-2 inline-block")}
+            >
+              {CONTACT.email}
+            </a>
+          </div>
 
-          <li className="flex gap-4">
-            <span
-              className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-teal/10 text-brand-teal"
-              aria-hidden
-            >
-              <MapPin className="size-5" />
-            </span>
-            <div>
-              <p className="font-inter text-sm font-medium text-brand-navy/60">
-                {CONTACT_DETAILS.labels.address}
-              </p>
-              <p className="mt-1 font-inter text-base leading-relaxed text-brand-navy">
-                {fullAddress}
-              </p>
+          <div className="border-t border-brand-navy/10 pt-6">
+            <div className="flex items-center gap-3">
+              <MapPin className="size-4 text-brand-muted" aria-hidden />
+              <p className={metaLabelClass}>{CONTACT_DETAILS.labels.address}</p>
             </div>
-          </li>
+            <p className="mt-2 font-inter text-base leading-relaxed text-brand-navy">
+              {fullAddress}
+            </p>
+          </div>
 
-          <li className="flex gap-4">
-            <span
-              className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-teal/10 text-brand-teal"
-              aria-hidden
-            >
-              <Clock className="size-5" />
-            </span>
-            <div>
-              <p className="font-inter text-sm font-medium text-brand-navy/60">
-                {CONTACT_DETAILS.labels.hours}
-              </p>
-              <p className="mt-1 font-inter text-base text-brand-navy">
-                {CONTACT_DETAILS.hours}
-              </p>
+          <div className="border-t border-brand-navy/10 pt-6">
+            <div className="flex items-center gap-3">
+              <Clock className="size-4 text-brand-muted" aria-hidden />
+              <p className={metaLabelClass}>{CONTACT_DETAILS.labels.hours}</p>
             </div>
-          </li>
-        </ul>
+            <p className="mt-2 font-inter text-base leading-relaxed text-brand-navy">
+              {CONTACT_DETAILS.hours}
+            </p>
+          </div>
+        </div>
       </Reveal>
 
       <Reveal delay={0.12}>
@@ -99,7 +77,7 @@ export function ContactDetails({ className }: { className?: string }) {
               <li key={office.href}>
                 <Link
                   href={office.href}
-                  className="inline-flex min-h-[44px] items-center rounded-full border border-brand-navy/15 bg-white/80 px-4 font-inter text-sm font-medium text-brand-navy transition hover:border-brand-teal/40 hover:text-brand-teal"
+                  className="inline-flex min-h-[44px] items-center rounded-full border border-brand-navy/15 bg-transparent px-4 font-inter text-sm font-medium text-brand-navy transition hover:border-brand-teal/40 hover:text-brand-teal"
                 >
                   {office.label}
                 </Link>

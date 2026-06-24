@@ -3,7 +3,7 @@
 import { Reveal } from "@/components/animations/reveal";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, Send } from "lucide-react";
+import { CheckCircle2, ChevronDown, Send } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CONTACT_FORM } from "../_data/content";
@@ -29,14 +29,17 @@ function FieldLabel({
   children: React.ReactNode;
 }) {
   return (
-    <label htmlFor={htmlFor} className="mb-2 block font-inter text-sm font-medium text-brand-navy">
+    <label
+      htmlFor={htmlFor}
+      className="mb-1 block font-inter text-xs font-semibold uppercase tracking-wider text-brand-navy/60"
+    >
       {children}
       {required ? <RequiredMark /> : null}
     </label>
   );
 }
 
-function FieldError({ message }: { message?: string }) {
+function FieldError({ message }: { message?: string; }) {
   if (!message) return null;
 
   return (
@@ -79,11 +82,11 @@ export function ContactForm() {
 
   const inputClass = (hasError?: boolean) =>
     cn(
-      "min-h-[48px] w-full rounded-xl border bg-white/90 px-4 font-inter text-base text-brand-navy outline-none transition",
-      "focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20",
+      "min-h-[40px] w-full border-b border-brand-navy/20 bg-transparent px-0 pb-2 pt-1 font-inter text-base text-brand-navy outline-none transition-colors duration-300",
+      "placeholder:text-brand-muted/60 focus:border-brand-teal focus:outline-none focus:ring-0",
       hasError
-        ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
-        : "border-brand-navy/15",
+        ? "border-red-500 focus:border-red-500"
+        : undefined,
     );
 
   return (
@@ -97,7 +100,7 @@ export function ContactForm() {
           <div>
             <Reveal>
               <p className="label lg:hidden">{CONTACT_FORM.badge}</p>
-              <h2 className="mt-4 font-display text-3xl font-light text-brand-navy md:text-4xl lg:mt-0 lg:hidden">
+              <h2 className="mt-4 max-w-xl font-display text-3xl font-light leading-tight tracking-tight text-brand-navy md:text-4xl lg:mt-0 lg:hidden">
                 {CONTACT_FORM.headline}
               </h2>
             </Reveal>
@@ -117,16 +120,16 @@ export function ContactForm() {
                 <form
                   onSubmit={handleSubmit(onSubmit)}
                   noValidate
-                  className="space-y-6 rounded-2xl border border-brand-navy/10 bg-white/85 p-6 shadow-sm ring-1 ring-brand-navy/5 backdrop-blur-sm md:p-8"
+                  className="space-y-10"
                 >
                   <div className="hidden lg:block">
                     <p className="label">{CONTACT_FORM.badge}</p>
-                    <h2 className="mt-4 font-display text-3xl font-light text-brand-navy">
+                    <h2 className="mt-4 max-w-xl font-display text-3xl font-light leading-tight tracking-tight text-brand-navy">
                       {CONTACT_FORM.headline}
                     </h2>
                   </div>
 
-                  <div className="grid gap-5 sm:grid-cols-2">
+                  <div className="grid gap-10 sm:grid-cols-2">
                     <div>
                       <FieldLabel htmlFor="contact-name" required>
                         {CONTACT_FORM.fields.name}
@@ -158,7 +161,7 @@ export function ContactForm() {
                     </div>
                   </div>
 
-                  <div className="grid gap-5 sm:grid-cols-2">
+                  <div className="grid gap-10 sm:grid-cols-2">
                     <div>
                       <FieldLabel htmlFor="contact-phone" required>
                         {CONTACT_FORM.fields.phone}
@@ -196,21 +199,30 @@ export function ContactForm() {
                     <FieldLabel htmlFor="contact-area" required>
                       {CONTACT_FORM.fields.areaOfInterest}
                     </FieldLabel>
-                    <select
-                      id="contact-area"
-                      className={inputClass(!!errors.areaOfInterest)}
-                      aria-invalid={errors.areaOfInterest ? "true" : "false"}
-                      {...register("areaOfInterest")}
-                    >
-                      <option value="" disabled>
-                        Select
-                      </option>
-                      {CONTACT_FORM.areaOfInterestOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
+                    <div className="relative">
+                      <select
+                        id="contact-area"
+                        className={cn(
+                          inputClass(!!errors.areaOfInterest),
+                          "appearance-none pr-8",
+                        )}
+                        aria-invalid={errors.areaOfInterest ? "true" : "false"}
+                        {...register("areaOfInterest")}
+                      >
+                        <option value="" disabled>
+                          Select
                         </option>
-                      ))}
-                    </select>
+                        {CONTACT_FORM.areaOfInterestOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown
+                        className="pointer-events-none absolute right-0 top-1/2 size-4 -translate-y-1/2 text-brand-muted"
+                        aria-hidden
+                      />
+                    </div>
                     <FieldError message={errors.areaOfInterest?.message} />
                   </div>
 
@@ -218,21 +230,30 @@ export function ContactForm() {
                     <FieldLabel htmlFor="contact-wealth" required>
                       {CONTACT_FORM.fields.investibleWealth}
                     </FieldLabel>
-                    <select
-                      id="contact-wealth"
-                      className={inputClass(!!errors.investibleWealth)}
-                      aria-invalid={errors.investibleWealth ? "true" : "false"}
-                      {...register("investibleWealth")}
-                    >
-                      <option value="" disabled>
-                        Select
-                      </option>
-                      {CONTACT_FORM.wealthOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
+                    <div className="relative">
+                      <select
+                        id="contact-wealth"
+                        className={cn(
+                          inputClass(!!errors.investibleWealth),
+                          "appearance-none pr-8",
+                        )}
+                        aria-invalid={errors.investibleWealth ? "true" : "false"}
+                        {...register("investibleWealth")}
+                      >
+                        <option value="" disabled>
+                          Select
                         </option>
-                      ))}
-                    </select>
+                        {CONTACT_FORM.wealthOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown
+                        className="pointer-events-none absolute right-0 top-1/2 size-4 -translate-y-1/2 text-brand-muted"
+                        aria-hidden
+                      />
+                    </div>
                     <FieldError message={errors.investibleWealth?.message} />
                   </div>
 
@@ -243,17 +264,17 @@ export function ContactForm() {
                     <textarea
                       id="contact-message"
                       rows={5}
-                      className={cn(inputClass(!!errors.message), "resize-y py-3")}
+                      className={cn(inputClass(!!errors.message), "resize-y")}
                       {...register("message")}
                     />
                     <FieldError message={errors.message?.message} />
                   </div>
 
-                  <div className="space-y-4 pt-2">
+                  <div className="space-y-4 pt-4">
                     <button
                       type="submit"
                       disabled={!canSubmit || isSubmitting}
-                      className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-brand-gold px-8 font-inter text-sm font-semibold text-brand-navy transition hover:bg-brand-gold-light disabled:cursor-not-allowed disabled:opacity-50"
+                      className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-brand-gold px-8 font-inter text-sm font-semibold text-brand-navy transition hover:bg-brand-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white/60 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       <Send className="size-4" aria-hidden />
                       {isSubmitting ? "Sending…" : CONTACT_FORM.submitLabel}
