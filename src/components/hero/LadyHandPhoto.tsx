@@ -1,10 +1,10 @@
+import { PriorityImage } from "@/components/ui/priority-image";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 /** Real stock photo — woman's hand gripping a phone (Pexels, free licence) */
 export function LadyHandPhoto({ className }: { className?: string }) {
   return (
-    <Image
+    <PriorityImage
       src="/images/hero-lady-hand.jpg"
       alt=""
       aria-hidden

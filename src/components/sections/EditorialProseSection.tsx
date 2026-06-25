@@ -8,11 +8,17 @@ export type EditorialProseSubsection = {
   paragraphs: readonly string[];
 };
 
+export type EditorialProseCta = {
+  label: string;
+  href: string;
+};
+
 export type EditorialProseSectionProps = {
   badge?: string;
   headline?: string;
   paragraphs?: readonly string[];
   subsections?: readonly EditorialProseSubsection[];
+  cta?: EditorialProseCta;
   className?: string;
   id?: string;
 };
@@ -20,11 +26,29 @@ export type EditorialProseSectionProps = {
 const PARAGRAPH_CLASS =
   "font-inter text-base leading-relaxed text-brand-navy/75 md:text-lg md:leading-[1.75]";
 
+const CTA_CLASS =
+  "relative z-10 mt-10 inline-flex min-h-[44px] cursor-pointer items-center rounded-full bg-brand-gold px-6 py-2.5 font-inter text-sm font-semibold text-brand-navy shadow-sm transition-colors hover:bg-brand-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40 focus-visible:ring-offset-2";
+
+function ProseCtaLink({ label, href }: EditorialProseCta) {
+  return (
+    <a
+      href={href}
+      className={CTA_CLASS}
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+    >
+      {label}
+    </a>
+  );
+}
+
 export function EditorialProseSection({
   badge,
   headline,
   paragraphs = [],
   subsections = [],
+  cta,
   className,
   id = "editorial-prose",
 }: EditorialProseSectionProps) {
@@ -88,6 +112,8 @@ export function EditorialProseSection({
               ))}
             </div>
           ) : null}
+
+          {cta ? <ProseCtaLink label={cta.label} href={cta.href} /> : null}
         </div>
       </div>
     </section>

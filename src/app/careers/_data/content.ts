@@ -107,6 +107,10 @@ export const CAREERS_APPLY = {
     "Write to practice@9xwealth.in with the subject line of the role and a one-page note describing why the practice interests you. Include a CV. We do not require a cover letter beyond the one-page note.",
     "We respond to every serious application within one business week. Initial conversations are conducted by a partner, not a recruiter. Final-round interviews include a working session with the desk you would join.",
   ],
+  cta: {
+    label: "Apply",
+    href: "mailto:practice@9xwealth.in?subject=Career%20Application",
+  },
 } as const;
 
 export const CAREERS_RELATED = {

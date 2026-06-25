@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
-import Image from "next/image";
+import { PriorityImage } from "@/components/ui/priority-image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
@@ -509,7 +509,7 @@ export function SiteNav() {
               aria-label="9X Wealth Financial Services — Home"
             >
               {showNavLogo ? (
-                <Image
+                <PriorityImage
                   src="/images/9x-wealth-logo-bg.png"
                   alt="9X Wealth Financial Services"
                   width={200}

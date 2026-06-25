@@ -1,5 +1,5 @@
 import { EditorialCardGrid } from "@/components/sections/EditorialCardGrid";
-import { MethodologyTonalLayerGridSection } from "@/components/sections/MethodologyTonalLayerGridSection";
+import { MethodologyTonalLayerRevealGridSection } from "@/components/sections/MethodologyTonalLayerRevealGridSection";
 import { TermLegacyConvictionSection } from "@/components/sections/TermLegacyConvictionSection";
 import {
   ABOUT_PRESS_ENQUIRIES,
@@ -10,7 +10,7 @@ import {
 export function AboutPressContent() {
   return (
     <>
-      <MethodologyTonalLayerGridSection
+      <MethodologyTonalLayerRevealGridSection
         headline={ABOUT_PRESS_REGULATORY.headline}
         items={ABOUT_PRESS_REGULATORY.items}
         id="about-press-regulatory"

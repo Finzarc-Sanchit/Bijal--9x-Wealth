@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
+import { PriorityImage } from "@/components/ui/priority-image";
 import { useEffect, useState } from "react";
 
 const CYCLE_MS = 2000;
@@ -155,7 +155,7 @@ export function AboutHeroMeshBackground({
         <div className="absolute inset-0 bg-brand-cream" />
 
         <div className="absolute left-1/2 top-[46%] z-[1] w-[min(72%,540px)] -translate-x-1/2 -translate-y-1/2 opacity-[0.055] sm:top-[42%] sm:w-[min(65%,600px)] sm:opacity-[0.065]">
-          <Image
+          <PriorityImage
             src="/logo.svg"
             alt=""
             width={600}

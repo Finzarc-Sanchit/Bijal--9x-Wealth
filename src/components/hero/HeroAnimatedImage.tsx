@@ -1,7 +1,7 @@
 "use client";
 
+import { PriorityImage } from "@/components/ui/priority-image";
 import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 
 const CROSSFADE = { duration: 0.85, ease: [0.22, 1, 0.36, 1] as const };
 
@@ -45,7 +45,7 @@ export function HeroCrossfadeImage({
             : { duration: 20, repeat: Infinity, ease: "easeInOut" }
         }
       >
-        <Image
+        <PriorityImage
           src={src}
           alt={alt}
           fill
@@ -86,7 +86,7 @@ export function HeroAnimatedPillImage({
           : { duration: 9, repeat: Infinity, ease: "easeInOut" }
       }
     >
-      <Image src={src} alt={alt} fill className="object-cover" sizes="192px" priority={priority} />
+      <PriorityImage src={src} alt={alt} fill className="object-cover" sizes="192px" priority={priority} />
     </motion.span>
   );
 }

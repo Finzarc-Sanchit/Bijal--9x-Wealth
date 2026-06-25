@@ -1,6 +1,7 @@
 "use client";
 
 import { lerpAtProgress } from "@/components/hero/hero-themes";
+import { PriorityImage } from "@/components/ui/priority-image";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -103,7 +104,7 @@ export function HeroLuxuryWaveBackground({
           <div className="hero-wave-drift absolute inset-0">
             <div className="hero-wave-zoom absolute inset-0">
               <div className="hero-wave-float absolute inset-0">
-                <Image
+                <PriorityImage
                   src="/images/hero-wave-bg.png"
                   alt=""
                   fill

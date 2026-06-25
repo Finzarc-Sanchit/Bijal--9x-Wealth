@@ -1,5 +1,4 @@
 import { StepProcessLayout } from "@/components/sections/StepProcessLayout";
-import { TermLegacyConvictionSection } from "@/components/sections/TermLegacyConvictionSection";
 import { EditorialFaqSection } from "@/components/sections/EditorialFaqSection";
 import { RelatedLinksSection } from "@/components/sections/RelatedLinksSection";
 import { Reveal } from "@/components/animations/reveal";
@@ -40,11 +39,11 @@ function MwpaDossierSection({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={cn("section-py w-full px-4 md:px-12 lg:px-16", className)}
+      className={cn("section-py w-full px-3 sm:px-4 lg:px-5", className)}
     >
       <div className="mx-auto w-full max-w-7xl">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
-          <div className="lg:col-span-4">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-6 xl:gap-8">
+          <div className="lg:col-span-5">
             <Reveal>
               <div className="flex items-start gap-4">
                 <span className="mt-1 hidden h-10 w-[2px] bg-brand-gold lg:block" aria-hidden />
@@ -70,7 +69,7 @@ function MwpaDossierSection({
             </Reveal>
           </div>
 
-          <div className="lg:col-span-8 lg:border-l lg:border-brand-navy/10 lg:pl-10 xl:pl-12">
+          <div className="lg:col-span-7 lg:border-l lg:border-brand-navy/10 lg:pl-6 xl:pl-8">
             {paragraphs.length > 0 ? (
               <div className="flex flex-col gap-6 md:gap-7">
                 {paragraphs.map((p, i) => (
@@ -87,8 +86,8 @@ function MwpaDossierSection({
               <div className={cn("mt-10 grid gap-8 md:mt-12 md:gap-10", paragraphs.length ? "" : "mt-0")}>
                 {subsections.map((s, i) => (
                   <Reveal key={`${id}-s-${s.title}`} delay={0.1 + i * 0.06}>
-                    <div className="rounded-xl border border-brand-navy/10 bg-white/40 px-6 py-6 md:px-7 md:py-7">
-                      <h3 className="font-display text-xl font-medium leading-tight tracking-tight text-brand-navy md:text-2xl">
+                    <div className="group rounded-xl border border-brand-navy/10 bg-white/40 px-5 py-5 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-brand-teal/25 hover:bg-white/80 hover:shadow-[0_16px_40px_-14px_rgba(10,22,40,0.18)] md:px-6 md:py-6">
+                      <h3 className="font-display text-xl font-medium leading-tight tracking-tight text-brand-navy transition-colors duration-300 group-hover:text-brand-teal md:text-2xl">
                         {s.title}
                       </h3>
                       <div className="mt-4 flex flex-col gap-4">
@@ -148,11 +147,11 @@ export function MwpaGuideSections() {
         paragraphs={MWPA_GUIDE_WHEN_NOT.paragraphs}
         subsections={MWPA_GUIDE_WHEN_NOT.subsections}
       />
-      <TermLegacyConvictionSection
+      <MwpaDossierSection
+        id="common-mistake"
         badge={MWPA_GUIDE_COMMON_MISTAKE.badge}
         headline={MWPA_GUIDE_COMMON_MISTAKE.headline}
         paragraphs={MWPA_GUIDE_COMMON_MISTAKE.paragraphs}
-        className="px-4 md:px-12 lg:px-16"
       />
       <EditorialFaqSection
         badge={MWPA_GUIDE_FAQ.badge}
@@ -172,8 +171,8 @@ export function MwpaGuideSections() {
         paragraphs={[MWPA_GUIDE_FIT_IN.paragraphs[0]]}
       />
       <section className="pb-16 md:pb-24">
-        <div className="mx-auto w-full max-w-7xl px-4 md:px-12 lg:px-16">
-          <div className="rounded-2xl border border-brand-navy/10 bg-white/40 px-6 py-8 md:px-10 md:py-10">
+        <div className="mx-auto w-full max-w-7xl px-3 sm:px-4 lg:px-5">
+          <div className="group rounded-2xl border border-brand-navy/10 bg-white/40 px-5 py-7 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-brand-teal/25 hover:bg-white/80 hover:shadow-[0_16px_40px_-14px_rgba(10,22,40,0.18)] md:px-8 md:py-9">
             <p className="font-inter text-base leading-relaxed text-brand-navy/75 md:text-lg md:leading-[1.75]">
               {MWPA_GUIDE_FIT_IN.paragraphs[1]}{" "}
               <Link href="/contact" className="font-medium text-brand-teal hover:underline">

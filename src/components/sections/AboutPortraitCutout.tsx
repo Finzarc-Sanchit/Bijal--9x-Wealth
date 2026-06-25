@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
+import { PriorityImage } from "@/components/ui/priority-image";
 
 function PortraitCircleBackground({ className }: { className?: string }) {
   return (
@@ -46,7 +46,7 @@ export function AboutPortraitCutout({
         animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
         transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Image
+        <PriorityImage
           src="/images/bijal-headshot-cutout.png"
           alt={`${name} — ${title}`}
           fill

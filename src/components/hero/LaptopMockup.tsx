@@ -21,7 +21,7 @@ import {
   Sparkles,
   TrendingUp,
 } from "lucide-react";
-import Image from "next/image";
+import { PriorityImage } from "@/components/ui/priority-image";
 import { useEffect, useMemo, useState } from "react";
 
 function SimulatedCursor({ active }: { active: boolean }) {
@@ -370,7 +370,7 @@ export function LaptopMockup({
                   className="absolute inset-0"
                   style={{ transform: frame.flipHorizontal ? "scaleX(-1)" : undefined }}
                 >
-                  <Image
+                  <PriorityImage
                     src={frame.src}
                     alt={frame.alt}
                     fill

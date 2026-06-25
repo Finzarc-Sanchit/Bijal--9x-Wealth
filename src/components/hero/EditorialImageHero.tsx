@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { PriorityImage } from "@/components/ui/priority-image";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -198,7 +198,7 @@ export function EditorialImageHero({
           <div className="relative aspect-[16/9] w-full grayscale-[0.2] transition duration-700 hover:grayscale-0">
 
             {reduceMotion ? (
-              <Image
+              <PriorityImage
                 src={image.src}
                 alt={image.alt}
                 fill
@@ -238,11 +238,12 @@ export function EditorialImageHero({
                         clipPath: `inset(${topPct}% 100% ${bottomPct}% 0%)`
                       }}
                     >
-                      <Image
+                      <PriorityImage
                         src={image.src}
-                        alt={image.alt}
+                        alt={index === 0 ? image.alt : ""}
                         fill
-                        priority
+                        priority={index === 0}
+                        aria-hidden={index > 0}
                         sizes="(min-width: 1024px) 72rem, 100vw"
                         className="object-cover"
                       />

@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
+import { PriorityImage } from "@/components/ui/priority-image";
 import { useEffect, useState } from "react";
 
 const HOLD_MS = 550;
@@ -82,7 +82,7 @@ export function InlineMorphHeadline({
               className="relative block shrink-0"
               style={{ width: PILL_WIDTH, height: PILL_HEIGHT }}
             >
-              <Image
+              <PriorityImage
                 src={image.src}
                 alt={revealed ? image.alt : ""}
                 fill

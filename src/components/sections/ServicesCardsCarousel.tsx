@@ -8,6 +8,7 @@ import type { SiteContent } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";
 import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { PriorityImage } from "@/components/ui/priority-image";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
@@ -108,7 +109,7 @@ function ServiceSolutionCard({
         animate={{ scale: isActive ? 1.1 : 1.04 }}
         transition={reduceMotion ? { duration: 0.2 } : { duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Image
+        <PriorityImage
           src={image.src}
           alt={image.alt}
           fill

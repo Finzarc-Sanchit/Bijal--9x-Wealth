@@ -4,7 +4,7 @@ import { TypewriterText } from "@/components/motion/TypewriterText";
 import { INTRO_TRANSITION_MS } from "@/components/layout/intro-constants";
 import type { IntroPhase } from "@/components/layout/site-intro-context";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { PriorityImage } from "@/components/ui/priority-image";
 import { useEffect, useState } from "react";
 
 /** Aligns with SiteNav floating bar: max-w-6xl, px-4 sm:px-6, pt-3, h-[64px] */
@@ -137,7 +137,7 @@ export function IntroSplash({
             isMoving ? undefined : { duration: 2.8, repeat: Infinity, ease: "easeInOut" }
           }
         >
-          <Image
+          <PriorityImage
             src="/images/9x-wealth-logo-bg.png"
             alt="9X Wealth Financial Services"
             width={280}

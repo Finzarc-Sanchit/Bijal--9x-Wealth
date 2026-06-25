@@ -12,7 +12,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
+import { PriorityImage } from "@/components/ui/priority-image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
@@ -106,7 +106,7 @@ export function ConvictionSection({
           style={{ y: reduceMotion ? 0 : parallaxY }}
         >
           {!imageFailed ? (
-            <Image
+            <PriorityImage
               src={backgroundImageSrc}
               alt={background?.alt ?? "Conviction section background"}
               fill

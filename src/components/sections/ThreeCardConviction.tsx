@@ -12,7 +12,7 @@ import {
   useTransform,
 } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
-import Image from "next/image";
+import { PriorityImage } from "@/components/ui/priority-image";
 import { useRef, useState } from "react";
 
 export type ThreeCardConvictionCard = {
@@ -104,7 +104,7 @@ export function ThreeCardConviction({
           style={{ y: reduceMotion ? 0 : parallaxY }}
         >
           {!imageFailed ? (
-            <Image
+            <PriorityImage
               src={backgroundImageSrc}
               alt={background?.alt ?? "Conviction section background"}
               fill

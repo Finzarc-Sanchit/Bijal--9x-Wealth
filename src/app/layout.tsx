@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { ContactCTASlot } from "@/components/layout/ContactCTASlot";
+import { RouteImagePrefetch } from "@/components/layout/RouteImagePrefetch";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { SiteNav } from "@/components/layout/SiteNav";
 import { LenisProvider } from "@/components/providers/lenis-provider";
@@ -49,6 +50,7 @@ export default async function RootLayout({
         <ThemeProvider>
           <LenisProvider>
             <ScrollToTop />
+            <RouteImagePrefetch />
             <div className="min-h-screen bg-brand-cream text-brand-navy">
               <SiteNav />
               {children}

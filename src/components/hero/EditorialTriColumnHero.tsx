@@ -1,9 +1,9 @@
 "use client";
 
 import { Reveal } from "@/components/animations/reveal";
+import { PriorityImage } from "@/components/ui/priority-image";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 export type EditorialTriColumnHeroImage = {
@@ -53,10 +53,11 @@ function HeroImageFrame({
       )}
     >
       <div className={cn("relative w-full overflow-hidden", aspectClass)}>
-        <Image
+        <PriorityImage
           src={image.src}
           alt={image.alt}
           fill
+          priority
           className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
           sizes="(max-width: 1024px) 88vw, 33vw"
         />

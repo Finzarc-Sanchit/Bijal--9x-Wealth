@@ -1,7 +1,5 @@
-"use client";
-
+import { PriorityImage } from "@/components/ui/priority-image";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 export type PhotoBannerHeroProps = {
   id?: string;
@@ -33,7 +31,7 @@ export function PhotoBannerHero({
       className={cn("relative isolate w-full overflow-hidden", HERO_HEIGHT, className)}
       aria-labelledby={`${id}-headline`}
     >
-      <Image
+      <PriorityImage
         src={backgroundImage.src}
         alt={backgroundImage.alt}
         fill
