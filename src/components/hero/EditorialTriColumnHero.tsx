@@ -166,15 +166,15 @@ export function EditorialTriColumnHero({
             </Reveal>
           </div>
 
-          {/* Mobile — stacked images, left-aligned on the same vertical edge */}
-          <div className="order-2 flex w-full min-w-0 flex-col items-start gap-6 lg:hidden">
-            <Reveal delay={0.1} className="w-full max-w-[88%]">
+          {/* Mobile — stacked images, centered, equal width */}
+          <div className="order-2 flex w-full min-w-0 flex-col items-center gap-6 lg:hidden">
+            <Reveal delay={0.1} className="w-full max-w-[85%]">
               <HeroImageFrame
                 image={primaryImage}
                 mobileAspectClass="aspect-[4/3]"
               />
             </Reveal>
-            <Reveal delay={0.12} className="w-full max-w-[88%]">
+            <Reveal delay={0.12} className="w-full max-w-[85%]">
               <HeroImageFrame
                 image={secondaryImage}
                 mobileAspectClass="aspect-[4/3.5]"
@@ -188,9 +188,9 @@ export function EditorialTriColumnHero({
               <HeroImageFrame
                 image={primaryImage}
                 mobileAspectClass="aspect-[4/3]"
-                desktopFrameClass="lg:mx-auto lg:w-[88%]"
+                desktopFrameClass="lg:ml-auto lg:mr-0 lg:w-[76%]"
                 desktopMediaClass="lg:aspect-[4/3]"
-                sizes="(max-width: 1023px) 88vw, 28vw"
+                sizes="(max-width: 1023px) 85vw, 24vw"
               />
             </Reveal>
           </div>
@@ -201,9 +201,9 @@ export function EditorialTriColumnHero({
               <HeroImageFrame
                 image={secondaryImage}
                 mobileAspectClass="aspect-[4/3.5]"
-                desktopFrameClass="lg:w-[72%]"
+                desktopFrameClass="lg:w-[56%]"
                 desktopMediaClass="lg:aspect-[4/4.5]"
-                sizes="(max-width: 1023px) 88vw, 24vw"
+                sizes="(max-width: 1023px) 85vw, 18vw"
               />
             </Reveal>
 
