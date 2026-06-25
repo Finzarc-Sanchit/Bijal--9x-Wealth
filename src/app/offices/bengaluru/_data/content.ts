@@ -52,34 +52,58 @@ export const BENGALURU_OFFICE_COVERAGE = {
       id: "01",
       title: "Keyman & Enterprise",
       description: "Buy-sell agreements, partner protection, and family-business continuity cover.",
+      image: {
+        src: "/images/practice-areas/keyman-enterprise.jpg",
+        alt: "Business succession and enterprise protection",
+      },
     },
     {
       id: "02",
       title: "Term & Legacy Cover",
       description:
         "High-sum term policies under MWPA, HUF, or trust — creditor-proof and tax-efficient.",
+      image: {
+        src: "/images/practice-areas/term-legacy-cover.jpg",
+        alt: "Family legacy and financial protection planning",
+      },
     },
     {
       id: "03",
       title: "Private Health Coverage",
       description:
         "Family floater with international hospitalisation and dedicated claim advocates.",
+      image: {
+        src: "/images/practice-areas/private-health-coverage.jpg",
+        alt: "Premium healthcare and medical protection",
+      },
     },
     {
       id: "04",
-      title: "Business Owners",
-      description: "Keyman, buy-sell, and family-business continuity cover.",
+      title: "UHNI Families",
+      description:
+        "For families of ₹100 Cr+ — relationship director, quarterly home reviews, succession architecture.",
+      image: {
+        src: "/images/unhi/hero.webp",
+        alt: "Ultra-high-net-worth family protection and succession planning",
+      },
     },
     {
       id: "05",
-      title: "NRI & Global Indian Households",
-      description: "Cross-border tax, GIFT City products, currency hedging, FATCA/CRS.",
+      title: "Business Owners",
+      description: "Keyman, buy-sell, and family-business continuity cover.",
+      image: {
+        src: "/images/business-owners/hero.webp",
+        alt: "Business succession and enterprise protection",
+      },
     },
     {
       id: "06",
-      title: "Wealth & ULIPs",
-      description:
-        "Hand-modelled ULIPs and guaranteed-return plans, evaluated against MF alternatives.",
+      title: "Listed Promoters",
+      description: "Pledge cover, SEBI considerations, and MWPA on promoter holdings.",
+      image: {
+        src: "/images/listed-promoters/hero.webp",
+        alt: "Listed promoter and enterprise protection",
+      },
     },
   ] as const satisfies readonly EditorialCard[],
   links: [

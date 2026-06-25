@@ -54,32 +54,56 @@ export const MUMBAI_OFFICE_COVERAGE = {
       title: "Term & Legacy Cover",
       description:
         "High-sum term policies under MWPA, HUF, or trust — creditor-proof and tax-efficient.",
+      image: {
+        src: "/images/practice-areas/term-legacy-cover.jpg",
+        alt: "Family legacy and financial protection planning",
+      },
     },
     {
       id: "02",
       title: "Specie & High-Value",
       description: "Art, jewellery, classic cars, marine, aviation, and K&R architecture.",
+      image: {
+        src: "/images/practice-areas/specie-high-value.jpg",
+        alt: "Luxury assets and specialty insurance coverage",
+      },
     },
     {
       id: "03",
       title: "Global Solutions",
       description: "Dollar-denominated cover via GIFT City IFSC and Lloyd's of London.",
+      image: {
+        src: "/images/practice-areas/global-solutions.jpg",
+        alt: "International insurance and global family planning",
+      },
     },
     {
       id: "04",
       title: "UHNI Families",
       description:
         "For families of ₹100 Cr+ — relationship director, quarterly home reviews, succession architecture.",
+      image: {
+        src: "/images/unhi/hero.webp",
+        alt: "Ultra-high-net-worth family protection and succession planning",
+      },
     },
     {
       id: "05",
       title: "Business Owners",
       description: "Keyman, buy-sell, and family-business continuity cover.",
+      image: {
+        src: "/images/business-owners/hero.webp",
+        alt: "Business succession and enterprise protection",
+      },
     },
     {
       id: "06",
       title: "Listed Promoters",
       description: "Pledge cover, SEBI considerations, and MWPA on promoter holdings.",
+      image: {
+        src: "/images/listed-promoters/hero.webp",
+        alt: "Listed promoter and enterprise protection",
+      },
     },
   ] as const satisfies readonly EditorialCard[],
   links: [

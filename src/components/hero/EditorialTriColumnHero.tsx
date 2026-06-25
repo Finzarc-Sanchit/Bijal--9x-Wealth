@@ -38,28 +38,41 @@ export type EditorialTriColumnHeroProps = {
 
 function HeroImageFrame({
   image,
-  aspectClass,
+  mobileAspectClass,
+  desktopFrameClass,
+  desktopMediaClass,
+  sizes = "(max-width: 1023px) 88vw, 33vw",
   className,
 }: {
   image: EditorialTriColumnHeroImage;
-  aspectClass: string;
+  mobileAspectClass: string;
+  desktopFrameClass?: string;
+  desktopMediaClass?: string;
+  sizes?: string;
   className?: string;
 }) {
   return (
     <div
       className={cn(
-        "group relative w-full overflow-hidden rounded-xl bg-brand-navy-light lg:rounded-[0.833vw]",
+        "group relative w-full shrink-0 overflow-hidden rounded-xl bg-brand-navy-light lg:rounded-[0.833vw]",
+        desktopFrameClass,
         className,
       )}
     >
-      <div className={cn("relative w-full overflow-hidden", aspectClass)}>
+      <div
+        className={cn(
+          "relative w-full shrink-0 overflow-hidden",
+          mobileAspectClass,
+          desktopMediaClass,
+        )}
+      >
         <PriorityImage
           src={image.src}
           alt={image.alt}
           fill
           priority
-          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-          sizes="(max-width: 1024px) 88vw, 33vw"
+          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 lg:!h-full lg:!w-full"
+          sizes={sizes}
         />
       </div>
       <div
@@ -72,12 +85,12 @@ function HeroImageFrame({
 
 function SidePanelCta({ label, href }: EditorialTriColumnHeroCta) {
   const className =
-    "inline-flex min-h-[44px] w-fit items-center gap-2 rounded-full bg-brand-gold px-5 py-2.5 font-inter text-sm font-semibold text-brand-navy shadow-sm transition-colors hover:bg-brand-gold-light";
+    "inline-flex min-h-[44px] w-fit items-center gap-2 rounded-full bg-brand-gold px-5 py-2.5 font-inter text-sm font-semibold text-brand-navy shadow-sm transition-colors hover:bg-brand-gold-light lg:min-h-[3.056vw] lg:gap-[0.556vw] lg:px-[1.389vw] lg:py-[0.694vw] lg:text-[0.972vw] lg:leading-[1.389vw]";
 
   const inner = (
     <>
       {label}
-      <ArrowRight className="size-4" aria-hidden />
+      <ArrowRight className="size-4 lg:size-[1.111vw]" aria-hidden />
     </>
   );
 
@@ -118,17 +131,22 @@ export function EditorialTriColumnHero({
       )}
     >
       <div className="w-full px-4 py-10 lg:px-[3.5vw] lg:py-[5.555vw]">
-        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-[2.222vw]">
+        <div
+          className={cn(
+            "grid grid-cols-1 items-start gap-6",
+            "lg:grid-cols-[29.519vw_29.519vw_29.519vw] lg:justify-between lg:gap-[2.222vw]",
+          )}
+        >
           {/* Left Column */}
-          <div className="order-1 space-y-6 lg:col-span-4 lg:space-y-[1.666vw]">
+          <div className="order-1 space-y-6 lg:w-[29.519vw] lg:space-y-[1.666vw]">
             <Reveal>
               <div className="space-y-2 lg:space-y-[0.555vw]">
-                <p className="font-inter text-sm font-medium uppercase tracking-[0.3em] text-brand-gold lg:text-[0.764vw]">
+                <p className="font-inter text-sm font-medium uppercase tracking-[0.3em] text-brand-gold lg:text-[0.972vw] lg:leading-[1.389vw] lg:tracking-[0.292vw]">
                   {badge}
                 </p>
                 <h1
                   id={headingId}
-                  className="w-full whitespace-pre-line font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[4.861vw]"
+                  className="w-full whitespace-pre-line font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[4.861vw] lg:leading-[5.104vw]"
                 >
                   {headlineLines.map((line) => (
                     <span key={line} className="block">
@@ -140,8 +158,8 @@ export function EditorialTriColumnHero({
             </Reveal>
 
             <Reveal delay={0.08}>
-              <div className="w-full border-t border-white/20 pt-6 lg:pt-[2.222vw]">
-                <p className="font-inter text-base leading-relaxed text-white/65 lg:text-[1.111vw]">
+              <div className="w-full border-t border-white/20 pt-6 lg:border-t-[0.069vw] lg:pt-[2.222vw]">
+                <p className="font-inter text-base leading-relaxed text-white/65 lg:text-[1.111vw] lg:leading-[1.806vw]">
                   {intro}
                 </p>
               </div>
@@ -151,43 +169,57 @@ export function EditorialTriColumnHero({
           {/* Mobile — stacked images, left-aligned on the same vertical edge */}
           <div className="order-2 flex w-full flex-col items-start gap-6 lg:hidden">
             <Reveal delay={0.1} className="w-full max-w-[88%]">
-              <HeroImageFrame image={primaryImage} aspectClass="aspect-[4/3]" />
+              <HeroImageFrame
+                image={primaryImage}
+                mobileAspectClass="aspect-[4/3]"
+              />
             </Reveal>
             <Reveal delay={0.12} className="w-full max-w-[88%]">
-              <HeroImageFrame image={secondaryImage} aspectClass="aspect-[4/3.5]" />
+              <HeroImageFrame
+                image={secondaryImage}
+                mobileAspectClass="aspect-[4/3.5]"
+              />
             </Reveal>
           </div>
 
           {/* Desktop — center primary image */}
-          <div className="order-2 hidden w-full lg:col-span-4 lg:mt-[4.444vw] lg:block">
+          <div className="order-2 hidden lg:mt-[4.444vw] lg:block lg:w-[29.519vw]">
             <Reveal delay={0.1}>
-              <div className="mx-auto w-full max-w-[88%]">
-                <HeroImageFrame image={primaryImage} aspectClass="aspect-[4/3]" />
-              </div>
+              <HeroImageFrame
+                image={primaryImage}
+                mobileAspectClass="aspect-[4/3]"
+                desktopFrameClass="lg:mx-auto lg:w-[25.976vw]"
+                desktopMediaClass="lg:aspect-auto lg:h-[19.482vw]"
+                sizes="(max-width: 1023px) 88vw, 25.976vw"
+              />
             </Reveal>
           </div>
 
           {/* Right Column — side panel; secondary image on desktop only */}
-          <div className="order-3 w-full space-y-6 lg:col-span-4 lg:space-y-[2.222vw]">
+          <div className="order-3 w-full space-y-6 lg:w-[29.519vw] lg:space-y-[2.222vw]">
             <Reveal delay={0.12} className="hidden lg:block">
-              <div className="ml-0 mr-auto w-full max-w-[72%]">
-                <HeroImageFrame image={secondaryImage} aspectClass="aspect-[4/3.5]" />
-              </div>
+              <HeroImageFrame
+                image={secondaryImage}
+                mobileAspectClass="aspect-[4/3.5]"
+                desktopFrameClass="lg:w-[21.253vw]"
+                desktopMediaClass="lg:aspect-auto lg:h-[18.596vw]"
+                sizes="(max-width: 1023px) 88vw, 21.253vw"
+              />
             </Reveal>
 
             <Reveal delay={0.16}>
               <div className="w-full space-y-4 lg:space-y-[1.111vw]">
                 <div className="flex items-center gap-3 lg:gap-[1.111vw]">
                   <div
-                    className="h-px w-8 shrink-0 bg-brand-gold lg:w-[2.222vw]"
+                    className="h-px w-8 shrink-0 bg-brand-gold lg:h-[0.069vw] lg:w-[2.222vw]"
                     aria-hidden
                   />
-                  <h2 className="font-display text-xl font-normal leading-tight tracking-tight text-brand-gold lg:text-[2.222vw]">
+                  <h2 className="font-display text-xl font-normal leading-tight tracking-tight text-brand-gold lg:text-[2.222vw] lg:leading-[2.778vw]">
                     {sidePanel.title}
                   </h2>
                 </div>
 
-                <p className="font-inter text-base leading-relaxed text-white/65 lg:text-[1.111vw]">
+                <p className="font-inter text-base leading-relaxed text-white/65 lg:text-[1.111vw] lg:leading-[1.806vw]">
                   {sidePanel.description}
                 </p>
 
