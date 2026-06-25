@@ -1,4 +1,3 @@
-import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
 import type { RelatedLink } from "@/components/sections/RelatedLinksSection";
 
 export const CALCULATORS_METADATA = {
@@ -18,23 +17,10 @@ export const CALCULATORS_HERO = {
     src: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?fm=jpg&q=85&w=1920&auto=format&fit=crop",
     alt: "Financial planning calculator and documents",
   },
-  pillImage: {
-    src: "/images/practice-areas/term-legacy-cover.jpg",
-    alt: "Cover estimator tool",
-  },
-  leadWord: "",
-  headlineLines: ["Cover", "estimator."] as const,
-  epigraph:
+  headline: "Cover estimator.",
+  description:
     "A directional view of the term cover an Indian earner of your profile may consider. For a precise architecture, request an audience.",
 } as const;
-
-export const CALCULATORS_CTAS = [
-  {
-    label: "Schedule a Conversation",
-    href: "/contact",
-    variant: "primary",
-  },
-] as const satisfies readonly HeroCtaConfig[];
 
 export const CALCULATORS_FORM = {
   ageLabel: "Your age",

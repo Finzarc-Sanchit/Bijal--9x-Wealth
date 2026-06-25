@@ -21,7 +21,7 @@ export const WEALTH_ULIPS_METADATA = {
 
 export const WEALTH_ULIPS_HERO = {
   backgroundImage: {
-    src: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?fm=jpg&q=85&w=1920&auto=format&fit=crop",
+    src: "/images/wealth-ulips/hero.avif",
     alt: "Financial charts evoking disciplined wealth modelling",
   },
   pillImage: {
@@ -108,24 +108,40 @@ export const WEALTH_ULIPS_PROCESS = {
       title: "We start with the alternative",
       description:
         "Every wealth product is modelled against the equivalent direct mutual fund or PMS. The math is presented in a single page; the conclusion is whichever is better.",
+      image: {
+        src: "/images/wealth-ulips/process/process-1.webp",
+        alt: "Benchmarking wealth products against direct mutual fund and PMS alternatives",
+      },
     },
     {
       id: "02",
       title: "Section 10(10D) is a real benefit, not a sales pitch",
       description:
         "For premiums under ₹2.5L, ULIPs retain a meaningful tax edge. We use it where it applies and decline it where it does not.",
+      image: {
+        src: "/images/wealth-ulips/process/process-2.webp",
+        alt: "Section 10(10D) tax efficiency applied transparently to ULIP premiums",
+      },
     },
     {
       id: "03",
       title: "Charges are disclosed in full, in advance",
       description:
         "Premium-allocation, fund-management, mortality, and administration — all of it, on a single sheet, before any premium is paid.",
+      image: {
+        src: "/images/wealth-ulips/process/process-3.webp",
+        alt: "Full disclosure of ULIP charges before premium payment",
+      },
     },
     {
       id: "04",
       title: "Wrapper benefits are real or they are abandoned",
       description:
         "MWPA assignment, settlement options, succession routing — if the wrapper does work the alternative cannot, we use it. If not, we go direct.",
+      image: {
+        src: "/images/wealth-ulips/process/process-4.webp",
+        alt: "MWPA and succession wrapper evaluation for wealth products",
+      },
     },
   ] as const satisfies readonly GridItem[],
 } as const;

@@ -1,4 +1,3 @@
-import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
 import type { EditorialConvictionParagraph } from "@/components/sections/EditorialConvictionSection";
 import type { FaqItem } from "@/components/sections/EditorialFaqSection";
 import type { GridItem } from "@/components/sections/NumberedProcessGrid";
@@ -23,23 +22,10 @@ export const MWPA_GUIDE_HERO = {
     src: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?fm=jpg&q=85&w=1920&auto=format&fit=crop",
     alt: "Legal documents and estate planning materials",
   },
-  pillImage: {
-    src: "/images/practice-areas/term-legacy-cover.jpg",
-    alt: "MWPA term cover structuring guide",
-  },
-  leadWord: "MWPA: ",
-  headlineLines: ["a complete guide."] as const,
-  epigraph:
+  headline: "MWPA: a complete guide.",
+  description:
     "The Married Women's Property Act, 1874 — Section 6 — is the most powerful structural instrument in Indian private wealth that almost no one has heard of. This is the complete treatment.",
 } as const;
-
-export const MWPA_GUIDE_CTAS = [
-  {
-    label: "Schedule a Conversation",
-    href: "/contact",
-    variant: "primary",
-  },
-] as const satisfies readonly HeroCtaConfig[];
 
 export const MWPA_GUIDE_WHAT_IT_DOES = {
   badge: "What MWPA actually does",

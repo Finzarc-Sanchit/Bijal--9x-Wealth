@@ -1,15 +1,12 @@
-import { InnerPageHero } from "@/components/hero/InteriorPageHero";
-import { CALCULATORS_CTAS, CALCULATORS_HERO } from "../_data/content";
+import { PhotoBannerHero } from "@/components/hero/PhotoBannerHero";
+import { CALCULATORS_HERO } from "../_data/content";
 
 export function CalculatorsHero() {
   return (
-    <InnerPageHero
+    <PhotoBannerHero
       backgroundImage={CALCULATORS_HERO.backgroundImage}
-      pillImage={CALCULATORS_HERO.pillImage}
-      leadWord={CALCULATORS_HERO.leadWord}
-      headlineLines={CALCULATORS_HERO.headlineLines}
-      epigraph={CALCULATORS_HERO.epigraph}
-      ctas={CALCULATORS_CTAS}
+      headline={CALCULATORS_HERO.headline}
+      description={CALCULATORS_HERO.description}
     />
   );
 }

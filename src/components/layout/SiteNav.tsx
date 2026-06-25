@@ -1,10 +1,10 @@
 "use client";
 
-import { useSiteIntro } from "@/components/layout/SiteIntroLayout";
+import { useSiteIntro } from "@/components/layout/site-intro-context";
 import { NAV, type NavItem } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +26,7 @@ function isRouteActive(pathname: string, href: string): boolean {
 
 function isNavMenuActive(
   pathname: string,
-  item: Extract<NavItem, { kind: "menu" }>
+  item: Extract<NavItem, { kind: "menu"; }>
 ): boolean {
   if (isRouteActive(pathname, item.hub.href)) return true;
 
@@ -87,7 +87,6 @@ function NavLink({
   return (
     <Link
       href={href}
-      prefetch={false}
       className={classes}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
@@ -219,10 +218,8 @@ function NavMenu({
     );
   }
 
-  const panelWidth =
-    item.groups.length > 1
-      ? "w-[min(28rem,calc(100vw-2rem))]"
-      : "w-[min(18rem,calc(100vw-2rem))]";
+  // Premium wide panel structure configuration (Editorial sizing metric mapping)
+  const panelWidth = item.groups.length > 1 ? "w-[44rem]" : "w-[24rem]";
 
   return (
     <li>
@@ -240,7 +237,12 @@ function NavMenu({
       >
         <button
           type="button"
-          className={cn(navLinkClass, "inline-flex items-center gap-1", POINTER, menuIsActive && "font-semibold text-brand-teal")}
+          className={cn(
+            navLinkClass,
+            "inline-flex items-center gap-1.5 transition-all duration-300",
+            POINTER,
+            menuIsActive && "font-semibold text-brand-teal"
+          )}
           aria-expanded={isDesktopOpen}
           aria-haspopup="true"
           aria-controls={menuId}
@@ -248,61 +250,59 @@ function NavMenu({
         >
           {item.label}
           <ChevronDown
-            className={cn("h-3.5 w-3.5 opacity-70 transition-transform", isDesktopOpen && "rotate-180")}
+            className={cn("h-3.5 w-3.5 opacity-60 transition-transform duration-300 ease-out", isDesktopOpen && "rotate-180 opacity-100 text-brand-teal")}
             aria-hidden
           />
         </button>
 
         {isDesktopOpen ? (
-          <div className="absolute left-1/2 top-full z-[70] -translate-x-1/2 pt-2">
+          /* Custom offset geometry alignment layer */
+          <div className="absolute left-1/2 top-full z-[70] -translate-x-1/2 pt-[18px]">
             <motion.div
               id={menuId}
               role="menu"
-              initial={{ opacity: 0, y: 4, scale: 0.99 }}
+              initial={{ opacity: 0, y: 10, scale: 0.985 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className={cn(
-                "pointer-events-auto overflow-hidden rounded-2xl border border-brand-navy/8 bg-white shadow-[0_20px_48px_-18px_rgba(10,22,40,0.28)]",
+                "pointer-events-auto overflow-hidden rounded-2xl border border-brand-navy/5 bg-white/98 shadow-[0_32px_64px_-16px_rgba(10,22,40,0.14),0_12px_28px_-8px_rgba(10,22,40,0.05)] backdrop-blur-xl",
                 panelWidth,
               )}
             >
-              {/* <div className="border-b border-brand-navy/6 bg-brand-cream/60 px-4 py-3">
-              <NavLink
-                href={item.hub.href}
-                label={item.hub.label}
-                onClick={onNavigate}
-                className="text-sm font-semibold text-brand-teal transition-colors hover:text-brand-navy"
-              />
-            </div> */}
-
+              {/* Main contextual structural content blocks layout wrapper */}
               <div
                 className={cn(
-                  "grid gap-4 p-3",
-                  item.groups.length > 1 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1",
+                  "grid gap-x-10 gap-y-6 p-6",
+                  item.groups.length > 1 ? "grid-cols-2" : "grid-cols-1",
                 )}
               >
                 {item.groups.map((group) => (
-                  <div key={group.heading}>
-                    <p
-                      className={cn(
-                        "px-2 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-brand-muted",
-                        POINTER,
-                      )}
-                    >
+                  <div key={group.heading} className="flex flex-col">
+                    {/* High-end uppercase header typographic alignment style */}
+                    <p className="mb-4 block border-b border-brand-navy/5 px-2 pb-2 font-poppins text-[0.68rem] font-bold uppercase tracking-[0.22em] text-brand-navy/35 select-none">
                       {group.heading}
                     </p>
-                    <ul className="mt-1.5" role="none">
-                      {group.items.map((link) => (
-                        <li key={link.href + link.label} role="none">
-                          <NavLink
-                            href={link.href}
-                            label={link.label}
-                            onClick={onNavigate}
-                            isActive={isRouteActive(pathname, link.href)}
-                            className="flex min-h-[40px] items-center rounded-lg px-2 text-sm font-medium text-brand-navy transition-colors hover:bg-brand-cream hover:text-brand-teal"
-                          />
-                        </li>
-                      ))}
+                    <ul role="none" className="space-y-1">
+                      {group.items.map((link) => {
+                        const linkIsActive = isRouteActive(pathname, link.href);
+
+                        return (
+                          <li key={link.href + link.label} role="none">
+                            <NavLink
+                              href={link.href}
+                              label={link.label}
+                              onClick={onNavigate}
+                              isActive={linkIsActive}
+                              className={cn(
+                                "group/item flex w-full items-center rounded-xl px-3.5 py-2.5 transition-all duration-300 relative overflow-hidden",
+                                "font-inter text-[0.875rem] font-medium text-brand-navy/70 transition-colors duration-200 hover:text-brand-teal",
+                                "hover:bg-brand-cream/40",
+                                linkIsActive && "bg-brand-cream/50 font-semibold text-brand-teal",
+                              )}
+                            />
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 ))}
@@ -510,7 +510,7 @@ export function SiteNav() {
             >
               {showNavLogo ? (
                 <Image
-                  src="/images/9x-wealth-logo.png"
+                  src="/images/9x-wealth-logo-bg.png"
                   alt="9X Wealth Financial Services"
                   width={200}
                   height={56}

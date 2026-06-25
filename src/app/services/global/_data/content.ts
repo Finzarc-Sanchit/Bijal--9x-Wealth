@@ -73,7 +73,7 @@ export const GLOBAL_PRODUCTS = {
       description:
         "Dollar-denominated high-sum term issued from the GIFT City IFSC. IRDAI-adjacent regulation via IFSCA. The first port of call for NRI families and those with US-resident successors.",
       image: {
-        src: "/images/practice-areas/global-solutions.jpg",
+        src: "/images/global/products/product-1.webp",
         alt: "GIFT City IFSC dollar-denominated term cover",
       },
     },
@@ -83,7 +83,7 @@ export const GLOBAL_PRODUCTS = {
       description:
         "For sums beyond domestic capacity, we co-broker excess layers through Lloyd's syndicates via a coverholder partner. Single submission, multi-syndicate placement.",
       image: {
-        src: "/images/process/architecture.jpg",
+        src: "/images/global/products/product-2.webp",
         alt: "Lloyd's of London excess layer placement",
       },
     },
@@ -93,7 +93,7 @@ export const GLOBAL_PRODUCTS = {
       description:
         "Worldwide cover with planned-treatment riders for London, Singapore, the United States. For families whose lives genuinely cross borders.",
       image: {
-        src: "/images/practice-areas/private-health-coverage.jpg",
+        src: "/images/global/products/product-3.webp",
         alt: "International private health coverage across borders",
       },
     },
@@ -103,7 +103,7 @@ export const GLOBAL_PRODUCTS = {
       description:
         "Insurance-linked structures for tax-deferred international wealth accumulation, particularly useful for OCI families with mixed-residency successors.",
       image: {
-        src: "/images/process/stewardship.jpg",
+        src: "/images/global/products/product-4.webp",
         alt: "Offshore bond wrappers for international wealth",
       },
     },
@@ -119,24 +119,40 @@ export const GLOBAL_PROCESS = {
       title: "IFSCA-registered intermediary",
       description:
         "We are a registered insurance intermediary in GIFT IFSC, with direct relationships across the carriers issuing from the zone.",
+      image: {
+        src: "/images/global/process/process-1.webp",
+        alt: "IFSCA-registered insurance intermediary in GIFT City IFSC",
+      },
     },
     {
       id: "02",
       title: "Lloyd's coverholder partnership",
       description:
         "Excess capacity beyond Indian limits, placed through a Lloyd's coverholder. Single submission process; multi-syndicate placement.",
+      image: {
+        src: "/images/global/process/process-2.webp",
+        alt: "Lloyd's of London coverholder partnership for excess capacity",
+      },
     },
     {
       id: "03",
       title: "Tax structuring with your counsel",
       description:
         "We work alongside your existing tax counsel — we will not recommend a structure your CA has not vetted, and we document the FATCA/CRS treatment up front.",
+      image: {
+        src: "/images/global/process/process-3.webp",
+        alt: "Cross-border tax structuring coordinated with family counsel",
+      },
     },
     {
       id: "04",
       title: "Multi-currency claims advocacy",
       description:
         "Claims handled in the policy's native currency, paid into the family's preferred jurisdiction, with full reporting back to Indian authorities where required.",
+      image: {
+        src: "/images/global/process/process-4.webp",
+        alt: "Multi-currency claims advocacy across jurisdictions",
+      },
     },
   ] as const satisfies readonly GridItem[],
 } as const;

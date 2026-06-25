@@ -107,7 +107,7 @@ export const KEYMAN_STRUCTURES_PROTECT_CONTENT = {
       body: KEYMAN_STRUCTURES.items[0].description,
       cta: "Schedule a Conversation",
       href: "/contact",
-      src: "/images/practice-areas/keyman-enterprise.jpg",
+      src: "/images/keyman/structures/keyman-policy.webp",
       alt: "Pure keyman policy protecting critical business leadership",
     },
     {
@@ -116,7 +116,7 @@ export const KEYMAN_STRUCTURES_PROTECT_CONTENT = {
       body: KEYMAN_STRUCTURES.items[1].description,
       cta: "Schedule a Conversation",
       href: "/contact",
-      src: "/images/process/conversation.jpg",
+      src: "/images/keyman/structures/cross-purchase-buy-sell.webp",
       alt: "Cross-purchase buy-sell agreement between business partners",
     },
     {
@@ -125,7 +125,7 @@ export const KEYMAN_STRUCTURES_PROTECT_CONTENT = {
       body: KEYMAN_STRUCTURES.items[2].description,
       cta: "Schedule a Conversation",
       href: "/contact",
-      src: "/images/process/architecture.jpg",
+      src: "/images/keyman/structures/entity-redemption.webp",
       alt: "Entity-redemption buy-sell structure for shareholder continuity",
     },
     {
@@ -134,7 +134,7 @@ export const KEYMAN_STRUCTURES_PROTECT_CONTENT = {
       body: KEYMAN_STRUCTURES.items[3].description,
       cta: "Schedule a Conversation",
       href: "/contact",
-      src: "/images/process/stewardship.jpg",
+      src: "/images/keyman/structures/loan-protection-cover.webp",
       alt: "Loan-protection cover aligned to outstanding business liabilities",
     },
     {
@@ -143,7 +143,7 @@ export const KEYMAN_STRUCTURES_PROTECT_CONTENT = {
       body: KEYMAN_STRUCTURES.items[4].description,
       cta: "Schedule a Conversation",
       href: "/contact",
-      src: "/images/practice-areas/private-health-coverage.jpg",
+      src: "/images/keyman/structures/critical-illness-rider.webp",
       alt: "Critical-illness rider funding succession and treatment",
     },
     {
@@ -152,7 +152,7 @@ export const KEYMAN_STRUCTURES_PROTECT_CONTENT = {
       body: KEYMAN_STRUCTURES.items[5].description,
       cta: "Schedule a Conversation",
       href: "/contact",
-      src: "/images/process/activation.jpg",
+      src: "/images/keyman/structures/disability-income-rider.webp",
       alt: "Disability income rider sustaining operations through handover",
     },
   ],

@@ -1,5 +1,5 @@
 import { NumberedAccordionSection } from "@/components/sections/NumberedAccordionSection";
-import { SPECIE_CLASSES, SPECIE_HERO } from "../_data/content";
+import { SPECIE_CLASSES } from "../_data/content";
 
 const SPECIE_CLASS_LABELS: Record<string, string> = {
   "01": "Jewellery",
@@ -17,7 +17,7 @@ export function SpecieCards() {
       badge={SPECIE_CLASSES.badge}
       headline={SPECIE_CLASSES.headline}
       intro="All-risks worldwide cover for the assets ordinary policies overlook."
-      backgroundImage={SPECIE_HERO.backgroundImage}
+      backgroundImage={SPECIE_CLASSES.backgroundImage}
       variant="overlay"
       items={SPECIE_CLASSES.items.map((item) => ({
         label: SPECIE_CLASS_LABELS[item.id] ?? item.title,

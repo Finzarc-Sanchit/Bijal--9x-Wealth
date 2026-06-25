@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { promises as fs } from "fs";
 import path from "path";
 import { defaultSiteContent } from "./defaults";
@@ -30,7 +31,7 @@ function deepMerge<T extends Record<string, unknown>>(base: T, override: Partial
   return result;
 }
 
-export async function getSiteContent(): Promise<SiteContent> {
+async function readSiteContent(): Promise<SiteContent> {
   try {
     const raw = await fs.readFile(CONTENT_FILE, "utf-8");
     const parsed = JSON.parse(raw) as Partial<SiteContent>;
@@ -40,6 +41,8 @@ export async function getSiteContent(): Promise<SiteContent> {
     return siteContentSchema.parse(defaultSiteContent);
   }
 }
+
+export const getSiteContent = cache(readSiteContent);
 
 export async function saveSiteContent(content: unknown): Promise<SiteContent> {
   const merged = deepMerge(

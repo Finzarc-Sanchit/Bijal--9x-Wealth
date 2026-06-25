@@ -1,5 +1,4 @@
 import type { EditorialConvictionParagraph } from "@/components/sections/EditorialConvictionSection";
-import type { EditorialCard } from "@/components/sections/EditorialCardGrid";
 import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
 import type { GridItem } from "@/components/sections/NumberedProcessGrid";
 import type { RelatedLink } from "@/components/sections/RelatedLinksSection";
@@ -20,7 +19,7 @@ export const FAMILIES_UHNI_METADATA = {
 
 export const FAMILIES_UHNI_HERO = {
   backgroundImage: {
-    src: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?fm=jpg&q=85&w=1920&auto=format&fit=crop",
+    src: "/images/unhi/hero.webp",
     alt: "Private residence evoking UHNI family stewardship",
   },
   pillImage: {
@@ -57,38 +56,25 @@ export const FAMILIES_UHNI_INVITATION_INTRO = {
 export const FAMILIES_UHNI_INVITATION = {
   badge: "By Invitation",
   headline: "The private practice for families of ₹100 Cr+ wealth.",
+  sidebar: {
+    label: "Mandate horizon",
+    stat: "Multi-decade",
+    description:
+      "The relationship director who opens your file is the one your heirs inherit. New mandates open only when capacity exists to serve them at the existing standard.",
+  },
   items: [
-    {
-      id: "01",
-      title: "Dedicated relationship director",
-      description: "Dedicated relationship director",
-    },
-    {
-      id: "02",
-      title: "Quarterly portfolio reviews at home",
-      description: "Quarterly portfolio reviews at home",
-    },
-    {
-      id: "03",
-      title: "Estate & succession architecture",
-      description: "Estate & succession architecture",
-    },
-    {
-      id: "04",
-      title: "Cross-border coverage (GIFT City, Lloyd's)",
-      description: "Cross-border coverage (GIFT City, Lloyd's)",
-    },
-    {
-      id: "05",
-      title: "Specie cover for art, jewellery, watches",
-      description: "Specie cover for art, jewellery, watches",
-    },
-    {
-      id: "06",
-      title: "24/7 dedicated claims concierge",
-      description: "24/7 dedicated claims concierge",
-    },
-  ] as const satisfies readonly EditorialCard[],
+    { id: "01", title: "Dedicated relationship director" },
+    { id: "02", title: "Quarterly portfolio reviews at home" },
+    { id: "03", title: "Estate & succession architecture" },
+    { id: "04", title: "Cross-border coverage (GIFT City, Lloyd's)" },
+    { id: "05", title: "Specie cover for art, jewellery, watches" },
+    { id: "06", title: "24/7 dedicated claims concierge" },
+  ] as const,
+  bannerImage: {
+    src: "/images/unhi/private-practice.webp",
+    alt: "Private residence evoking UHNI family stewardship",
+  },
+  bannerCaption: "A mandate that outlasts us",
 } as const;
 
 export const FAMILIES_UHNI_CONVICTION = {

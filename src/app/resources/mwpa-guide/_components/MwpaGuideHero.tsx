@@ -1,15 +1,12 @@
-import { InnerPageHero } from "@/components/hero/InteriorPageHero";
-import { MWPA_GUIDE_CTAS, MWPA_GUIDE_HERO } from "../_data/content";
+import { PhotoBannerHero } from "@/components/hero/PhotoBannerHero";
+import { MWPA_GUIDE_HERO } from "../_data/content";
 
 export function MwpaGuideHero() {
   return (
-    <InnerPageHero
+    <PhotoBannerHero
       backgroundImage={MWPA_GUIDE_HERO.backgroundImage}
-      pillImage={MWPA_GUIDE_HERO.pillImage}
-      leadWord={MWPA_GUIDE_HERO.leadWord}
-      headlineLines={MWPA_GUIDE_HERO.headlineLines}
-      epigraph={MWPA_GUIDE_HERO.epigraph}
-      ctas={MWPA_GUIDE_CTAS}
+      headline={MWPA_GUIDE_HERO.headline}
+      description={MWPA_GUIDE_HERO.description}
     />
   );
 }

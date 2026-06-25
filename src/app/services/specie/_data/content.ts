@@ -54,66 +54,46 @@ export const SPECIE_CONVICTION = {
 export const SPECIE_CLASSES = {
   badge: "Six classes",
   headline: "Cover that goes where ordinary policies do not.",
+  backgroundImage: {
+    src: "/images/specie/six-classes.webp",
+    alt: "Fine art gallery evoking high-value asset stewardship",
+  },
   items: [
     {
       id: "01",
       title: "Jewellery & precious objects",
       description:
         "All-risks worldwide cover, valued via accredited gemmologists, refreshed for material movements. Covers vault, transit, travel, and home wear.",
-      image: {
-        src: "/images/practice-areas/specie-high-value.jpg",
-        alt: "Jewellery and precious objects specie insurance",
-      },
     },
     {
       id: "02",
       title: "Fine art & antiquities",
       description:
         "Single-piece or schedule-wide cover. Includes loan to museums, private exhibition, transit, and conservation. Title-defect cover available for premium pieces.",
-      image: {
-        src: "/images/process/stewardship.jpg",
-        alt: "Fine art and antiquities all-risks cover",
-      },
     },
     {
       id: "03",
       title: "Watches & timepieces",
       description:
         "Schedule-based or blanket cover for collections. Particularly important when pieces travel between residences or are worn in public.",
-      image: {
-        src: "/images/process/conversation.jpg",
-        alt: "Watches and timepiece collection insurance",
-      },
     },
     {
       id: "04",
       title: "Classic cars & motor collections",
       description:
         "Agreed-value cover where the payout matches the appraised value. Concours and rally use endorsed where required. Storage and transit included.",
-      image: {
-        src: "/images/process/activation.jpg",
-        alt: "Classic cars and motor collection cover",
-      },
     },
     {
       id: "05",
       title: "Yachts, aircraft, marine",
       description:
         "Hull and machinery, P&I, and crew liability for personal yachts. Aviation cover for private aircraft including hull, war risks, and passenger liability.",
-      image: {
-        src: "/images/practice-areas/global-solutions.jpg",
-        alt: "Yacht, aircraft, and marine hull insurance",
-      },
     },
     {
       id: "06",
       title: "Kidnap & ransom (K&R)",
       description:
         "Indemnity for ransom, negotiator and crisis-response services, and confidential cover that does not appear in any public schedule. Discreet underwriting only.",
-      image: {
-        src: "/images/process/architecture.jpg",
-        alt: "Discreet kidnap and ransom insurance cover",
-      },
     },
   ] as const satisfies readonly EditorialCard[],
 } as const;

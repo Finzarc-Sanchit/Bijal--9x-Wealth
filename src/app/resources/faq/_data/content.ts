@@ -1,4 +1,3 @@
-import type { HeroCtaConfig } from "@/components/hero/InteriorPageHero";
 import type { FaqItem } from "@/components/sections/EditorialFaqSection";
 import type { RelatedLink } from "@/components/sections/RelatedLinksSection";
 
@@ -19,23 +18,10 @@ export const FAQ_HERO = {
     src: "https://images.unsplash.com/photo-1521791136064-7986c2920216?fm=jpg&q=85&w=1920&auto=format&fit=crop",
     alt: "Professional consultation and Q&A",
   },
-  pillImage: {
-    src: "/images/practice-areas/term-legacy-cover.jpg",
-    alt: "Frequently asked questions",
-  },
-  leadWord: "The questions ",
-  headlineLines: ["we hear most often."] as const,
-  epigraph:
+  headline: "The questions we hear most often.",
+  description:
     "Five chapters of considered answers — about the practice, the engagement, the products, the structuring, and the discretion that surrounds it all.",
 } as const;
-
-export const FAQ_CTAS = [
-  {
-    label: "Schedule a Conversation",
-    href: "/contact",
-    variant: "primary",
-  },
-] as const satisfies readonly HeroCtaConfig[];
 
 export const FAQ_CHAPTERS = [
   {

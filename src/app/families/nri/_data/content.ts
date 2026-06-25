@@ -19,7 +19,7 @@ export const FAMILIES_NRI_METADATA = {
 
 export const FAMILIES_NRI_HERO = {
   backgroundImage: {
-    src: "https://images.unsplash.com/photo-1436491865332-7a61a4db6eaf?fm=jpg&q=85&w=1920&auto=format&fit=crop",
+    src: "/images/nri/hero.webp",
     alt: "Global travel evoking cross-border family protection",
   },
   pillImage: {

@@ -2,7 +2,7 @@
 
 import { HeroAnimatedPillImage } from "@/components/hero/HeroAnimatedImage";
 import { HeroVideoBackground } from "@/components/hero/HeroVideoBackground";
-import { useSiteIntro } from "@/components/layout/SiteIntroLayout";
+import { useSiteIntro } from "@/components/layout/site-intro-context";
 import { AXA_HERO_SLIDES } from "@/data/axa-hero-slides";
 import type { SiteContent } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";

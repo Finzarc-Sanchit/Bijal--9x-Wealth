@@ -1,7 +1,12 @@
 "use client";
 
-import { ContactCTA } from "@/components/sections/ContactCTA";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
+
+const ContactCTA = dynamic(
+  () => import("@/components/sections/ContactCTA").then((mod) => mod.ContactCTA),
+  { ssr: false },
+);
 
 export function ContactCTASlot() {
   const pathname = usePathname();

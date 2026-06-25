@@ -57,10 +57,18 @@ export function LenisProvider({ children }: LenisProviderProps) {
     const lenis = lenisRef.current;
     if (!lenis) return;
 
-    requestAnimationFrame(() => {
+    const resizeFrame = window.requestAnimationFrame(() => {
       lenis.resize();
-      ScrollTrigger.refresh();
     });
+
+    const refreshTimer = window.setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+
+    return () => {
+      window.cancelAnimationFrame(resizeFrame);
+      window.clearTimeout(refreshTimer);
+    };
   }, [pathname]);
 
   return children;
