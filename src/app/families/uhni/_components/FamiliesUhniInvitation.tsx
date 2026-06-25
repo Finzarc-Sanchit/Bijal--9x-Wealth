@@ -26,7 +26,7 @@ const INVITATION_HEADING = [
 
 function AnimatedLetter({ letter }: { letter: string }) {
   return (
-    <div className="inline-block h-[20px] overflow-hidden md:h-[24px]">
+    <div className="inline-block h-[1.25em] overflow-hidden">
       <motion.span
         className="flex min-w-[4px] flex-col font-inter text-sm leading-relaxed md:text-base"
         style={{ y: "0%" }}

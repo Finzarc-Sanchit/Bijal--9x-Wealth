@@ -42,7 +42,7 @@ function Reveal({
 
 function AnimatedLetter({ letter }: { letter: string; }) {
   return (
-    <div className="inline-block overflow-hidden h-[20px] md:h-[24px]">
+    <div className="inline-block h-[1.25em] overflow-hidden">
       <motion.span
         className="flex min-w-[4px] flex-col text-sm md:text-base font-inter leading-relaxed"
         style={{ y: "0%" }}

@@ -90,13 +90,6 @@ export const EDITORIAL_NAV_CTA = {
   scheduleHref: "/contact",
 } as const;
 
-/** Legacy routes — for future multi-page expansion */
-export const NAV_LINKS = [
-  { label: "Services", href: "/services" },
-  { label: "About", href: "/about" },
-  { label: "Calculators", href: "/calculators" },
-  { label: "Contact", href: "/contact" },
-] as const;
 
 export const DISCLAIMER =
   "9X Wealth Financial Services is an authorized partner of Tata AIA Life Insurance Company Limited. Insurance products are subject to terms and conditions. Mutual fund investments are subject to market risks. Tax benefits are as per applicable tax laws.";
@@ -148,12 +141,17 @@ export const OFFICE_LINKS = {
   delhi: { href: "/offices/delhi", title: "New Delhi" },
 } as const satisfies Record<string, SeoLink>;
 
+export type NavMenuHub = {
+  label: string;
+  href?: string;
+};
+
 export type NavItem =
   | { kind: "link"; href: string; label: string; }
   | {
     kind: "menu";
     label: string;
-    hub: { href: string; label: string; };
+    hub?: NavMenuHub;
     groups: { heading: string; items: { href: string; label: string; }[]; }[];
   };
 
@@ -161,7 +159,7 @@ export const NAV: NavItem[] = [
   {
     kind: "menu",
     label: "Coverage",
-    hub: { href: "/services", label: "All practices" },
+    hub: { label: "All practices" },
     groups: [
       {
         heading: "Practice areas",
@@ -175,7 +173,7 @@ export const NAV: NavItem[] = [
   {
     kind: "menu",
     label: "Families",
-    hub: { href: "/families", label: "All families" },
+    hub: { label: "All families" },
     groups: [
       {
         heading: "Who we serve",
@@ -186,7 +184,7 @@ export const NAV: NavItem[] = [
   {
     kind: "menu",
     label: "Resources",
-    hub: { href: "/resources", label: "All resources" },
+    hub: { label: "All resources" },
     groups: [
       {
         heading: "For clients",

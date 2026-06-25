@@ -19,8 +19,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, ClipboardCheck, MessageCircle } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
 
-const TEXT_BLOCK_HEIGHT = 420;
-
 function HeroSlideLayer({
   index,
   content,
@@ -251,7 +249,7 @@ export function HimsStyleHero({ content }: { content: SiteContent }) {
                 willChange: "transform",
               }}
             >
-              <div className="relative overflow-hidden" style={{ height: TEXT_BLOCK_HEIGHT }}>
+              <div className="relative min-h-[26.25rem] overflow-hidden">
                 {HERO_SLIDES.map((_, i) => (
                   <HeroSlideLayer
                     key={HERO_SLIDES[i].title}

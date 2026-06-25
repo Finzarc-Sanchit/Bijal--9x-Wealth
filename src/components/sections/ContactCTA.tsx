@@ -44,7 +44,7 @@ export function ContactCTA() {
     >
       <div className="absolute inset-0 z-0 bg-black/55" aria-hidden />
 
-      <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-12 lg:px-24">
+      <div className="relative z-10 mx-auto w-full max-w-[87.5rem] px-6 md:px-12 lg:px-24">
         <div className="mx-auto mb-20 max-w-3xl text-center">
           <Reveal>
             <p className="label text-brand-gold">Begin a Conversation</p>

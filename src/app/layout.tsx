@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { ContactCTASlot } from "@/components/layout/ContactCTASlot";
@@ -20,6 +20,11 @@ const inter = Inter({
   variable: "--font-inter-family",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "9X Wealth | Financial Services — Borivali, Mumbai",
@@ -51,7 +56,7 @@ export default async function RootLayout({
           <LenisProvider>
             <ScrollToTop />
             <RouteImagePrefetch />
-            <div className="min-h-screen bg-brand-cream text-brand-navy">
+            <div className="min-h-screen w-full max-w-full overflow-x-clip bg-brand-cream text-brand-navy">
               <SiteNav />
               {children}
               <ContactCTASlot />

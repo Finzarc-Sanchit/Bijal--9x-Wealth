@@ -38,7 +38,7 @@ export function MethodologyTonalLayerCard({
   return (
     <article
       className={cn(
-        "flex h-full flex-col rounded-2xl bg-brand-cream px-6 py-7 ring-1 ring-brand-navy/10 transition-colors md:h-[320px] md:overflow-hidden md:px-8 md:py-8 lg:h-[340px]",
+        "flex h-full min-h-[20rem] flex-col rounded-2xl bg-brand-cream px-6 py-7 ring-1 ring-brand-navy/10 transition-colors md:px-8 md:py-8 lg:min-h-[21.25rem]",
         "hover:bg-brand-cream/80",
         className,
       )}

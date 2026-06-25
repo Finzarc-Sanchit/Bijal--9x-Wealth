@@ -235,7 +235,7 @@ export function AxaStyleHero({ content: _content }: { content: SiteContent }) {
       aria-live="polite"
       aria-atomic="true"
     >
-      <div className="relative box-border flex h-auto min-h-[100dvh] max-w-full items-start overflow-x-clip overflow-y-visible pb-10 pt-24 sm:overflow-hidden sm:pb-0 sm:pt-28">
+      <div className="relative box-border flex h-auto min-h-[100dvh] w-full max-w-full items-start overflow-x-clip overflow-y-visible pb-10 pt-24 sm:pb-0 sm:pt-28">
         <HeroVideoBackground />
 
         <div className="relative z-10 box-border w-full max-w-full min-w-0 px-4 py-6 sm:py-8 md:px-12 lg:px-16 xl:px-24">

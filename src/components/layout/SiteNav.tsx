@@ -28,10 +28,40 @@ function isNavMenuActive(
   pathname: string,
   item: Extract<NavItem, { kind: "menu"; }>
 ): boolean {
-  if (isRouteActive(pathname, item.hub.href)) return true;
+  if (item.hub?.href && isRouteActive(pathname, item.hub.href)) return true;
 
   return item.groups.some((group) =>
     group.items.some((link) => isRouteActive(pathname, link.href))
+  );
+}
+
+function NavHubRow({
+  hub,
+  pathname,
+  onNavigate,
+  className,
+}: {
+  hub: { label: string; href?: string };
+  pathname: string;
+  onNavigate?: () => void;
+  className: string;
+}) {
+  if (hub.href) {
+    return (
+      <NavLink
+        href={hub.href}
+        label={hub.label}
+        onClick={onNavigate}
+        isActive={isRouteActive(pathname, hub.href)}
+        className={className}
+      />
+    );
+  }
+
+  return (
+    <span className={cn(className, "cursor-default select-none")} aria-disabled="true">
+      {hub.label}
+    </span>
   );
 }
 
@@ -177,13 +207,14 @@ function NavMenu({
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden pl-2"
             >
-              <NavLink
-                href={item.hub.href}
-                label={item.hub.label}
-                onClick={onNavigate}
-                isActive={isRouteActive(pathname, item.hub.href)}
-                className={cn("flex min-h-[44px] items-center rounded-lg px-4 text-sm", hubClass)}
-              />
+              {item.hub ? (
+                <NavHubRow
+                  hub={item.hub}
+                  pathname={pathname}
+                  onNavigate={onNavigate}
+                  className={cn("flex min-h-[44px] items-center rounded-lg px-4 text-sm", hubClass)}
+                />
+              ) : null}
 
               {item.groups.map((group) => (
                 <div key={group.heading} className="mt-2">
@@ -197,17 +228,22 @@ function NavMenu({
                     {group.heading}
                   </p>
                   <ul>
-                    {group.items.map((link) => (
-                      <li key={link.href + link.label}>
-                        <NavLink
-                          href={link.href}
-                          label={link.label}
-                          onClick={onNavigate}
-                          isActive={isRouteActive(pathname, link.href)}
-                          className={subLinkClass}
-                        />
-                      </li>
-                    ))}
+                    {group.items
+                      .filter(
+                        (link) =>
+                          !item.hub?.href || link.href !== item.hub.href,
+                      )
+                      .map((link) => (
+                        <li key={link.href + link.label}>
+                          <NavLink
+                            href={link.href}
+                            label={link.label}
+                            onClick={onNavigate}
+                            isActive={isRouteActive(pathname, link.href)}
+                            className={subLinkClass}
+                          />
+                        </li>
+                      ))}
                   </ul>
                 </div>
               ))}
@@ -501,7 +537,7 @@ export function SiteNav() {
           aria-label="Main navigation"
           className="pointer-events-auto overflow-visible rounded-2xl border border-brand-navy/8 bg-surface/92 text-brand-navy shadow-[0_12px_40px_-16px_rgba(10,22,40,0.18)] backdrop-blur-md transition-all duration-300"
         >
-          <div className="mx-auto flex h-[64px] max-w-none items-center justify-between gap-4 overflow-visible px-4 sm:px-5">
+          <div className="mx-auto flex min-h-16 max-w-none items-center justify-between gap-4 overflow-visible px-4 py-2 sm:px-5">
             <Link
               href="/"
               className={cn("relative flex shrink-0 items-center", POINTER)}
@@ -518,7 +554,7 @@ export function SiteNav() {
                   className="h-10 w-auto transition-all sm:h-11 md:h-12"
                 />
               ) : (
-                <span className="block h-10 w-[140px] sm:h-11 sm:w-[155px] md:h-12 md:w-[168px]" aria-hidden />
+                <span className="block h-10 min-w-[8.75rem] sm:h-11 sm:min-w-[9.6875rem] md:h-12 md:min-w-[10.5rem]" aria-hidden />
               )}
             </Link>
 
@@ -563,7 +599,7 @@ export function SiteNav() {
               type="button"
               aria-label="Close menu overlay"
               className={cn(
-                "pointer-events-auto fixed inset-x-0 top-[88px] bottom-0 z-[60] bg-brand-navy/30 lg:hidden",
+                "pointer-events-auto fixed inset-x-0 top-[var(--site-nav-offset)] bottom-0 z-[60] bg-brand-navy/30 lg:hidden",
                 POINTER,
               )}
               initial={{ opacity: 0 }}
@@ -573,7 +609,7 @@ export function SiteNav() {
             />
             <motion.div
               id="mobile-nav-panel"
-              className="pointer-events-auto fixed inset-x-4 top-[88px] z-[70] max-h-[calc(100dvh-88px)] overflow-y-auto rounded-b-2xl border border-brand-navy/10 bg-surface px-4 py-4 shadow-lg sm:inset-x-6 lg:hidden"
+              className="pointer-events-auto fixed inset-x-4 top-[var(--site-nav-offset)] z-[70] max-h-[calc(100dvh-var(--site-nav-offset))] overflow-y-auto rounded-b-2xl border border-brand-navy/10 bg-surface px-4 py-4 shadow-lg sm:inset-x-6 lg:hidden"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}

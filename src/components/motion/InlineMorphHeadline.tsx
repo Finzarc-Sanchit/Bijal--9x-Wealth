@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 
 const HOLD_MS = 550;
 const REVEAL_DURATION = 1.15;
-const PILL_WIDTH = 220;
-const PILL_HEIGHT = 112;
+const PILL_WIDTH_REM = 13.75;
+const PILL_HEIGHT_REM = 7;
 
 export type InlineMorphHeadlineProps = {
   wordBefore: string;
@@ -49,14 +49,14 @@ export function InlineMorphHeadline({
     <div className={cn("text-center", className)}>
       <h2
         className={cn(
-          "flex flex-col items-center font-poppins font-black leading-[0.95] tracking-tight text-brand-navy",
-          "text-[clamp(2.5rem,10vw,6.25rem)]",
+          "flex w-full min-w-0 flex-col items-center font-poppins font-black leading-[1.05] tracking-tight text-brand-navy",
+          "text-[clamp(2.25rem,5rem,6.25rem)]",
         )}
         aria-label={fullHeadline}
       >
-        <span className="inline-flex flex-wrap items-center justify-center">
+        <span className="inline-flex w-full min-w-0 flex-wrap items-center justify-center gap-x-[0.12em]">
           <motion.span
-            className="whitespace-nowrap"
+            className="inline-block"
             animate={{ marginRight: revealed ? "0.12em" : "0.2em" }}
             transition={pillTransition}
           >
@@ -67,20 +67,20 @@ export function InlineMorphHeadline({
             className="relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-[100px] shadow-[0_12px_32px_-8px_rgba(10,22,40,0.28)]"
             initial={false}
             animate={{
-              width: revealed ? PILL_WIDTH : 0,
+              width: revealed ? `${PILL_WIDTH_REM}rem` : 0,
               opacity: revealed ? 1 : 0,
-              y: revealed ? 0 : -28,
+              y: revealed ? 0 : "-1.75rem",
               scale: revealed ? 1 : 0.88,
-              marginLeft: revealed ? 10 : 0,
-              marginRight: revealed ? 10 : 0,
+              marginLeft: revealed ? "0.625rem" : 0,
+              marginRight: revealed ? "0.625rem" : 0,
             }}
             transition={pillTransition}
-            style={{ height: PILL_HEIGHT }}
+            style={{ height: `${PILL_HEIGHT_REM}rem` }}
             aria-hidden={!revealed}
           >
             <span
               className="relative block shrink-0"
-              style={{ width: PILL_WIDTH, height: PILL_HEIGHT }}
+              style={{ width: `${PILL_WIDTH_REM}rem`, height: `${PILL_HEIGHT_REM}rem` }}
             >
               <PriorityImage
                 src={image.src}
@@ -88,15 +88,15 @@ export function InlineMorphHeadline({
                 fill
                 priority
                 className="object-cover object-center"
-                sizes="(max-width: 640px) 160px, 220px"
+                sizes="(max-width: 640px) 10rem, 13.75rem"
               />
             </span>
           </motion.span>
 
-          <span className="whitespace-nowrap">{wordAfter}</span>
+          <span>{wordAfter}</span>
         </span>
 
-        <span className="mt-1 block whitespace-nowrap font-poppins text-[clamp(2.25rem,9vw,5.75rem)] font-black leading-none tracking-tight text-brand-navy">
+        <span className="mt-1 block w-full min-w-0 text-center font-poppins text-[clamp(2rem,4.5rem,5.75rem)] font-black leading-[1.05] tracking-tight text-brand-navy">
           {tagline}
         </span>
       </h2>
