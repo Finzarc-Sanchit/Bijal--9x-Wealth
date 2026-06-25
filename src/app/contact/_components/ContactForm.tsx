@@ -90,7 +90,7 @@ export function ContactForm() {
     );
 
   return (
-    <section className="section-py pt-28 md:pt-36">
+    <section className="pb-14 pt-28 md:pb-16 md:pt-16 lg:pb-18">
       <div className="mx-auto max-w-7xl px-4 md:px-12">
         <ContactPageIntro className="mb-12 pt-4 md:mb-16 md:pt-8" />
 
@@ -151,7 +151,7 @@ export function ContactForm() {
                       </FieldLabel>
                       <input
                         id="contact-email"
-                        type="email"
+                        type="type"
                         autoComplete="email"
                         className={inputClass(!!errors.email)}
                         aria-invalid={errors.email ? "true" : "false"}

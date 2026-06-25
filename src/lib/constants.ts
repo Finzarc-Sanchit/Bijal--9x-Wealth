@@ -76,7 +76,7 @@ export const EDITORIAL_NAV_MENUS = [
       { label: "The Practice", href: "/about/practice" },
       { label: "Team", href: "/about/team" },
       { label: "Press & Recognition", href: "/about/press" },
-      { label: "The Folio", href: "/insights" },
+      // { label: "The Folio", href: "/insights" },
       { label: "Careers", href: "/careers" },
       { label: "Contact", href: "/contact" },
     ],
@@ -138,7 +138,7 @@ export const HOUSE_LINKS = {
   practice: { href: "/about/practice", title: "The Practice" },
   team: { href: "/about/team", title: "Team" },
   press: { href: "/about/press", title: "Press & Recognition" },
-  folio: { href: "/insights", title: "The Folio" },
+  // folio: { href: "/insights", title: "The Folio" },
   careers: { href: "/careers", title: "Careers" },
 } as const satisfies Record<string, SeoLink>;
 
@@ -197,7 +197,7 @@ export const NAV: NavItem[] = [
   {
     kind: "menu",
     label: "House",
-    hub: { href: "/about", label: "Our story" },
+    hub: { href: "/about", label: "About us" },
     groups: [
       {
         heading: "About 9xWealth",
@@ -211,7 +211,7 @@ export const NAV: NavItem[] = [
       {
         heading: "Other",
         items: [
-          { href: HOUSE_LINKS.folio.href, label: HOUSE_LINKS.folio.title },
+          // { href: HOUSE_LINKS.folio.href, label: HOUSE_LINKS.folio.title },
           { href: HOUSE_LINKS.careers.href, label: HOUSE_LINKS.careers.title },
           ...Object.values(OFFICE_LINKS).map((l) => ({ href: l.href, label: l.title })),
         ],

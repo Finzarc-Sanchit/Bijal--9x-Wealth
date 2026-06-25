@@ -13,7 +13,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 const CTA = {
   label: "Book Consultation",
-  href: "/#consultation-form",
+  href: "/contact",
 } as const;
 
 const POINTER = "cursor-pointer";

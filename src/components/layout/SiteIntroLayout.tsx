@@ -24,11 +24,11 @@ export function SiteIntroLayout({
   children: ReactNode;
 }) {
   const [introState, setIntroState] = useState<"pending" | "active" | "skipped" | "done">(
-    () => (shouldSkipHomeIntro() ? "skipped" : "pending"),
+    "pending",
   );
   const [phase, setPhase] = useState<IntroPhase>("hold");
   const [splashMounted, setSplashMounted] = useState(false);
-  const [splashExited, setSplashExited] = useState(() => shouldSkipHomeIntro());
+  const [splashExited, setSplashExited] = useState(false);
 
   useLayoutEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
