@@ -6,7 +6,7 @@ import {
   type PracticeArea,
 } from "@/data/practice-areas";
 import { cn } from "@/lib/utils";
-import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,6 +25,13 @@ const INSIDE_SPRING = {
   damping: 20
 };
 
+/** Slide width and gap must stay in sync with track `gap-*` and `x` calc below. */
+const SLIDE_WIDTH = "85%";
+const SLIDE_GAP = "1rem";
+
+const CARD_HEIGHT_CLASSES =
+  "h-[280px] sm:h-[400px] lg:h-[480px]";
+
 /** Bottom-pin on mobile; top-pin on lg+ for stacked section scroll-over. */
 const STACK_PINNED_SHELL_CLASSES =
   "sticky bottom-0 z-10 lg:sticky lg:top-0 lg:bottom-auto";
@@ -38,8 +45,7 @@ function UniformPracticeCard({ area, isActive }: { area: PracticeArea; isActive:
   return (
     <div
       className={cn(
-        /* Reduced min-height and adjusted inner padding down to p-5 for tight mobile display alignments */
-        "relative flex min-h-[240px] h-full flex-col overflow-hidden rounded-xl p-5 sm:min-h-[360px] sm:p-10 lg:min-h-[440px] lg:p-12 transition-all duration-500 ease-out",
+        "relative flex h-full flex-col overflow-hidden rounded-xl p-5 sm:p-10 lg:p-12 transition-colors duration-500 ease-out",
         isActive ? "bg-[#2d3136]" : "bg-black"
       )}
     >
@@ -72,58 +78,78 @@ function UniformPracticeCard({ area, isActive }: { area: PracticeArea; isActive:
         )}
       />
 
-      {/* Unified layout container handles internal card transitions smoothly via Layout animations */}
-      <motion.div
-        layout="position"
-        transition={INSIDE_SPRING}
-        className="relative z-10 flex flex-col w-full h-full justify-between items-start grow"
-      >
+      <div className="relative z-10 flex h-full w-full flex-col overflow-hidden">
+        {/* Grows when inactive to pin the title toward the bottom */}
         <motion.div
-          layout="position"
+          aria-hidden
+          className="w-full min-h-0 shrink-0"
+          initial={false}
+          animate={{ flexGrow: isActive ? 0 : 1 }}
           transition={INSIDE_SPRING}
-          className={cn("w-full flex flex-col", isActive ? "" : "mt-auto")}
-        >
-          <motion.h3
-            layout="position"
-            transition={INSIDE_SPRING}
+        />
+
+        <div className="w-full shrink-0">
+          <h3
             className={cn(
-              "font-display leading-tight tracking-tight text-white transition-all duration-500",
-              isActive ? "text-2xl sm:text-3xl md:text-4xl font-medium" : "text-xl sm:text-2xl md:text-3xl font-normal"
+              "font-display leading-tight tracking-tight text-white transition-[font-size,font-weight] duration-500",
+              isActive
+                ? "text-2xl font-medium sm:text-3xl md:text-4xl"
+                : "text-xl font-normal sm:text-2xl md:text-3xl"
             )}
           >
             {area.title}
-          </motion.h3>
+          </h3>
 
-          <AnimatePresence initial={false} mode="popLayout">
-            {isActive && (
+          <AnimatePresence initial={false}>
+            {isActive ? (
               <motion.p
+                key="description"
                 initial={{ opacity: 0, height: 0, marginTop: 0 }}
                 animate={{ opacity: 0.85, height: "auto", marginTop: 20 }}
                 exit={{ opacity: 0, height: 0, marginTop: 0 }}
                 transition={INSIDE_SPRING}
-                className="font-inter text-base leading-relaxed text-white md:text-lg pointer-events-none overflow-hidden"
+                className="pointer-events-none overflow-hidden font-inter text-base leading-relaxed text-white md:text-lg"
               >
                 {area.description}
               </motion.p>
-            )}
+            ) : null}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
-        <Link
-          href={area.href}
-          className={cn(
-            "group relative mt-10 inline-flex min-h-[44px] w-fit items-center gap-4 self-start cursor-pointer transition-all duration-500",
-            isActive ? "opacity-100 translate-y-0 relative" : "opacity-0 pointer-events-none translate-y-4 absolute"
-          )}
-        >
-          <span className="font-inter text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white sm:text-xs">
-            {area.cta}
-          </span>
-          <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/40 text-white transition-colors duration-300 group-hover:border-white group-hover:bg-white group-hover:text-brand-navy">
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </span>
-        </Link>
-      </motion.div>
+        {/* Grows when active to keep the CTA anchored at the bottom */}
+        <motion.div
+          aria-hidden
+          className="w-full min-h-0 shrink-0"
+          initial={false}
+          animate={{ flexGrow: isActive ? 1 : 0 }}
+          transition={INSIDE_SPRING}
+        />
+
+        <AnimatePresence initial={false}>
+          {isActive ? (
+            <motion.div
+              key="cta"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={INSIDE_SPRING}
+              className="w-full shrink-0 overflow-hidden"
+            >
+              <Link
+                href={area.href}
+                className="group inline-flex min-h-[44px] w-fit items-center gap-4 self-start"
+              >
+                <span className="font-inter text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white sm:text-xs">
+                  {area.cta}
+                </span>
+                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/40 text-white transition-colors duration-300 group-hover:border-white group-hover:bg-white group-hover:text-brand-navy">
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </span>
+              </Link>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
@@ -207,18 +233,22 @@ export function AreasOfPracticeSection({
 
         <div className="relative min-w-0 w-full overflow-hidden">
           <motion.div
-            className="flex w-full"
-            animate={{ x: `-${activeIndex * 85}%` }}
+            className="flex w-full items-stretch gap-4"
+            animate={{
+              x: `calc(-${activeIndex} * (${SLIDE_WIDTH} + ${SLIDE_GAP}))`,
+            }}
             transition={reduceMotion ? { duration: 0.2 } : SLIDE_SPRING}
           >
             {PRACTICE_AREAS.map((area, index) => {
               const isActive = activeIndex === index;
 
               return (
-                /* Reduced layout track card gaps via mobile padding adjustments (pr-4 vs sm:pr-8) */
                 <div
                   key={area.id}
-                  className="min-w-0 w-[85%] sm:w-[72%] shrink-0 flex flex-col gap-6 lg:flex-row lg:items-stretch pr-4 sm:pr-8"
+                  className={cn(
+                    "min-w-0 w-[85%] shrink-0",
+                    CARD_HEIGHT_CLASSES
+                  )}
                 >
                   <UniformPracticeCard area={area} isActive={isActive} />
                 </div>

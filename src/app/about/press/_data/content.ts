@@ -25,7 +25,7 @@ export const ABOUT_PRESS_HERO = {
     alt: "Editorial setting evoking institutional standing",
   },
   secondaryImage: {
-    src: "/images/process/stewardship.jpg",
+    src: "/images/about/press/press.webp",
     alt: "Press and recognition — the standing of the practice",
   },
   sidePanel: {
@@ -78,18 +78,30 @@ export const ABOUT_PRESS_RECOGNITION = {
       title: "Independent Broker of the Year — Insurance Industry Awards (India)",
       description:
         "Recognised for the UHNI practice and the structured approach to high-sum life cover.",
+      image: {
+        src: "/images/about/press/awards/award-1.webp",
+        alt: "Independent Broker of the Year — Insurance Industry Awards (India)",
+      },
     },
     {
       id: "MMXXIII",
       title: "Best Cross-Border Insurance Practice — Asian Wealth Awards",
       description:
         "For the GIFT City IFSC framework and the Lloyd's of London co-broking model.",
+      image: {
+        src: "/images/about/press/awards/award-2.webp",
+        alt: "Best Cross-Border Insurance Practice — Asian Wealth Awards",
+      },
     },
     {
       id: "MMXXII",
       title: "IRDAI Compliance Excellence",
       description:
         "Top-quartile audit score for record-keeping, claim handling, and disclosure standards.",
+      image: {
+        src: "/images/about/press/awards/award-3.webp",
+        alt: "IRDAI Compliance Excellence award",
+      },
     },
   ] as const satisfies readonly EditorialCard[],
 } as const;

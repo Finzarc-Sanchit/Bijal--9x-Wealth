@@ -6,9 +6,10 @@ import {
   IntroContext,
   type IntroPhase,
 } from "@/components/layout/site-intro-context";
+import { shouldSkipHomeIntro } from "@/lib/site-intro-skip";
 import { refreshScrollLayoutAfterIntro } from "@/lib/scroll-layout";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useState, type ReactNode } from "react";
 
 export type { IntroPhase } from "@/components/layout/site-intro-context";
 export { useSiteIntro } from "@/components/layout/site-intro-context";
@@ -23,15 +24,15 @@ export function SiteIntroLayout({
   children: ReactNode;
 }) {
   const [introState, setIntroState] = useState<"pending" | "active" | "skipped" | "done">(
-    "pending",
+    () => (shouldSkipHomeIntro() ? "skipped" : "pending"),
   );
   const [phase, setPhase] = useState<IntroPhase>("hold");
   const [splashMounted, setSplashMounted] = useState(false);
-  const [splashExited, setSplashExited] = useState(false);
+  const [splashExited, setSplashExited] = useState(() => shouldSkipHomeIntro());
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion) {
+    if (reducedMotion || shouldSkipHomeIntro()) {
       setIntroState("skipped");
       setSplashExited(true);
       return;

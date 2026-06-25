@@ -1,5 +1,6 @@
 "use client";
 
+import { trackPathnameChange } from "@/lib/site-intro-skip";
 import { scrollToTopInstant } from "@/lib/scroll-to-top";
 import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef } from "react";
@@ -11,6 +12,7 @@ import { useEffect, useLayoutEffect, useRef } from "react";
  */
 export function ScrollToTop() {
   const pathname = usePathname();
+  trackPathnameChange(pathname);
   const isFirstNavigation = useRef(true);
   const skipFromPopState = useRef(false);
 
