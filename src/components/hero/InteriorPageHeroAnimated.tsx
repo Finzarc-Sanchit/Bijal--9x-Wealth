@@ -52,7 +52,7 @@ function HeroCtaButton({ label, href, variant = "primary" }: HeroCtaConfig) {
 
   if (variant === "secondary") {
     const className =
-      "group inline-flex min-h-[3rem] w-full items-center gap-2 font-inter text-sm font-medium text-white/90 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 sm:w-auto";
+      "group inline-flex min-h-[3rem] w-fit max-w-full items-center gap-2 font-inter text-sm font-medium text-white/90 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60";
 
     const inner = (
       <>
@@ -80,7 +80,7 @@ function HeroCtaButton({ label, href, variant = "primary" }: HeroCtaConfig) {
   }
 
   const className =
-    "group inline-flex min-h-[3rem] w-full items-center rounded-full bg-brand-gold py-2 pl-6 pr-2 font-inter text-brand-navy shadow-[0_8px_28px_rgba(0,0,0,0.35)] transition-all duration-300 hover:bg-brand-gold-light hover:pr-3 sm:w-auto sm:pl-8 tracking-normal normal-case focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold";
+    "group inline-flex min-h-[3rem] w-fit max-w-full items-center rounded-full bg-brand-gold py-2 pl-6 pr-2 font-inter text-brand-navy shadow-[0_8px_28px_rgba(0,0,0,0.35)] transition-all duration-300 hover:bg-brand-gold-light hover:pr-3 sm:pl-8 tracking-normal normal-case focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold";
 
   const inner = (
     <>
@@ -112,7 +112,7 @@ function HeroCtaGroup({ ctas }: { ctas: readonly HeroCtaConfig[] }) {
   if (ctas.length === 0) return null;
 
   return (
-    <div className="relative z-30 mt-6 flex w-full flex-col items-stretch gap-4 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-start sm:justify-start sm:gap-6">
+    <div className="relative z-30 mt-6 flex w-full flex-col items-start gap-4 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-start sm:justify-start sm:gap-6">
       {ctas.map((cta) => (
         <HeroCtaButton key={`${cta.href}-${cta.label}`} {...cta} />
       ))}
