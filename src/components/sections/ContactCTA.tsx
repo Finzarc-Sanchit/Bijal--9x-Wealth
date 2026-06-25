@@ -71,36 +71,62 @@ export function ContactCTA() {
                 Schedule a Conversation
                 <ArrowUpRight className="h-4 w-4" aria-hidden />
               </Link>
-              <a href="mailto:practice@9xwealth.in" className={CTA_STYLES.secondary}>
+              {/* <a href="mailto:practice@9xwealth.in" className={CTA_STYLES.secondary}>
                 practice@9xwealth.in
-              </a>
+              </a> */}
             </div>
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-white/20 bg-white/15 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 md:grid-cols-3">
           {offices.map((o, i) => (
             <Reveal key={o.city} delay={i * 0.06} className="h-full">
-              {/* Converted card wrapper into a flex-column layout */}
-              <div className="flex h-full flex-col bg-white/95 p-10 backdrop-blur-sm">
-                <div className="mb-6 flex items-baseline justify-between gap-2">
-                  <h3 className="font-display text-2xl font-normal text-brand-navy shrink-0">{o.city}</h3>
-                  <span className="photo-caption text-right text-brand-gold/80 text-xs tracking-wider uppercase">{o.label}</span>
-                </div>
+              <div className="group relative flex h-full flex-col overflow-hidden bg-brand-navy-light p-11 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),inset_0_-2px_8px_rgba(0,0,0,0.22)] ring-1 ring-inset ring-white/[0.06] transition-[box-shadow,ring-color] duration-500 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.09),inset_0_-2px_12px_rgba(0,0,0,0.28)] hover:ring-white/[0.09]">
+                {/* Warm ambient wash — ties cards to CTA hero lighting */}
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand-gold/[0.06] via-transparent to-brand-navy/40"
+                  aria-hidden
+                />
+                {/* Subtle walnut-grain texture mask */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-[0.045] mix-blend-overlay"
+                  style={{
+                    backgroundImage: [
+                      "repeating-linear-gradient(92deg, transparent 0px, transparent 3px, rgba(201,162,39,0.35) 3px, rgba(201,162,39,0.35) 4px)",
+                      "repeating-linear-gradient(178deg, transparent 0px, transparent 14px, rgba(255,255,255,0.12) 14px, rgba(255,255,255,0.12) 15px)",
+                      "repeating-linear-gradient(4deg, transparent 0px, transparent 28px, rgba(10,22,40,0.25) 28px, rgba(10,22,40,0.25) 30px)",
+                    ].join(", "),
+                  }}
+                  aria-hidden
+                />
 
-                {/* Enforced a strict minimum height so 2-line and 3-line addresses match perfectly */}
-                <p className="whitespace-pre-line font-inter text-[14px] leading-[1.8] text-brand-navy/55 min-h-[4.5rem]">
-                  {o.address}
-                </p>
+                <div className="relative z-10 flex h-full flex-col">
+                  <p className="font-inter text-[10px] font-light uppercase tracking-[0.32em] text-brand-gold">
+                    {o.label}
+                  </p>
 
-                {/* Anchored phone number cleanly to the card floor across all items */}
-                <div className="mt-auto pt-4">
-                  <a
-                    href={`tel:${o.tel}`}
-                    className="inline-block font-mono text-[13px] text-brand-navy/70 transition-colors hover:text-brand-gold"
-                  >
-                    {o.phone}
-                  </a>
+                  <div className="mb-7 mt-5 flex items-start gap-4">
+                    <span
+                      className="mt-2 h-6 w-[2px] shrink-0 bg-brand-gold"
+                      aria-hidden
+                    />
+                    <h3 className="font-display text-[1.65rem] font-normal leading-[1.15] tracking-tight text-white/95 md:text-[1.75rem]">
+                      {o.city}
+                    </h3>
+                  </div>
+
+                  <p className="min-h-[4.5rem] whitespace-pre-line font-inter text-[14px] leading-[1.8] text-white/85">
+                    {o.address}
+                  </p>
+
+                  <div className="mt-auto border-t border-white/[0.08] pt-5">
+                    <a
+                      href={`tel:${o.tel}`}
+                      className="inline-block font-mono text-[13px] tracking-wide text-white/70 transition-colors duration-300 hover:text-brand-gold-light"
+                    >
+                      {o.phone}
+                    </a>
+                  </div>
                 </div>
               </div>
             </Reveal>

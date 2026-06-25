@@ -58,24 +58,40 @@ export const ABOUT_PRACTICE_PROCESS = {
       title: "Conversation",
       description:
         "Week 1 — We spend an unhurried afternoon understanding your family, your assets, and the things that keep you awake. No paperwork. No commitment.",
+      image: {
+        src: "/images/process/conversation.jpg",
+        alt: "Conversation — the first meeting in the engagement",
+      },
     },
     {
       id: "02",
       title: "Architecture",
       description:
         "Weeks 2–3 — Our analysts assemble a coverage architecture across term, health, keyman, ULIP, and specialty lines. We model the math, you read the prose.",
+      image: {
+        src: "/images/process/architecture.jpg",
+        alt: "Architecture — building a coverage blueprint",
+      },
     },
     {
       id: "03",
       title: "Activation",
       description:
         "Weeks 4–6 — Medicals, underwriting, and policy issuance — conducted at your residence. We negotiate medical loadings on your behalf and document everything.",
+      image: {
+        src: "/images/process/activation.jpg",
+        alt: "Activation — underwriting and policy issuance",
+      },
     },
     {
       id: "04",
       title: "Stewardship",
       description:
         "Lifelong — Quarterly reviews, annual repricing, and lifelong claims advocacy. Your coverage evolves as your wealth and circumstances do.",
+      image: {
+        src: "/images/process/stewardship.webp",
+        alt: "Stewardship — long-term reviews and advocacy",
+      },
     },
   ] as const satisfies readonly GridItem[],
 } as const;
@@ -89,36 +105,60 @@ export const ABOUT_PRACTICE_PRINCIPLES = {
       title: "Architecture before product",
       description:
         "Every engagement begins with the family situation, not the product. We map the wealth, the dependants, the jurisdictions, and the encumbrances — then design the cover.",
+      image: {
+        src: "/images/about/practice/principle-1.webp",
+        alt: "Principle 1 — Architecture before product",
+      },
     },
     {
       id: "02",
       title: "Independence, not affiliation",
       description:
         "We are not a tied agent of any insurer. The choice of carrier and product is ours alone, and we will recommend the structure that best serves the family.",
+      image: {
+        src: "/images/about/practice/principle-2.webp",
+        alt: "Principle 2 — Independence, not affiliation",
+      },
     },
     {
       id: "03",
       title: "Transparency on charges",
       description:
         "Every product is modelled against its alternative on a single sheet of paper. Premium-allocation, fund-management, and mortality charges are disclosed in full, before any premium is paid.",
+      image: {
+        src: "/images/about/practice/principle-3.webp",
+        alt: "Principle 3 — Transparency on charges",
+      },
     },
     {
       id: "04",
       title: "Stewardship across decades",
       description:
         "Coverage is reviewed annually, structures revisited as the family evolves, and claims advocated end-to-end. The relationship director who opens the file is the one your grandchildren will inherit.",
+      image: {
+        src: "/images/about/practice/principle-4.webp",
+        alt: "Principle 4 — Stewardship across decades",
+      },
     },
     {
       id: "05",
       title: "Discretion as default",
       description:
         "No client logos, no testimonials with names, no public footprint of the placements we make. ISO 27001:2022 certification for information security across the practice.",
+      image: {
+        src: "/images/about/practice/principle-5.webp",
+        alt: "Principle 5 — Discretion as default",
+      },
     },
     {
       id: "06",
       title: "Capacity-bound growth",
       description:
         "We add new mandates only when capacity exists to serve them at the standard the existing ones receive. There is no growth target. There is only the standard.",
+      image: {
+        src: "/images/about/practice/principle-6.webp",
+        alt: "Principle 6 — Capacity-bound growth",
+      },
     },
   ] as const satisfies readonly GridItem[],
 } as const;

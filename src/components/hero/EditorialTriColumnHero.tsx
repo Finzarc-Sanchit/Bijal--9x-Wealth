@@ -46,32 +46,37 @@ function HeroImageFrame({
   className?: string;
 }) {
   return (
-    <div className={cn("group relative overflow-hidden rounded-xl bg-brand-navy-light", className)}>
-      <div className={cn("relative w-full overflow-hidden", aspectClass)}>
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-          sizes="(max-width: 1024px) 100vw, 40vw"
+    <>
+      {/* 12px -> 0.833vw rounded corners */}
+      <div className={cn("group relative overflow-hidden rounded-[0.833vw] bg-brand-navy-light w-full", className)}>
+        <div className={cn("relative w-full overflow-hidden", aspectClass)}>
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+            sizes="(max-width: 1024px) 100vw, 33vw"
+          />
+        </div>
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-navy/40 to-transparent opacity-20"
+          aria-hidden
         />
       </div>
-      <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-navy/40 to-transparent opacity-20"
-        aria-hidden
-      />
-    </div>
+    </>
   );
 }
 
 function SidePanelCta({ label, href }: EditorialTriColumnHeroCta) {
+  // 44px -> 3.055vw min-height, 8px -> 0.555vw gap, 11px -> 0.764vw font sizing
   const className =
-    "inline-flex min-h-[44px] items-center gap-2 font-inter text-[11px] font-medium uppercase tracking-[0.15em] text-brand-gold transition-all duration-300 hover:gap-4";
+    "inline-flex min-h-[3.055vw] items-center gap-[0.555vw] font-inter text-[0.764vw] font-medium uppercase tracking-[0.15em] text-brand-gold transition-all duration-300 hover:gap-[1.111vw]";
 
   const inner = (
     <>
       {label}
-      <ArrowRight className="size-3.5" aria-hidden />
+      {/* 14px -> 0.972vw sizing for icon */}
+      <ArrowRight className="w-[0.972vw] h-[0.972vw]" aria-hidden />
     </>
   );
 
@@ -107,22 +112,28 @@ export function EditorialTriColumnHero({
       id={id}
       aria-labelledby={headingId}
       className={cn(
-        "flex min-h-screen w-full flex-col justify-center bg-brand-navy pt-16 text-white",
+        "flex min-h-screen w-full flex-col justify-center bg-brand-navy pt-[4.444vw] text-white overflow-x-hidden",
         className,
       )}
     >
-      <div className="w-full max-w-none px-6 py-12 md:px-12 md:py-16 lg:px-16 lg:py-20 xl:px-24">
-        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 xl:gap-8">
-          {/* Left — badge, headline, intro */}
-          <div className="order-1 space-y-6 lg:col-span-4">
+      {/* Reduced horizontal padding from px-[6.666vw] down to px-[3.5vw] */}
+      <div className="w-full px-[3.5vw] py-[5.555vw]">
+        {/* 32px -> 2.222vw consistent layout grid columns gap structure */}
+        <div className="grid grid-cols-1 items-start gap-[2.222vw] lg:grid-cols-12">
+
+          {/* Left Column — 24px -> 1.666vw space-y layout engine */}
+          <div className="order-1 space-y-[1.666vw] lg:col-span-4">
             <Reveal>
-              <div className="space-y-2">
-                <p className="font-inter text-[11px] font-medium uppercase tracking-[0.3em] text-brand-gold">
+              {/* 8px -> 0.555vw space-y separation */}
+              <div className="space-y-[0.555vw]">
+                {/* 11px -> 0.764vw text */}
+                <p className="font-inter text-[0.764vw] font-medium uppercase tracking-[0.3em] text-brand-gold">
                   {badge}
                 </p>
+                {/* 70px -> 4.861vw fluid headline typography */}
                 <h1
                   id={headingId}
-                  className="font-display text-5xl font-bold uppercase leading-[1.05] tracking-tight text-white w-full sm:text-6xl lg:text-7xl whitespace-pre-line"
+                  className="font-display text-[4.861vw] font-bold uppercase leading-[1.05] tracking-tight text-white w-full whitespace-pre-line"
                 >
                   {headlineLines.map((line) => (
                     <span key={line} className="block">
@@ -134,42 +145,53 @@ export function EditorialTriColumnHero({
             </Reveal>
 
             <Reveal delay={0.08}>
-              <div className="w-full max-w-none sm:max-w-xs border-t border-white/20 pt-8">
-                <p className="font-inter text-base leading-relaxed text-white/65">{intro}</p>
+              {/* 32px -> 2.222vw border gap wrapper top offset */}
+              <div className="w-full border-t border-white/20 pt-[2.222vw]">
+                {/* 16px -> 1.111vw base intro narrative typography */}
+                <p className="font-inter text-[1.111vw] leading-relaxed text-white/65">{intro}</p>
               </div>
             </Reveal>
           </div>
 
-          {/* Center — primary landscape image (Shifted slightly leftward by lowering horizontal margin shifts) */}
-          <div className="order-2 w-full max-w-md lg:col-span-4 lg:mt-16 lg:ml-6 xl:ml-10">
+          {/* Center Column — Primary Image (Slightly reduced size via max-width) */}
+          <div className="order-2 w-full lg:col-span-4 lg:mt-[4.444vw]">
             <Reveal delay={0.1}>
-              <HeroImageFrame image={primaryImage} aspectClass="aspect-[4/3]" />
+              <div className="w-full max-w-[88%] mx-auto">
+                <HeroImageFrame image={primaryImage} aspectClass="aspect-[4/3]" />
+              </div>
             </Reveal>
           </div>
 
-          {/* Right — portrait image + side panel */}
-          <div className="order-3 w-full space-y-6 lg:col-span-4 lg:space-y-8">
+          {/* Right Column — Secondary Image + Side Panel Description */}
+          <div className="order-3 w-full space-y-[2.222vw] lg:col-span-4">
             <Reveal delay={0.12}>
-              <div className="w-full max-w-xs">
+              {/* Shifted leftward inside its grid section by swapping mx-auto for ml-0 mr-auto */}
+              <div className="w-full max-w-[72%] ml-0 mr-auto">
                 <HeroImageFrame image={secondaryImage} aspectClass="aspect-[4/3.5]" />
               </div>
             </Reveal>
 
             <Reveal delay={0.16}>
-              <div className="space-y-4 max-w-md">
-                <div className="flex items-center gap-4">
-                  <div className="h-px w-8 shrink-0 bg-brand-gold" aria-hidden />
-                  <h2 className="font-display text-2xl font-normal tracking-tight text-brand-gold md:text-[2rem]">
+              {/* 16px -> 1.111vw spacing interior */}
+              <div className="space-y-[1.111vw] w-full">
+                {/* 16px -> 1.111vw standard row separation */}
+                <div className="flex items-center gap-[1.111vw]">
+                  {/* 1px stroke, 32px -> 2.222vw line length */}
+                  <div className="h-[1px] w-[2.222vw] shrink-0 bg-brand-gold" aria-hidden />
+                  {/* 32px -> 2.222vw dynamic subheader font scale */}
+                  <h2 className="font-display text-[2.222vw] font-normal tracking-tight text-brand-gold leading-tight">
                     {sidePanel.title}
                   </h2>
                 </div>
 
-                <p className="font-inter text-base leading-relaxed text-white/65">
+                {/* 16px -> 1.111vw scale metrics */}
+                <p className="font-inter text-[1.111vw] leading-relaxed text-white/65">
                   {sidePanel.description}
                 </p>
 
                 {sidePanel.cta ? (
-                  <div className="pt-2">
+                  <div className="pt-[0.555vw]">
+                    {/* 8px -> 0.555vw layout separation gap padding */}
                     <SidePanelCta label={sidePanel.cta.label} href={sidePanel.cta.href} />
                   </div>
                 ) : null}

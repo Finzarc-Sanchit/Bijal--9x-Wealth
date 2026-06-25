@@ -61,36 +61,60 @@ export const FAMILIES_NRI_CONSIDERATIONS = {
       title: "Currency mismatch",
       description:
         "Liabilities in dollars, cover in rupees, exchange-rate risk on the family. We layer GIFT City USD term cover above an Indian INR core to align the corpus with the obligations.",
+      image: {
+        src: "/images/nri/considerations/consideration-1.webp",
+        alt: "Currency alignment between dollar liabilities and rupee cover",
+      },
     },
     {
       id: "02",
       title: "Multi-jurisdiction tax",
       description:
         "Premium residency, claim residency, policy situs, and treaty position determine the after-tax outcome. We work alongside your tax counsel — IRDAI/IFSCA structures we own; cross-border tax we co-pilot.",
+      image: {
+        src: "/images/nri/considerations/consideration-2.webp",
+        alt: "Cross-border tax coordination across multiple jurisdictions",
+      },
     },
     {
       id: "03",
       title: "FATCA & CRS reporting",
       description:
         "For US persons and CRS-jurisdiction residents, certain insurance products require disclosure to the relevant authorities. Compliant from day one, documented at placement.",
+      image: {
+        src: "/images/nri/considerations/consideration-3.webp",
+        alt: "FATCA and CRS compliance documentation for insurance products",
+      },
     },
     {
       id: "04",
       title: "Estate fragmentation",
       description:
         "Multi-jurisdiction estates fragment without proactive structuring. We coordinate insurance routing with your trust architect so the proceeds reach the intended successor in the intended jurisdiction.",
+      image: {
+        src: "/images/nri/considerations/consideration-4.webp",
+        alt: "Estate succession planning across jurisdictions",
+      },
     },
     {
       id: "05",
       title: "Health cover that travels",
       description:
         "Family floater cover with worldwide treatment — including planned procedures in Singapore, London, or the United States — and emergency cover that follows the family member, not the policy.",
+      image: {
+        src: "/images/nri/considerations/consideration-5.webp",
+        alt: "International health coverage that travels with the family",
+      },
     },
     {
       id: "06",
       title: "GIFT City as the bridge",
       description:
         "For most NRI families, GIFT City's IFSC is the cleanest structure: dollar-denominated, IFSCA-regulated, Indian-jurisdiction enforcement, FATCA-compliant. We are a registered intermediary in the zone.",
+      image: {
+        src: "/images/nri/considerations/consideration-6.webp",
+        alt: "GIFT City IFSC as the bridge for NRI insurance structures",
+      },
     },
   ] as const satisfies readonly GridItem[],
 } as const;

@@ -15,7 +15,7 @@ export const FAQ_METADATA = {
 
 export const FAQ_HERO = {
   backgroundImage: {
-    src: "https://images.unsplash.com/photo-1521791136064-7986c2920216?fm=jpg&q=85&w=1920&auto=format&fit=crop",
+    src: "/images/resources/faq-hero.avif",
     alt: "Professional consultation and Q&A",
   },
   headline: "The questions we hear most often.",

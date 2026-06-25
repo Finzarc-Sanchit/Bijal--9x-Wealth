@@ -47,14 +47,35 @@ export function FooterNewsletter({
     reset();
   };
 
+  const inputClass = (hasError?: boolean) =>
+    cn(
+      "min-h-[40px] w-full border-b border-white/20 bg-transparent px-0 pb-2 pt-1 font-inter text-base text-white outline-none transition-colors duration-300",
+      "placeholder:text-white/60 focus:border-brand-teal focus:outline-none focus:ring-0",
+      hasError ? "border-red-500 focus:border-red-500" : undefined,
+    );
+
   return (
     <section
       className={cn(
-        "mb-12 rounded-2xl bg-white/[0.06] p-6 ring-1 ring-white/10 backdrop-blur-sm sm:p-8 md:mb-16 md:p-10 lg:p-12",
+        "relative mb-12 overflow-hidden rounded-2xl bg-white/[0.06] p-6 ring-1 ring-white/10 sm:p-8 md:mb-16 md:p-10 lg:p-12",
         className,
       )}
       aria-labelledby="footer-newsletter-heading"
     >
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <Image
+          src="/images/cta-background.webp"
+          alt=""
+          fill
+          priority={false}
+          className="object-cover opacity-30"
+          sizes="(max-width: 768px) 100vw, 1200px"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/80 via-brand-navy/65 to-brand-navy/85" />
+        <div className="absolute inset-0 opacity-40 [background:radial-gradient(circle_at_top,rgba(201,162,39,0.25),transparent_55%)]" />
+      </div>
+
+      <div className="relative">
       <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10">
         <div className="text-center md:text-left">
           <h3
@@ -87,29 +108,29 @@ export function FooterNewsletter({
               <label htmlFor="footer-newsletter-email" className="sr-only">
                 Email for newsletter
               </label>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <input
-                  id="footer-newsletter-email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="Your email address"
-                  className={cn(
-                    "min-h-[48px] flex-1 rounded-xl border-0 bg-white/[0.08] px-4 font-inter text-base text-white placeholder:text-white/40 ring-1 ring-white/15 transition focus:outline-none focus:ring-2 focus:ring-brand-gold/50",
-                    errors.email && "ring-red-400/60",
-                  )}
-                  {...register("email")}
-                />
+              <div className="space-y-4 md:flex md:items-end md:gap-4 md:space-y-0">
+                <div className="w-full md:max-w-[14rem] lg:max-w-[16rem]">
+                  <input
+                    id="footer-newsletter-email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="Your email address"
+                    className={inputClass(!!errors.email)}
+                    aria-invalid={errors.email ? "true" : "false"}
+                    {...register("email")}
+                  />
+                </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-brand-gold px-6 font-inter text-sm font-semibold text-brand-navy transition hover:bg-brand-gold-light disabled:opacity-60"
+                  className="inline-flex min-h-[48px] w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-gold px-8 font-inter text-sm font-semibold text-brand-navy transition hover:bg-brand-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/40 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy disabled:cursor-not-allowed disabled:opacity-50 md:w-auto"
                 >
-                  <Send className="h-4 w-4" aria-hidden />
+                  <Send className="size-4" aria-hidden />
                   {isSubmitting ? "Subscribing…" : "Subscribe"}
                 </button>
               </div>
               {errors.email ? (
-                <p className="text-left font-inter text-sm text-red-300" role="alert">
+                <p className="text-left font-inter text-sm text-red-400" role="alert">
                   {errors.email.message}
                 </p>
               ) : null}
@@ -137,6 +158,7 @@ export function FooterNewsletter({
             />
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

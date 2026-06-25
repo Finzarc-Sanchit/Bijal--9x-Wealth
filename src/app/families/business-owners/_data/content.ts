@@ -19,7 +19,7 @@ export const FAMILIES_BUSINESS_OWNERS_METADATA = {
 
 export const FAMILIES_BUSINESS_OWNERS_HERO = {
   backgroundImage: {
-    src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?fm=jpg&q=85&w=1920&auto=format&fit=crop",
+    src: "/images/business-owners/hero.webp",
     alt: "Business owner at work — family and firm intertwined",
   },
   pillImage: {
@@ -53,6 +53,10 @@ export const FAMILIES_BUSINESS_OWNERS_CONVICTION = {
 export const FAMILIES_BUSINESS_OWNERS_PRIORITIES = {
   badge: "Six priorities",
   headline: "The architecture that anticipates the shock.",
+  backgroundImage: {
+    src: "/images/business-owners/six-priorities.webp",
+    alt: "Business owner at work — family and firm intertwined",
+  },
   items: [
     {
       id: "01",

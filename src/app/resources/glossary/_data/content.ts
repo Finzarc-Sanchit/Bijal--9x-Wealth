@@ -14,7 +14,7 @@ export const GLOSSARY_METADATA = {
 
 export const GLOSSARY_HERO = {
   backgroundImage: {
-    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fm=jpg&q=85&w=1920&auto=format&fit=crop",
+    src: "/images/resources/glossary-hero.webp",
     alt: "Reference dictionary and editorial study",
   },
   headline: "The vocabulary of stewardship.",

@@ -27,7 +27,7 @@ export const ABOUT_HUB_HERO = {
     alt: "Editorial view of a distinguished Mumbai office tower at dusk",
   },
   secondaryImage: {
-    src: "/images/our-conviction.jpg",
+    src: "/images/about/office-bg.webp",
     alt: "The House — private wealth-protection atelier",
   },
   sidePanel: {

@@ -19,7 +19,7 @@ export const MWPA_GUIDE_METADATA = {
 
 export const MWPA_GUIDE_HERO = {
   backgroundImage: {
-    src: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?fm=jpg&q=85&w=1920&auto=format&fit=crop",
+    src: "/images/resources/mwpa-guide-hero.avif",
     alt: "Legal documents and estate planning materials",
   },
   headline: "MWPA: a complete guide.",

@@ -25,7 +25,7 @@ export const ABOUT_TEAM_HERO = {
     alt: "Senior partners in considered discussion",
   },
   secondaryImage: {
-    src: "/images/process/architecture.jpg",
+    src: "/images/about/team/principle.webp",
     alt: "The Team — partners and practitioners",
   },
   sidePanel: {

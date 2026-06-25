@@ -19,7 +19,7 @@ export const FAMILIES_LISTED_PROMOTERS_METADATA = {
 
 export const FAMILIES_LISTED_PROMOTERS_HERO = {
   backgroundImage: {
-    src: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?fm=jpg&q=85&w=1920&auto=format&fit=crop",
+    src: "/images/listed-promoters/hero.webp",
     alt: "Financial markets evoking listed promoter stewardship",
   },
   pillImage: {
@@ -59,36 +59,60 @@ export const FAMILIES_LISTED_PROMOTERS_PRIORITIES = {
       title: "Pledge-cover architecture",
       description:
         "For pledged promoter shares, life cover sized to the outstanding loan with a structured beneficiary path to the lender. Releases the pledge on event, returns the equity to the family.",
+      image: {
+        src: "/images/listed-promoters/priorities/priorities-1.webp",
+        alt: "Pledge-cover architecture for promoter share-backed loans",
+      },
     },
     {
       id: "02",
       title: "MWPA on promoter holdings",
       description:
         "Term cover assigned under MWPA, sized to the value of the promoter holding, ring-fences the corpus from any future SEBI, regulatory, or creditor proceedings against the promoter estate.",
+      image: {
+        src: "/images/listed-promoters/priorities/priorities-2.webp",
+        alt: "MWPA-aligned term cover to ring-fence promoter holdings",
+      },
     },
     {
       id: "03",
       title: "Insider considerations",
       description:
         "Trading-window restrictions and SEBI disclosure obligations apply to certain insurance assignments and beneficiary structures. We work alongside your company secretary to keep every step compliant.",
+      image: {
+        src: "/images/listed-promoters/priorities/priorities-3.webp",
+        alt: "SEBI-compliant structuring for insider and disclosure considerations",
+      },
     },
     {
       id: "04",
       title: "Continuity cover for the listed entity",
       description:
         "Keyman cover on the promoter held by the listed company, with proceeds disclosed in the financial statements. Calms the analyst community and the lender consortium in any sudden-event scenario.",
+      image: {
+        src: "/images/listed-promoters/priorities/priorities-4.webp",
+        alt: "Keyman continuity cover held by the listed company",
+      },
     },
     {
       id: "05",
       title: "D&O alongside personal cover",
       description:
         "Directors' and officers' liability cover layered alongside personal protection, including investigations cover for SEBI, ED, and tax matters. Co-broked through specialist coverholder partners.",
+      image: {
+        src: "/images/listed-promoters/priorities/priorities-5.webp",
+        alt: "Directors and officers liability layered with personal protection",
+      },
     },
     {
       id: "06",
       title: "Trust-owned cover for succession",
       description:
         "For multi-generation promoter holdings, a private trust ownership of life cover decouples the policy from individual estate proceedings — and aligns the corpus with the long-term succession plan.",
+      image: {
+        src: "/images/listed-promoters/priorities/priorities-6.webp",
+        alt: "Trust-owned cover to support multi-generation succession planning",
+      },
     },
   ] as const satisfies readonly GridItem[],
 } as const;
