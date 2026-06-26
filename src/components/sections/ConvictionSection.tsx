@@ -127,7 +127,7 @@ export function ConvictionSection({
         <ScrollRevealStagger className="flex flex-col gap-14 md:gap-20" stagger={0.08}>
           <div className="flex max-w-3xl flex-col">
             <ScrollRevealItem>
-              <p className="font-inter text-xs font-semibold uppercase tracking-[0.28em] text-brand-teal md:text-sm">
+              <p className="font-inter text-xs font-semibold uppercase tracking-[0.28em] text-brand-gold md:text-sm">
                 {eyebrow}
               </p>
             </ScrollRevealItem>

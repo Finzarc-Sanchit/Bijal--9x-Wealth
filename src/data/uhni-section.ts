@@ -15,7 +15,7 @@ export const UHNI_SECTION_META = {
     "Dedicated relationship director",
     "Quarterly portfolio reviews at home",
     "Estate & succession architecture",
-    "Cross-border coverage (GIFT City, Lloyd's)",
+    "Cross-border coverage",
     "Specie cover for art, jewellery, watches",
     "24/7 dedicated claims concierge",
   ],
